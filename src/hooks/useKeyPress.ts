@@ -69,13 +69,14 @@ export default (keyCode: KeyCode | null = null, options: UseKeyPressOptions = { 
       options?.target?.addEventListener('keydown', downHandler as EventListenerOrEventListenerObject);
       options?.target?.addEventListener('keyup', upHandler as EventListenerOrEventListenerObject);
       options?.target?.addEventListener('blur', resetHandler);
+      options?.target?.addEventListener('mouseleave', resetHandler);
 
       return () => {
-        pressedKeys.current.clear();
 
         options?.target?.removeEventListener('keydown', downHandler as EventListenerOrEventListenerObject);
         options?.target?.removeEventListener('keyup', upHandler as EventListenerOrEventListenerObject);
         options?.target?.removeEventListener('blur', resetHandler);
+        options?.target?.removeEventListener('mouseleave', resetHandler);
       };
     }
   }, [keyCode, setKeyPressed]);
