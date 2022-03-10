@@ -64,7 +64,7 @@ var useKeyPress = (function () {
 
   useEffect(function () {
     if (keyCode !== null) {
-      var _options$target, _options$target2, _options$target3;
+      var _options$target, _options$target2, _options$target3, _options$target4;
 
       var downHandler = function downHandler(event) {
         var keyOrCode = useKeyOrCode(event.code, keysToWatch);
@@ -87,6 +87,7 @@ var useKeyPress = (function () {
       };
 
       var resetHandler = function resetHandler() {
+        console.log('RESETTING!!');
         pressedKeys.current.clear();
         setKeyPressed(false);
       };
@@ -94,13 +95,14 @@ var useKeyPress = (function () {
       options === null || options === void 0 ? void 0 : (_options$target = options.target) === null || _options$target === void 0 ? void 0 : _options$target.addEventListener('keydown', downHandler);
       options === null || options === void 0 ? void 0 : (_options$target2 = options.target) === null || _options$target2 === void 0 ? void 0 : _options$target2.addEventListener('keyup', upHandler);
       options === null || options === void 0 ? void 0 : (_options$target3 = options.target) === null || _options$target3 === void 0 ? void 0 : _options$target3.addEventListener('blur', resetHandler);
+      options === null || options === void 0 ? void 0 : (_options$target4 = options.target) === null || _options$target4 === void 0 ? void 0 : _options$target4.addEventListener('mouseleave', resetHandler);
       return function () {
-        var _options$target4, _options$target5, _options$target6;
+        var _options$target5, _options$target6, _options$target7, _options$target8;
 
-        pressedKeys.current.clear();
-        options === null || options === void 0 ? void 0 : (_options$target4 = options.target) === null || _options$target4 === void 0 ? void 0 : _options$target4.removeEventListener('keydown', downHandler);
-        options === null || options === void 0 ? void 0 : (_options$target5 = options.target) === null || _options$target5 === void 0 ? void 0 : _options$target5.removeEventListener('keyup', upHandler);
-        options === null || options === void 0 ? void 0 : (_options$target6 = options.target) === null || _options$target6 === void 0 ? void 0 : _options$target6.removeEventListener('blur', resetHandler);
+        options === null || options === void 0 ? void 0 : (_options$target5 = options.target) === null || _options$target5 === void 0 ? void 0 : _options$target5.removeEventListener('keydown', downHandler);
+        options === null || options === void 0 ? void 0 : (_options$target6 = options.target) === null || _options$target6 === void 0 ? void 0 : _options$target6.removeEventListener('keyup', upHandler);
+        options === null || options === void 0 ? void 0 : (_options$target7 = options.target) === null || _options$target7 === void 0 ? void 0 : _options$target7.removeEventListener('blur', resetHandler);
+        options === null || options === void 0 ? void 0 : (_options$target8 = options.target) === null || _options$target8 === void 0 ? void 0 : _options$target8.removeEventListener('mouseleave', resetHandler);
       };
     }
   }, [keyCode, setKeyPressed]);
