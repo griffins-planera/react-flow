@@ -62,6 +62,7 @@ export default (keyCode: KeyCode | null = null, options: UseKeyPressOptions = { 
       };
 
       const resetHandler = () => {
+        console.log('RESETTING!!');
         pressedKeys.current.clear();
         setKeyPressed(false);
       };

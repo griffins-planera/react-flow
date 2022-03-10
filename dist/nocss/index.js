@@ -87,6 +87,7 @@ var useKeyPress = (function () {
       };
 
       var resetHandler = function resetHandler() {
+        console.log('RESETTING!!');
         pressedKeys.current.clear();
         setKeyPressed(false);
       };
