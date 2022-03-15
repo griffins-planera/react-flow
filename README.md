@@ -11,7 +11,7 @@
 ### Wire Your Ideas With React Flow!  
 A highly customizable React component for building interactive graphs and node-based editors.
 
-[🚀 Getting Started](https://reactflow.dev/docs/getting-started/installation) | [📖 Documentation](https://reactflow.dev/docs/api/react-flow-props) | [📺 Examples](https://reactflow.dev/docs/examples/overview) | [☎️ Discord](https://discord.gg/Bqt6xrs)
+[🚀 Getting Started](https://reactflow.dev/docs/getting-started/installation) | [📖 Documentation](https://reactflow.dev/docs/api/react-flow-props) | [📺 Examples](https://reactflow.dev/docs/examples/overview) | [☎️ Discord](https://discord.gg/Bqt6xrs) | [💎 React Flow Pro](https://pro.reactflow.dev/pricing)
   
 </div>
 
@@ -81,9 +81,13 @@ Testing is done with cypress. You can find the tests in the [`integration/flow`]
 npm run test
 ```
 
+## Attribution
+
+Since v10.0.0 the React Flow renderer includes a small attribution that links to the React Flow website. It is only allowed to remove the attribution if you are subscribed to one of the [pro plans](https://pro.reactflow.dev/pricing). A subscription also provides more features such as a private Discord channel with the creators of React Flow.
+
 ## Maintainers
 
-React Flow is developed and maintained by [webkid](https://webkid.io), a data visualization studio from Berlin. If you need help or want to talk to us about a collaboration, feel free to contact us:
+React Flow is developed and maintained by [webkid](https://webkid.io), a web development agency with the focus on data driven applications from Berlin. If you need help or want to talk to us about a collaboration, feel free to contact us:
 
 * Moritz Klack • [Twitter](https://twitter.com/moklick) • [Github](https://github.com/moklick)
 * Christopher Möller • [Twitter](https://twitter.com/chrtze) • [Github](https://github.com/chrtze)
