@@ -32,6 +32,8 @@ const selector = (s: ReactFlowState) => ({
   updateNodePosition: s.updateNodePosition,
 });
 
+const selectedRectPadding = 8;
+
 function NodesSelection({
   onSelectionDragStart,
   onSelectionDrag,
@@ -59,10 +61,10 @@ function NodesSelection({
 
   const innerStyle = useMemo(
     () => ({
-      width: selectedNodesBbox.width,
-      height: selectedNodesBbox.height,
-      top: selectedNodesBbox.y,
-      left: selectedNodesBbox.x,
+      width: selectedNodesBbox.width + (2 * selectedRectPadding),
+      height: selectedNodesBbox.height + (2 * selectedRectPadding),
+      top: selectedNodesBbox.y - selectedRectPadding,
+      left: selectedNodesBbox.x - selectedRectPadding,
     }),
     [selectedNodesBbox]
   );

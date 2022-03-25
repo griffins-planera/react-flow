@@ -87,7 +87,6 @@ var useKeyPress = (function () {
       };
 
       var resetHandler = function resetHandler() {
-        console.log('RESETTING!!');
         pressedKeys.current.clear();
         setKeyPressed(false);
       };
@@ -705,6 +704,8 @@ var selector$a = function selector(s) {
   };
 };
 
+var selectedRectPadding = 8;
+
 function NodesSelection(_ref5) {
   var onSelectionDragStart = _ref5.onSelectionDragStart,
       onSelectionDrag = _ref5.onSelectionDrag,
@@ -739,10 +740,10 @@ function NodesSelection(_ref5) {
   }, [selectedNodes]);
   var innerStyle = useMemo(function () {
     return {
-      width: selectedNodesBbox.width,
-      height: selectedNodesBbox.height,
-      top: selectedNodesBbox.y,
-      left: selectedNodesBbox.x
+      width: selectedNodesBbox.width + 2 * selectedRectPadding,
+      height: selectedNodesBbox.height + 2 * selectedRectPadding,
+      top: selectedNodesBbox.y - selectedRectPadding,
+      left: selectedNodesBbox.x - selectedRectPadding
     };
   }, [selectedNodesBbox]);
 
