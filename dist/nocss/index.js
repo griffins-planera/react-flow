@@ -3079,10 +3079,6 @@ var wrapNode = (function (NodeComponent) {
       }
 
       if (!dragging) {
-        if (isSelectable && !selectNodesOnDrag && !selected) {
-          addSelectedNodes([id]);
-        }
-
         if (onClick && node) {
           onClick(event, _objectSpread$2({}, node));
         }

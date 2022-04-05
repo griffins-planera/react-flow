@@ -158,9 +158,6 @@ export default (NodeComponent: ComponentType<NodeProps>) => {
         }
 
         if (!dragging) {
-          if (isSelectable && !selectNodesOnDrag && !selected) {
-            addSelectedNodes([id]);
-          }
 
           if (onClick && node) {
             onClick(event as MouseEvent, { ...node });
