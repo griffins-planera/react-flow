@@ -11,7 +11,7 @@
 ### Wire Your Ideas With React Flow!  
 A highly customizable React component for building interactive graphs and node-based editors.
 
-[🚀 Getting Started](https://reactflow.dev/docs/getting-started/installation) | [📖 Documentation](https://reactflow.dev/docs/api/react-flow-props) | [📺 Examples](https://reactflow.dev/docs/examples/overview) | [☎️ Discord](https://discord.gg/Bqt6xrs)
+[🚀 Getting Started](https://reactflow.dev/docs/getting-started/installation) | [📖 Documentation](https://reactflow.dev/docs/api/react-flow-props) | [📺 Examples](https://reactflow.dev/docs/examples/overview) | [☎️ Discord](https://discord.gg/6ZcAMJmJ) | [💎 React Flow Pro](https://pro.reactflow.dev/pricing)
   
 </div>
 
@@ -25,6 +25,11 @@ A highly customizable React component for building interactive graphs and node-b
 - **Hooks and Utils:** [Hooks](https://reactflow.dev/docs/api/hooks/use-react-flow) for handling nodes, edges and the viewport and graph [helper functions](https://reactflow.dev/docs/api/graph-util-functions)
 - **Plugin Components:** [Background](https://reactflow.dev/docs/api/plugin-components/background), [MiniMap](https://reactflow.dev/docs/api/plugin-components/minimap) and [Controls](https://reactflow.dev/docs/api/plugin-components/controls)
 - **Reliable**: Written in [Typescript](https://www.typescriptlang.org/) and tested with [cypress](https://www.cypress.io/)
+
+## Attribution
+
+React Flow includes a small attribution that links to the React Flow website. Per default the attribution is displayed in the bottom right corner. With the attribution we want to achieve that companies who are using React Flow in commercial applications finance the development of the library.
+We expect users who are using React Flow commercially to subscribe to React Flow Pro if they want to remove the attribution. In non-commercial applications you may hide the attribution without subscribing but are welcome to [sponsor us on Github](https://github.com/sponsors/wbkd).
 
 ## Installation
 
@@ -83,12 +88,12 @@ npm run test
 
 ## Maintainers
 
-React Flow is developed and maintained by [webkid](https://webkid.io), a data visualization studio from Berlin. If you need help or want to talk to us about a collaboration, feel free to contact us:
+React Flow is developed and maintained by [webkid](https://webkid.io), a web development agency with focus on data driven applications from Berlin. If you need help or want to talk to us about a collaboration, feel free to contact us:
 
 * Moritz Klack • [Twitter](https://twitter.com/moklick) • [Github](https://github.com/moklick)
 * Christopher Möller • [Twitter](https://twitter.com/chrtze) • [Github](https://github.com/chrtze)
 
-You can also use our [contact form](https://webkid.io/contact/) or join the [React Flow Discord Server](https://discord.gg/Bqt6xrs).
+You can also use our [contact form](https://pro.reactflow.dev/contact) or join the [React Flow Discord Server](https://discord.gg/Bqt6xrs).
 
 ## Community Packages
 

@@ -6,7 +6,7 @@ type Keys = Array<string>;
 type PressedKeys = Set<string>;
 type KeyOrCode = 'key' | 'code';
 export interface UseKeyPressOptions {
-  target: Document | HTMLElement | ShadowRoot | null;
+  target: Window | Document | HTMLElement | ShadowRoot | null;
 }
 
 const doc = typeof document !== 'undefined' ? document : null;
@@ -42,23 +42,30 @@ export default (keyCode: KeyCode | null = null, options: UseKeyPressOptions = { 
   useEffect(() => {
     if (keyCode !== null) {
       const downHandler = (event: KeyboardEvent) => {
+        if (isInputDOMNode(event)) {
+          return false;
+        }
         const keyOrCode = useKeyOrCode(event.code, keysToWatch);
         pressedKeys.current.add(event[keyOrCode]);
 
-        if (isMatchingKey(event, keyCodes, pressedKeys.current)) {
+        if (isMatchingKey(keyCodes, pressedKeys.current, false)) {
           event.preventDefault();
           setKeyPressed(true);
         }
       };
 
       const upHandler = (event: KeyboardEvent) => {
+        if (isInputDOMNode(event)) {
+          return false;
+        }
         const keyOrCode = useKeyOrCode(event.code, keysToWatch);
 
-        if (isMatchingKey(event, keyCodes, pressedKeys.current)) {
+        if (isMatchingKey(keyCodes, pressedKeys.current, true)) {
           setKeyPressed(false);
+          pressedKeys.current.clear();
+        } else {
+          pressedKeys.current.delete(event[keyOrCode]);
         }
-
-        pressedKeys.current.delete(event[keyOrCode]);
       };
 
       const resetHandler = () => {
@@ -68,15 +75,12 @@ export default (keyCode: KeyCode | null = null, options: UseKeyPressOptions = { 
 
       options?.target?.addEventListener('keydown', downHandler as EventListenerOrEventListenerObject);
       options?.target?.addEventListener('keyup', upHandler as EventListenerOrEventListenerObject);
-      options?.target?.addEventListener('blur', resetHandler);
-      options?.target?.addEventListener('mouseleave', resetHandler);
+      window.addEventListener('blur', resetHandler);
 
       return () => {
-
         options?.target?.removeEventListener('keydown', downHandler as EventListenerOrEventListenerObject);
         options?.target?.removeEventListener('keyup', upHandler as EventListenerOrEventListenerObject);
-        options?.target?.removeEventListener('blur', resetHandler);
-        options?.target?.removeEventListener('mouseleave', resetHandler);
+        window.removeEventListener('blur', resetHandler);
       };
     }
   }, [keyCode, setKeyPressed]);
@@ -86,17 +90,13 @@ export default (keyCode: KeyCode | null = null, options: UseKeyPressOptions = { 
 
 // utils
 
-function isMatchingKey(event: KeyboardEvent, keyCodes: Array<Keys>, pressedKeys: PressedKeys): boolean {
-  if (isInputDOMNode(event)) {
-    return false;
-  }
-
+function isMatchingKey(keyCodes: Array<Keys>, pressedKeys: PressedKeys, isUp: boolean): boolean {
   return (
     keyCodes
       // we only want to compare same sizes of keyCode definitions
       // and pressed keys. When the user specified 'Meta' as a key somewhere
       // this would also be truthy without this filter when user presses 'Meta' + 'r'
-      .filter((keys) => keys.length === pressedKeys.size)
+      .filter((keys) => isUp || keys.length === pressedKeys.size)
       // since we want to support multiple possibilities only one of the
       // combinations need to be part of the pressed keys
       .some((keys) => keys.every((k) => pressedKeys.has(k)))
@@ -107,8 +107,8 @@ function useKeyOrCode(eventCode: string, keysToWatch: KeyCode): KeyOrCode {
   return keysToWatch.includes(eventCode) ? 'code' : 'key';
 }
 
-function isInputDOMNode(e: KeyboardEvent): boolean {
-  const target = e?.target as HTMLElement;
+function isInputDOMNode(event: KeyboardEvent): boolean {
+  const target = event.target as HTMLElement;
 
   return ['INPUT', 'SELECT', 'TEXTAREA'].includes(target?.nodeName) || target?.hasAttribute('contenteditable');
 }

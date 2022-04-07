@@ -1,40 +1,39 @@
 import { ChangeEvent } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
-
-import Overview from './Overview';
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Basic from './Basic';
-import UpdateNode from './UpdateNode';
-import Stress from './Stress';
-import CustomNode from './CustomNode';
-import FloatingEdges from './FloatingEdges';
-import Layouting from './Layouting';
-import NestedNodes from './NestedNodes';
-import Hidden from './Hidden';
-import UpdatableEdge from './UpdatableEdge';
-import TouchDevice from './TouchDevice';
-import Subflow from './Subflow';
-import Interaction from './Interaction';
-import Empty from './Empty';
-import DragHandle from './DragHandle';
-import Undirectional from './Undirectional';
-import Provider from './Provider';
+import ControlledUncontrolled from './ControlledUncontrolled';
 import CustomConnectionLine from './CustomConnectionLine';
-import UseZoomPanHelper from './UseZoomPanHelper';
+import CustomNode from './CustomNode';
+import DefaultNodes from './DefaultNodes';
+import DragHandle from './DragHandle';
 import DragNDrop from './DragNDrop';
-import UseUpdateNodeInternals from './UseUpdateNodeInternals';
 import Edges from './Edges';
 import EdgeTypes from './EdgeTypes';
+import Empty from './Empty';
+import FloatingEdges from './FloatingEdges';
+import Hidden from './Hidden';
+import './index.css';
+import Interaction from './Interaction';
+import Layouting from './Layouting';
 import MultiFlows from './MultiFlows';
+import NestedNodes from './NestedNodes';
 import NodeTypeChange from './NodeTypeChange';
 import NodeTypesObjectChange from './NodeTypesObjectChange';
+import Overview from './Overview';
+import Provider from './Provider';
 import SaveRestore from './SaveRestore';
+import Stress from './Stress';
+import Subflow from './Subflow';
 import SwitchFlow from './Switch';
+import TouchDevice from './TouchDevice';
+import Undirectional from './Undirectional';
+import UpdatableEdge from './UpdatableEdge';
+import UpdateNode from './UpdateNode';
+import UseUpdateNodeInternals from './UseUpdateNodeInternals';
+import UseReactFlow from './UseReactFlow';
 import Validation from './Validation';
-import DefaultNodes from './DefaultNodes';
-import ControlledUncontrolled from './ControlledUncontrolled';
-
-import './index.css';
+import UseKeyPress from './UseKeyPress';
 
 const routes = [
   {
@@ -146,8 +145,8 @@ const routes = [
     component: UpdateNode,
   },
   {
-    path: '/usezoompanhelper',
-    component: UseZoomPanHelper,
+    path: '/usereactflow',
+    component: UseReactFlow,
   },
   {
     path: '/useupdatenodeinternals',
@@ -161,6 +160,10 @@ const routes = [
     path: '/controlled-uncontrolled',
     component: ControlledUncontrolled,
   },
+  {
+    path: '/use-key-press',
+    component: UseKeyPress,
+  },
 ];
 
 const Header = () => {
@@ -169,18 +172,18 @@ const Header = () => {
   const onChange = (event: ChangeEvent<HTMLSelectElement>) => navigate(event.target.value);
 
   return (
-      <header>
-        <a className="logo" href="https://github.com/wbkd/react-flow">
-          React Flow Dev
-        </a>
-        <select defaultValue={location.pathname} onChange={onChange}>
-          {routes.map((route) => (
-              <option value={route.path} key={route.path}>
-                {route.path === '/' ? 'overview' : route.path.substring(1, route.path.length)}
-              </option>
-          ))}
-        </select>
-      </header>
+    <header>
+      <a className="logo" href="https://github.com/wbkd/react-flow">
+        React Flow Dev
+      </a>
+      <select defaultValue={location.pathname} onChange={onChange}>
+        {routes.map((route) => (
+          <option value={route.path} key={route.path}>
+            {route.path === '/' ? 'overview' : route.path.substring(1, route.path.length)}
+          </option>
+        ))}
+      </select>
+    </header>
   );
 };
 
@@ -189,7 +192,7 @@ ReactDOM.render(
     <Header />
     <Routes>
       {routes.map((route) => (
-        <Route path={route.path} key={route.path} element={<route.component />}/>
+        <Route path={route.path} key={route.path} element={<route.component />} />
       ))}
     </Routes>
   </BrowserRouter>,
