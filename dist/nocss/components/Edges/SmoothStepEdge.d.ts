@@ -1,6 +1,6 @@
 import React from 'react';
 import { EdgeSmoothStepProps, Position } from '../../types';
-interface GetSmoothStepPathParams {
+export interface GetSmoothStepPathParams {
     sourceX: number;
     sourceY: number;
     sourcePosition?: Position;
