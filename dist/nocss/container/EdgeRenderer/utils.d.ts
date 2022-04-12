@@ -1,4 +1,4 @@
-import { EdgeTypes, HandleElement, Position, XYPosition, Transform, Rect, NodeInternals, NodeHandleBounds } from '../../types';
+import { EdgeTypes, HandleElement, NodeHandleBounds, NodeInternals, Position, Rect, Transform, XYPosition } from '../../types';
 export declare type CreateEdgeTypes = (edgeTypes: EdgeTypes) => EdgeTypes;
 export declare function createEdgeTypes(edgeTypes: EdgeTypes): EdgeTypes;
 export declare function getHandlePosition(position: Position, nodeRect: Rect, handle?: any | null): XYPosition;

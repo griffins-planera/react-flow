@@ -1,8 +1,8 @@
-import { CSSProperties, ReactNode, HTMLAttributes } from 'react';
-import { Position } from './utils';
+import { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 import { Connection } from './general';
 import { HandleElement } from './handles';
 import { Node } from './nodes';
+import { Position } from './utils';
 export interface Edge<T = any> {
     id: string;
     type?: string;
@@ -53,7 +53,13 @@ export interface EdgeProps<T = any> {
     targetHandleId?: string | null;
     markerStart?: string;
     markerEnd?: string;
+    curvature?: number;
 }
+export declare type BaseEdgeProps = Pick<EdgeProps, 'label' | 'labelStyle' | 'labelShowBg' | 'labelBgStyle' | 'labelBgPadding' | 'labelBgBorderRadius' | 'style' | 'markerStart' | 'markerEnd'> & {
+    centerX: number;
+    centerY: number;
+    path: string;
+};
 export declare type EdgeMouseHandler = (event: React.MouseEvent, edge: Edge) => void;
 export interface WrapEdgeProps<T = any> {
     id: string;
@@ -111,7 +117,8 @@ export declare enum ConnectionLineType {
     Bezier = "default",
     Straight = "straight",
     Step = "step",
-    SmoothStep = "smoothstep"
+    SmoothStep = "smoothstep",
+    SimpleBezier = "simplebezier"
 }
 export declare type ConnectionLineComponentProps = {
     sourceX: number;
@@ -122,6 +129,8 @@ export declare type ConnectionLineComponentProps = {
     targetPosition?: Position;
     connectionLineStyle?: CSSProperties;
     connectionLineType: ConnectionLineType;
+    fromNode?: Node;
+    fromHandle?: HandleElement;
     sourceNode?: Node;
     sourceHandle?: HandleElement;
 };

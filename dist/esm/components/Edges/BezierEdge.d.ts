@@ -1,15 +1,15 @@
 import React from 'react';
 import { EdgeProps, Position } from '../../types';
-interface GetBezierPathParams {
+export interface GetBezierPathParams {
     sourceX: number;
     sourceY: number;
     sourcePosition?: Position;
     targetX: number;
     targetY: number;
     targetPosition?: Position;
-    centerX?: number;
-    centerY?: number;
+    curvature?: number;
 }
-export declare function getBezierPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition, centerX, centerY, }: GetBezierPathParams): string;
-declare const _default: React.MemoExoticComponent<({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, label, labelStyle, labelShowBg, labelBgStyle, labelBgPadding, labelBgBorderRadius, style, markerEnd, markerStart, }: EdgeProps) => JSX.Element>;
+export declare function getBezierPath({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition, curvature, }: GetBezierPathParams): string;
+export declare function getBezierCenter({ sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition, curvature, }: GetBezierPathParams): [number, number, number, number];
+declare const _default: React.MemoExoticComponent<({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, label, labelStyle, labelShowBg, labelBgStyle, labelBgPadding, labelBgBorderRadius, style, markerEnd, markerStart, curvature, }: EdgeProps) => JSX.Element>;
 export default _default;
