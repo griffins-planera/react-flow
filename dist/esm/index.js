@@ -749,6 +749,7 @@ function checkElementBelowIsValid(event, connectionMode, isTarget, nodeId, handl
   var elementBelow = doc.elementFromPoint(event.clientX, event.clientY);
   var elementBelowIsTarget = (elementBelow === null || elementBelow === void 0 ? void 0 : elementBelow.classList.contains('target')) || false;
   var elementBelowIsSource = (elementBelow === null || elementBelow === void 0 ? void 0 : elementBelow.classList.contains('source')) || false;
+  var reactFlowControls = doc.querySelectorAll('.react-flow__controls');
   var result = {
     elementBelow: elementBelow,
     isValid: false,
@@ -758,8 +759,17 @@ function checkElementBelowIsValid(event, connectionMode, isTarget, nodeId, handl
       sourceHandle: null,
       targetHandle: null
     },
-    isHoveringHandle: false
+    isHoveringHandle: false,
+    isControlElement: false
   };
+
+  if (reactFlowControls && elementBelow) {
+    reactFlowControls === null || reactFlowControls === void 0 ? void 0 : reactFlowControls.forEach(function (rfControlElement) {
+      if (rfControlElement && rfControlElement.contains(elementBelow)) {
+        result.isControlElement = true;
+      }
+    });
+  }
 
   if (elementBelow && (elementBelowIsTarget || elementBelowIsSource)) {
     result.isHoveringHandle = true; // in strict mode we don't allow target to target or source to source connections
@@ -858,7 +868,13 @@ function onMouseDown(event, handleId, nodeId, setState, onConnect, isTarget, isV
   function onMouseUp(event) {
     var _checkElementBelowIsV2 = checkElementBelowIsValid(event, connectionMode, isTarget, nodeId, handleId, isValidConnection, doc),
         connection = _checkElementBelowIsV2.connection,
-        isValid = _checkElementBelowIsV2.isValid;
+        isValid = _checkElementBelowIsV2.isValid,
+        isControlElement = _checkElementBelowIsV2.isControlElement;
+
+    if (isControlElement) {
+      resetConnectionLine();
+      return;
+    }
 
     if (!isValid) {
       return;
