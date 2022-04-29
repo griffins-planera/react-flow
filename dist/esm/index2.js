@@ -160,17 +160,6 @@ var MiniMap = function MiniMap(_ref) {
     d: "M".concat(x - offset, ",").concat(y - offset, "h").concat(width + offset * 2, "v").concat(height + offset * 2, "h").concat(-width - offset * 2, "z\n        M").concat(viewBB.x, ",").concat(viewBB.y, "h").concat(viewBB.width, "v").concat(viewBB.height, "h").concat(-viewBB.width, "z"),
     fill: maskColor,
     fillRule: "evenodd"
-  }), /*#__PURE__*/React__default.createElement("rect", {
-    x: viewBB.x,
-    y: viewBB.y,
-    width: viewBB.width,
-    height: viewBB.height,
-    stroke: '#7297DF',
-    rx: 15,
-    ry: 15,
-    strokeWidth: 20,
-    shapeRendering: shapeRendering,
-    fill: 'transparent'
   }));
 };
 
