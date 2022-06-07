@@ -100,6 +100,8 @@ export interface ReactFlowProps extends HTMLAttributes<HTMLDivElement> {
   panOnScrollSpeed?: number;
   panOnScrollMode?: PanOnScrollMode;
   zoomOnDoubleClick?: boolean;
+  panOnMiddleButton?: boolean;
+  panOnTouchPadScroll?: boolean;
   onEdgeUpdate?: OnEdgeUpdateFunc;
   onEdgeContextMenu?: (event: ReactMouseEvent, edge: Edge) => void;
   onEdgeMouseEnter?: (event: ReactMouseEvent, edge: Edge) => void;

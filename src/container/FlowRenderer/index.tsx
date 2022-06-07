@@ -51,6 +51,8 @@ const FlowRenderer = ({
   panOnScrollMode,
   zoomOnDoubleClick,
   panOnDrag,
+  panOnMiddleButton,
+  panOnTouchPadScroll,
   defaultPosition,
   defaultZoom,
   preventScrolling,
@@ -94,6 +96,8 @@ const FlowRenderer = ({
       panOnScrollMode={panOnScrollMode}
       zoomOnDoubleClick={zoomOnDoubleClick}
       panOnDrag={panOnDrag}
+      panOnMiddleButton={panOnMiddleButton}
+      panOnTouchPadScroll={panOnTouchPadScroll}
       defaultPosition={defaultPosition}
       defaultZoom={defaultZoom}
       zoomActivationKeyCode={zoomActivationKeyCode}
