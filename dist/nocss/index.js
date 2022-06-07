@@ -1960,7 +1960,11 @@ var ZoomPane = function ZoomPane(_ref) {
       preventScrolling = _ref$preventScrolling === void 0 ? true : _ref$preventScrolling,
       children = _ref.children,
       noWheelClassName = _ref.noWheelClassName,
-      noPanClassName = _ref.noPanClassName;
+      noPanClassName = _ref.noPanClassName,
+      _ref$panOnMiddleButto = _ref.panOnMiddleButton,
+      panOnMiddleButton = _ref$panOnMiddleButto === void 0 ? false : _ref$panOnMiddleButto,
+      _ref$panOnTouchPadScr = _ref.panOnTouchPadScroll,
+      panOnTouchPadScroll = _ref$panOnTouchPadScr === void 0 ? false : _ref$panOnTouchPadScr;
   var store = useStoreApi();
   var zoomPane = useRef(null);
   var prevTransform = useRef({
@@ -2019,6 +2023,36 @@ var ZoomPane = function ZoomPane(_ref) {
             var _zoom = currentZoom * Math.pow(2, pinchDelta);
 
             d3Zoom.scaleTo(d3Selection, _zoom, point);
+            return;
+          } // increase scroll speed in firefox
+          // firefox: deltaMode === 1; chrome: deltaMode === 0
+
+
+          var deltaNormalize = event.deltaMode === 1 ? 20 : 1;
+          var deltaX = panOnScrollMode === PanOnScrollMode.Vertical ? 0 : event.deltaX * deltaNormalize;
+          var deltaY = panOnScrollMode === PanOnScrollMode.Horizontal ? 0 : event.deltaY * deltaNormalize;
+          d3Zoom.translateBy(d3Selection, -(deltaX / currentZoom) * panOnScrollSpeed, -(deltaY / currentZoom) * panOnScrollSpeed);
+        }).on('wheel.zoom', null);
+      } else if (panOnTouchPadScroll && !zoomActivationKeyPressed) {
+        d3Selection.on('wheel', function (event) {
+          var isTouchPad = event.wheelDeltaY ? event.wheelDeltaY === -3 * event.deltaY : event.deltaMode === 0;
+
+          if (isWrappedWithClass(event, noWheelClassName)) {
+            return false;
+          }
+
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          var currentZoom = d3Selection.property('__zoom').k || 1;
+
+          if (event.ctrlKey && zoomOnPinch || zoomOnScroll && !isTouchPad) {
+            var point = pointer(event); // taken from https://github.com/d3/d3-zoom/blob/master/src/zoom.js
+
+            var pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
+
+            var _zoom2 = currentZoom * Math.pow(2, pinchDelta);
+
+            d3Zoom.scaleTo(d3Selection, _zoom2, point);
             return;
           } // increase scroll speed in firefox
           // firefox: deltaMode === 1; chrome: deltaMode === 0
@@ -2089,10 +2123,11 @@ var ZoomPane = function ZoomPane(_ref) {
   useEffect(function () {
     if (d3Zoom) {
       d3Zoom.filter(function (event) {
-        var zoomScroll = zoomActivationKeyPressed || zoomOnScroll;
+        var isTouchPad = event.wheelDeltaY ? event.wheelDeltaY === -3 * event.deltaY : event.deltaMode === 0;
+        var zoomScroll = zoomActivationKeyPressed || zoomOnScroll && !(isTouchPad && panOnTouchPadScroll);
         var pinchZoom = zoomOnPinch && event.ctrlKey; // if all interactions are disabled, we prevent all zoom events
 
-        if (!panOnDrag && !zoomScroll && !panOnScroll && !zoomOnDoubleClick && !zoomOnPinch) {
+        if (!panOnDrag && !zoomScroll && !panOnScroll && !zoomOnDoubleClick && !zoomOnPinch && !panOnMiddleButton) {
           return false;
         } // during a selection we prevent all other interactions
 
@@ -2128,13 +2163,17 @@ var ZoomPane = function ZoomPane(_ref) {
 
         if (!panOnDrag && (event.type === 'mousedown' || event.type === 'touchstart')) {
           return false;
+        }
+
+        if (!panOnMiddleButton && event.buttons === 4) {
+          return false;
         } // default filter for d3-zoom
 
 
-        return (!event.ctrlKey || event.type === 'wheel') && !event.button;
+        return !event.ctrlKey || event.type === 'wheel' || event.buttons === 4;
       });
     }
-  }, [d3Zoom, zoomOnScroll, zoomOnPinch, panOnScroll, zoomOnDoubleClick, panOnDrag, selectionKeyPressed, elementsSelectable, zoomActivationKeyPressed]);
+  }, [d3Zoom, zoomOnScroll, zoomOnPinch, panOnScroll, zoomOnDoubleClick, panOnDrag, panOnMiddleButton, panOnTouchPadScroll, selectionKeyPressed, elementsSelectable, zoomActivationKeyPressed]);
   return /*#__PURE__*/React__default.createElement("div", {
     className: "react-flow__renderer react-flow__container",
     ref: zoomPane
@@ -2458,6 +2497,8 @@ var FlowRenderer = function FlowRenderer(_ref) {
       panOnScrollMode = _ref.panOnScrollMode,
       zoomOnDoubleClick = _ref.zoomOnDoubleClick,
       panOnDrag = _ref.panOnDrag,
+      panOnMiddleButton = _ref.panOnMiddleButton,
+      panOnTouchPadScroll = _ref.panOnTouchPadScroll,
       defaultPosition = _ref.defaultPosition,
       defaultZoom = _ref.defaultZoom,
       preventScrolling = _ref.preventScrolling,
@@ -2504,6 +2545,8 @@ var FlowRenderer = function FlowRenderer(_ref) {
     panOnScrollMode: panOnScrollMode,
     zoomOnDoubleClick: zoomOnDoubleClick,
     panOnDrag: panOnDrag,
+    panOnMiddleButton: panOnMiddleButton,
+    panOnTouchPadScroll: panOnTouchPadScroll,
     defaultPosition: defaultPosition,
     defaultZoom: defaultZoom,
     zoomActivationKeyCode: zoomActivationKeyCode,
@@ -3239,6 +3282,8 @@ var GraphView = function GraphView(_ref) {
       panOnScrollMode = _ref.panOnScrollMode,
       zoomOnDoubleClick = _ref.zoomOnDoubleClick,
       panOnDrag = _ref.panOnDrag,
+      panOnMiddleButton = _ref.panOnMiddleButton,
+      panOnTouchPadScroll = _ref.panOnTouchPadScroll,
       onPaneClick = _ref.onPaneClick,
       onPaneScroll = _ref.onPaneScroll,
       onPaneContextMenu = _ref.onPaneContextMenu,
@@ -3273,6 +3318,8 @@ var GraphView = function GraphView(_ref) {
     panOnScrollSpeed: panOnScrollSpeed,
     panOnScrollMode: panOnScrollMode,
     panOnDrag: panOnDrag,
+    panOnMiddleButton: panOnMiddleButton,
+    panOnTouchPadScroll: panOnTouchPadScroll,
     defaultPosition: defaultPosition,
     defaultZoom: defaultZoom,
     onSelectionDragStart: onSelectionDragStart,
@@ -3670,7 +3717,7 @@ var Wrapper = function Wrapper(_ref) {
 
 Wrapper.displayName = 'ReactFlowWrapper';
 
-var _excluded = ["nodes", "edges", "defaultNodes", "defaultEdges", "className", "nodeTypes", "edgeTypes", "onNodeClick", "onEdgeClick", "onInit", "onMove", "onMoveStart", "onMoveEnd", "onConnect", "onConnectStart", "onConnectStop", "onConnectEnd", "onNodeMouseEnter", "onNodeMouseMove", "onNodeMouseLeave", "onNodeContextMenu", "onNodeDoubleClick", "onNodeDragStart", "onNodeDrag", "onNodeDragStop", "onNodesDelete", "onEdgesDelete", "onSelectionChange", "onSelectionDragStart", "onSelectionDrag", "onSelectionDragStop", "onSelectionContextMenu", "connectionMode", "connectionLineType", "connectionLineStyle", "connectionLineComponent", "deleteKeyCode", "selectionKeyCode", "multiSelectionKeyCode", "zoomActivationKeyCode", "snapToGrid", "snapGrid", "onlyRenderVisibleElements", "selectNodesOnDrag", "nodesDraggable", "nodesConnectable", "elementsSelectable", "minZoom", "maxZoom", "defaultZoom", "defaultPosition", "translateExtent", "preventScrolling", "nodeExtent", "defaultMarkerColor", "zoomOnScroll", "zoomOnPinch", "panOnScroll", "panOnScrollSpeed", "panOnScrollMode", "zoomOnDoubleClick", "panOnDrag", "onPaneClick", "onPaneScroll", "onPaneContextMenu", "children", "onEdgeUpdate", "onEdgeContextMenu", "onEdgeDoubleClick", "onEdgeMouseEnter", "onEdgeMouseMove", "onEdgeMouseLeave", "onEdgeUpdateStart", "onEdgeUpdateEnd", "edgeUpdaterRadius", "onNodesChange", "onEdgesChange", "noDragClassName", "noWheelClassName", "noPanClassName", "fitView", "fitViewOptions", "connectOnClick", "attributionPosition", "proOptions", "defaultEdgeOptions"];
+var _excluded = ["nodes", "edges", "defaultNodes", "defaultEdges", "className", "nodeTypes", "edgeTypes", "onNodeClick", "onEdgeClick", "onInit", "onMove", "onMoveStart", "onMoveEnd", "onConnect", "onConnectStart", "onConnectStop", "onConnectEnd", "onNodeMouseEnter", "onNodeMouseMove", "onNodeMouseLeave", "onNodeContextMenu", "onNodeDoubleClick", "onNodeDragStart", "onNodeDrag", "onNodeDragStop", "onNodesDelete", "onEdgesDelete", "onSelectionChange", "onSelectionDragStart", "onSelectionDrag", "onSelectionDragStop", "onSelectionContextMenu", "connectionMode", "connectionLineType", "connectionLineStyle", "connectionLineComponent", "deleteKeyCode", "selectionKeyCode", "multiSelectionKeyCode", "zoomActivationKeyCode", "snapToGrid", "snapGrid", "onlyRenderVisibleElements", "selectNodesOnDrag", "nodesDraggable", "nodesConnectable", "elementsSelectable", "minZoom", "maxZoom", "defaultZoom", "defaultPosition", "translateExtent", "preventScrolling", "nodeExtent", "defaultMarkerColor", "zoomOnScroll", "zoomOnPinch", "panOnScroll", "panOnScrollSpeed", "panOnScrollMode", "zoomOnDoubleClick", "panOnDrag", "panOnMiddleButton", "panOnTouchPadScroll", "onPaneClick", "onPaneScroll", "onPaneContextMenu", "children", "onEdgeUpdate", "onEdgeContextMenu", "onEdgeDoubleClick", "onEdgeMouseEnter", "onEdgeMouseMove", "onEdgeMouseLeave", "onEdgeUpdateStart", "onEdgeUpdateEnd", "edgeUpdaterRadius", "onNodesChange", "onEdgesChange", "noDragClassName", "noWheelClassName", "noPanClassName", "fitView", "fitViewOptions", "connectOnClick", "attributionPosition", "proOptions", "defaultEdgeOptions"];
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -3776,6 +3823,10 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
       zoomOnDoubleClick = _ref$zoomOnDoubleClic === void 0 ? true : _ref$zoomOnDoubleClic,
       _ref$panOnDrag = _ref.panOnDrag,
       panOnDrag = _ref$panOnDrag === void 0 ? true : _ref$panOnDrag,
+      _ref$panOnMiddleButto = _ref.panOnMiddleButton,
+      panOnMiddleButton = _ref$panOnMiddleButto === void 0 ? false : _ref$panOnMiddleButto,
+      _ref$panOnTouchPadScr = _ref.panOnTouchPadScroll,
+      panOnTouchPadScroll = _ref$panOnTouchPadScr === void 0 ? false : _ref$panOnTouchPadScr,
       onPaneClick = _ref.onPaneClick,
       onPaneScroll = _ref.onPaneScroll,
       onPaneContextMenu = _ref.onPaneContextMenu,
@@ -3850,6 +3901,8 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
     panOnScrollSpeed: panOnScrollSpeed,
     panOnScrollMode: panOnScrollMode,
     panOnDrag: panOnDrag,
+    panOnMiddleButton: panOnMiddleButton,
+    panOnTouchPadScroll: panOnTouchPadScroll,
     onPaneClick: onPaneClick,
     onPaneScroll: onPaneScroll,
     onPaneContextMenu: onPaneContextMenu,
