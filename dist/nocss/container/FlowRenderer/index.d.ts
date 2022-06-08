@@ -4,7 +4,7 @@ interface FlowRendererProps extends Omit<GraphViewProps, 'snapToGrid' | 'nodeTyp
     children: ReactNode;
 }
 declare const _default: React.MemoExoticComponent<{
-    ({ children, onPaneClick, onPaneContextMenu, onPaneScroll, deleteKeyCode, onMove, onMoveStart, onMoveEnd, selectionKeyCode, multiSelectionKeyCode, zoomActivationKeyCode, elementsSelectable, zoomOnScroll, zoomOnPinch, panOnScroll, panOnScrollSpeed, panOnScrollMode, zoomOnDoubleClick, panOnDrag, defaultPosition, defaultZoom, preventScrolling, onSelectionDragStart, onSelectionDrag, onSelectionDragStop, onSelectionContextMenu, noWheelClassName, noPanClassName, }: FlowRendererProps): JSX.Element;
+    ({ children, onPaneClick, onPaneContextMenu, onPaneScroll, deleteKeyCode, onMove, onMoveStart, onMoveEnd, selectionKeyCode, multiSelectionKeyCode, zoomActivationKeyCode, elementsSelectable, zoomOnScroll, zoomOnPinch, panOnScroll, panOnScrollSpeed, panOnScrollMode, zoomOnDoubleClick, panOnDrag, panOnMiddleButton, panOnTouchPadScroll, defaultPosition, defaultZoom, preventScrolling, onSelectionDragStart, onSelectionDrag, onSelectionDragStop, onSelectionContextMenu, noWheelClassName, noPanClassName, }: FlowRendererProps): JSX.Element;
     displayName: string;
 }>;
 export default _default;
