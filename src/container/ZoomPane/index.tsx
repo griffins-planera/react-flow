@@ -157,9 +157,13 @@ const ZoomPane = ({
       } else if (panOnTouchPadScroll && !zoomActivationKeyPressed) {
         d3Selection
             .on('wheel', (event: any) => {
-            console.warn("panonTouchpadscroll wheel event entered")
+              console.warn("panonTouchpadscroll wheel event entered")
+              const verticalTouchDetected = event.wheelDeltaY ? event.wheelDeltaY === -3 * event.deltaY : event.deltaMode === 0;
+              const horizontalTouchDetected = event.wheelDeltaX ? event.wheelDeltaX === -3 * event.deltaX : event.deltaMode === 0;
+              const isTouchPad = verticalTouchDetected || horizontalTouchDetected
+              console.warn("vertical touch", verticalTouchDetected)
+              console.warn("horizontal touch", horizontalTouchDetected)
 
-              const isTouchPad = event.wheelDeltaY ? event.wheelDeltaY === -3 * event.deltaY : event.deltaMode === 0;
               if (isWrappedWithClass(event, noWheelClassName)) {
                 return false;
               }
