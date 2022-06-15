@@ -6,7 +6,7 @@ import cc from 'classcat';
 import React__default, { memo, useRef, useState, useEffect, createContext, forwardRef, useContext, useCallback, useMemo } from 'react';
 import shallow from 'zustand/shallow';
 import { zoom, zoomIdentity } from 'd3-zoom';
-import { select } from 'd3-selection';
+import { select, pointer } from 'd3-selection';
 import { DraggableCore } from 'react-draggable';
 export { default as MiniMap } from './index2.js';
 export { ControlButton, default as Controls } from './index3.js';
@@ -2010,35 +2010,29 @@ var ZoomPane = function ZoomPane(_ref) {
   useEffect(function () {
     if (d3Selection && d3Zoom) {
       if (typeof d3ZoomHandler === 'undefined') {
-        console.warn("d3ZoomHandler Undefined. NO-OP");
+        console.warn("d3ZoomHandler undefined. NO-OP");
         return;
       }
 
       if (panOnScroll && !zoomActivationKeyPressed) {
         d3Selection.on('wheel', function (event) {
-          console.warn("panonscroll wheel event entered");
-
           if (isWrappedWithClass(event, noWheelClassName)) {
             return false;
           }
 
-          event.preventDefault(); // event.stopImmediatePropagation();
-
+          event.preventDefault();
+          event.stopImmediatePropagation();
           var currentZoom = d3Selection.property('__zoom').k || 1;
 
           if (event.ctrlKey && zoomOnPinch) {
-            // const point = pointer(event);
-            // // taken from https://github.com/d3/d3-zoom/blob/master/src/zoom.js
-            // const pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
-            // const zoom = currentZoom * Math.pow(2, pinchDelta);
-            // d3Zoom.scaleTo(d3Selection, zoom, point);
-            // if (d3ZoomHandler) d3ZoomHandler(event, d)
-            // event.preventDefault();
-            console.warn("inner custom zoom logic reached (skipped)");
+            var point = pointer(event); // taken from https://github.com/d3/d3-zoom/blob/master/src/zoom.js
+
+            var pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
+
+            var _zoom = currentZoom * Math.pow(2, pinchDelta);
+
+            d3Zoom.scaleTo(d3Selection, _zoom, point);
             return;
-          } else {
-            event.stopImmediatePropagation();
-            console.warn("stopping immediatepropagation and panning");
           } // increase scroll speed in firefox
           // firefox: deltaMode === 1; chrome: deltaMode === 0
 
@@ -2047,38 +2041,29 @@ var ZoomPane = function ZoomPane(_ref) {
           var deltaX = panOnScrollMode === PanOnScrollMode.Vertical ? 0 : event.deltaX * deltaNormalize;
           var deltaY = panOnScrollMode === PanOnScrollMode.Horizontal ? 0 : event.deltaY * deltaNormalize;
           d3Zoom.translateBy(d3Selection, -(deltaX / currentZoom) * panOnScrollSpeed, -(deltaY / currentZoom) * panOnScrollSpeed);
-        }).on('wheel.zoom', d3ZoomHandler);
+        }).on('wheel.zoom', null);
       } else if (panOnTouchPadScroll && !zoomActivationKeyPressed) {
         d3Selection.on('wheel', function (event) {
-          console.warn("panonTouchpadscroll wheel event entered");
-          var verticalTouchDetected = event.wheelDeltaY && event.wheelDeltaY === -3 * event.deltaY;
-          var horizontalTouchDetected = event.wheelDeltaX && event.wheelDeltaX === -3 * event.deltaX;
+          var verticalTouchDetected = !!event.wheelDeltaY && event.wheelDeltaY === -3 * event.deltaY;
+          var horizontalTouchDetected = !!event.wheelDeltaX && event.wheelDeltaX === -3 * event.deltaX;
           var isTouchPad = verticalTouchDetected || horizontalTouchDetected;
-          console.warn("vertical touch", verticalTouchDetected);
-          console.warn("horizontal touch", horizontalTouchDetected);
 
           if (isWrappedWithClass(event, noWheelClassName)) {
             return false;
           }
 
-          event.preventDefault(); // event.stopImmediatePropagation();
-
+          event.preventDefault();
+          event.stopImmediatePropagation();
           var currentZoom = d3Selection.property('__zoom').k || 1;
 
           if (event.ctrlKey && zoomOnPinch || zoomOnScroll && !isTouchPad) {
-            // const point = pointer(event);
-            // // taken from https://github.com/d3/d3-zoom/blob/master/src/zoom.js
-            // const pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
-            // const zoom = currentZoom * Math.pow(2, pinchDelta);
-            // d3Zoom.scaleTo(d3Selection, zoom, point);
-            // if (d3ZoomHandler) d3ZoomHandler(event, d)
-            // event.preventDefault();
-            console.warn("inner custom zoom logic reached (skipped)");
+            // Fallback to default zoom handler
             return;
-          } else {
-            event.stopImmediatePropagation();
-            console.warn("stopping immediatepropagation and panning");
-          } // increase scroll speed in firefox
+          } // else {
+          //   event.stopImmediatePropagation();
+          //   console.warn("stopping immediatepropagation and panning")
+          // }
+          // increase scroll speed in firefox
           // firefox: deltaMode === 1; chrome: deltaMode === 0
 
 
@@ -2089,8 +2074,6 @@ var ZoomPane = function ZoomPane(_ref) {
         }).on('wheel.zoom', d3ZoomHandler);
       } else if (typeof d3ZoomHandler !== 'undefined') {
         d3Selection.on('wheel', function (event) {
-          console.warn("normal zoom wheel handler reached");
-
           if (!preventScrolling || isWrappedWithClass(event, noWheelClassName)) {
             return null;
           }
