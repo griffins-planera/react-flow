@@ -158,8 +158,8 @@ const ZoomPane = ({
         d3Selection
             .on('wheel', (event: any) => {
               console.warn("panonTouchpadscroll wheel event entered")
-              const verticalTouchDetected = event.wheelDeltaY ? event.wheelDeltaY === -3 * event.deltaY : event.deltaMode === 0;
-              const horizontalTouchDetected = event.wheelDeltaX ? event.wheelDeltaX === -3 * event.deltaX : event.deltaMode === 0;
+              const verticalTouchDetected = event.wheelDeltaY && event.wheelDeltaY === -3 * event.deltaY;
+              const horizontalTouchDetected = event.wheelDeltaX &&  event.wheelDeltaX === -3 * event.deltaX;
               const isTouchPad = verticalTouchDetected || horizontalTouchDetected
               console.warn("vertical touch", verticalTouchDetected)
               console.warn("horizontal touch", horizontalTouchDetected)
