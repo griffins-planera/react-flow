@@ -155,7 +155,6 @@ const ZoomPane = ({
                 return false;
               }
               event.preventDefault();
-              event.stopImmediatePropagation();
 
               const currentZoom = d3Selection.property('__zoom').k || 1;
 
@@ -163,11 +162,9 @@ const ZoomPane = ({
                 // Fallback to default zoom handler
                 return;
               }
-              // else {
-              //   event.stopImmediatePropagation();
-              //   console.warn("stopping immediatepropagation and panning")
-
-              // }
+              else {
+                event.stopImmediatePropagation();
+              }
 
               // increase scroll speed in firefox
               // firefox: deltaMode === 1; chrome: deltaMode === 0

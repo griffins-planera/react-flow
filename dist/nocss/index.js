@@ -2049,17 +2049,14 @@ var ZoomPane = function ZoomPane(_ref) {
           }
 
           event.preventDefault();
-          event.stopImmediatePropagation();
           var currentZoom = d3Selection.property('__zoom').k || 1;
 
           if (event.ctrlKey && zoomOnPinch || zoomOnScroll && !isTouchPad) {
             // Fallback to default zoom handler
             return;
-          } // else {
-          //   event.stopImmediatePropagation();
-          //   console.warn("stopping immediatepropagation and panning")
-          // }
-          // increase scroll speed in firefox
+          } else {
+            event.stopImmediatePropagation();
+          } // increase scroll speed in firefox
           // firefox: deltaMode === 1; chrome: deltaMode === 0
 
 
