@@ -2029,7 +2029,7 @@ var ZoomPane = function ZoomPane(_ref) {
 
             var pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
             console.log("pinchDelta=".concat(pinchDelta));
-            pinchDelta = pinchDelta / pinchDelta * (Math.abs(pinchDelta) > 20 ? 20 : Math.abs(pinchDelta));
+            pinchDelta = Math.sign(pinchDelta) * (Math.abs(pinchDelta) > 0.2 ? 0.2 : Math.abs(pinchDelta));
 
             var _zoom = currentZoom * Math.pow(2, pinchDelta);
 
