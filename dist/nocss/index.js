@@ -2006,7 +2006,7 @@ var ZoomPane = function ZoomPane(_ref) {
   useEffect(function () {
     if (d3Selection && d3Zoom) {
       if (typeof d3ZoomHandler === 'undefined') {
-        console.warn("d3ZoomHandler undefined. NO-OP");
+        console.warn('d3ZoomHandler undefined. NO-OP');
         return;
       }
 
@@ -2043,6 +2043,8 @@ var ZoomPane = function ZoomPane(_ref) {
           var verticalTouchDetected = !!event.wheelDeltaY && event.wheelDeltaY === -3 * event.deltaY;
           var horizontalTouchDetected = !!event.wheelDeltaX && event.wheelDeltaX === -3 * event.deltaX;
           var isTouchPad = verticalTouchDetected || horizontalTouchDetected;
+          console.log("isTouchPad ".concat(isTouchPad, ", verticalTouchDetected=").concat(verticalTouchDetected, ",  horizontalTouchDetected=").concat(horizontalTouchDetected));
+          console.log("event = ".concat(event));
 
           if (isWrappedWithClass(event, noWheelClassName)) {
             return false;

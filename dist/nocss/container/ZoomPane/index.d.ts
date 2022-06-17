@@ -23,5 +23,5 @@ interface ZoomPaneProps {
     panOnMiddleButton?: boolean;
     panOnTouchPadScroll?: boolean;
 }
-declare const ZoomPane: ({ onMove, onMoveStart, onMoveEnd, zoomOnScroll, zoomOnPinch, panOnScroll, panOnScrollSpeed, panOnScrollMode, zoomOnDoubleClick, selectionKeyPressed, elementsSelectable, panOnDrag, defaultPosition, defaultZoom, zoomActivationKeyCode, preventScrolling, children, noWheelClassName, noPanClassName, panOnMiddleButton, panOnTouchPadScroll }: ZoomPaneProps) => JSX.Element;
+declare const ZoomPane: ({ onMove, onMoveStart, onMoveEnd, zoomOnScroll, zoomOnPinch, panOnScroll, panOnScrollSpeed, panOnScrollMode, zoomOnDoubleClick, selectionKeyPressed, elementsSelectable, panOnDrag, defaultPosition, defaultZoom, zoomActivationKeyCode, preventScrolling, children, noWheelClassName, noPanClassName, panOnMiddleButton, panOnTouchPadScroll, }: ZoomPaneProps) => JSX.Element;
 export default ZoomPane;
