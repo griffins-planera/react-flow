@@ -124,9 +124,7 @@ const ZoomPane = ({
             if (event.ctrlKey && zoomOnPinch) {
               const point = pointer(event);
               // taken from https://github.com/d3/d3-zoom/blob/master/src/zoom.js
-              let pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
-              console.log(`pinchDelta=${pinchDelta}`);
-              pinchDelta = Math.sign(pinchDelta) * (Math.abs(pinchDelta) > 0.2 ? 0.2 : Math.abs(pinchDelta));
+              const pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
               const zoom = currentZoom * Math.pow(2, pinchDelta);
               d3Zoom.scaleTo(d3Selection, zoom, point);
 
@@ -149,22 +147,23 @@ const ZoomPane = ({
       } else if (panOnTouchPadScroll && !zoomActivationKeyPressed) {
         d3Selection
           .on('wheel', (event: any) => {
+            // const verticalTouchDetected = !!event.wheelDeltaY && event.wheelDeltaY === -3 * event.deltaY;
+            // const horizontalTouchDetected = !!event.wheelDeltaX && event.wheelDeltaX === -3 * event.deltaX;
+            // const isTouchPad = verticalTouchDetected || horizontalTouchDetected;
+
             if (isWrappedWithClass(event, noWheelClassName)) {
               return false;
             }
             event.preventDefault();
-            event.stopImmediatePropagation();
 
             const currentZoom = d3Selection.property('__zoom').k || 1;
 
             if (event.ctrlKey && zoomOnPinch) {
-              const point = pointer(event);
-              // taken from https://github.com/d3/d3-zoom/blob/master/src/zoom.js
-              const pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
-              const zoom = currentZoom * Math.pow(2, pinchDelta);
-              d3Zoom.scaleTo(d3Selection, zoom, point);
-
+              //|| (zoomOnScroll && !isTouchPad)) {
+              // Fallback to default zoom handler
               return;
+            } else {
+              event.stopImmediatePropagation();
             }
 
             // increase scroll speed in firefox
@@ -179,7 +178,7 @@ const ZoomPane = ({
               -(deltaY / currentZoom) * panOnScrollSpeed
             );
           })
-          .on('wheel.zoom', null);
+          .on('wheel.zoom', d3ZoomHandler);
       } else if (typeof d3ZoomHandler !== 'undefined') {
         d3Selection
           .on('wheel', (event: any) => {
