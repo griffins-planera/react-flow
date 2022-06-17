@@ -158,9 +158,12 @@ const ZoomPane = ({
 
             const currentZoom = d3Selection.property('__zoom').k || 1;
 
+            console.log(event);
+
             if (event.ctrlKey && zoomOnPinch) {
               //|| (zoomOnScroll && !isTouchPad)) {
               // Fallback to default zoom handler
+              console.log('Falling back to default');
               return;
             } else {
               event.stopImmediatePropagation();
