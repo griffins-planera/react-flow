@@ -2048,7 +2048,7 @@ var ZoomPane = function ZoomPane(_ref) {
           var horizontalTouchDetected = !!event.wheelDeltaX && event.wheelDeltaX === -3 * event.deltaX;
           var isTouchPad = verticalTouchDetected || horizontalTouchDetected;
           console.log("isTouchPad ".concat(isTouchPad, ", verticalTouchDetected=").concat(verticalTouchDetected, ",  horizontalTouchDetected=").concat(horizontalTouchDetected));
-          console.log("event = ".concat(event));
+          console.log(event);
 
           if (isWrappedWithClass(event, noWheelClassName)) {
             return false;

@@ -154,7 +154,7 @@ const ZoomPane = ({
             console.log(
               `isTouchPad ${isTouchPad}, verticalTouchDetected=${verticalTouchDetected},  horizontalTouchDetected=${horizontalTouchDetected}`
             );
-            console.log(`event = ${event}`);
+            console.log(event);
             if (isWrappedWithClass(event, noWheelClassName)) {
               return false;
             }
