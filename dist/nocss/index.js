@@ -2039,7 +2039,16 @@ var ZoomPane = function ZoomPane(_ref) {
           d3Zoom.translateBy(d3Selection, -(deltaX / currentZoom) * panOnScrollSpeed, -(deltaY / currentZoom) * panOnScrollSpeed);
         }).on('wheel.zoom', null);
       } else if (panOnTouchPadScroll && !zoomActivationKeyPressed) {
-        d3Selection.on('wheel', function (event) {
+        d3Selection.on('gesturestart', function (event) {
+          event.preventDefault();
+          console.log(event);
+        }).on('gestureend', function (event) {
+          event.preventDefault();
+          console.log(event);
+        }).on('gesturechange', function (event) {
+          event.preventDefault();
+          console.log(event);
+        }).on('wheel', function (event) {
           var verticalTouchDetected = !!event.wheelDeltaY && event.wheelDeltaY === -3 * event.deltaY;
           var horizontalTouchDetected = !!event.wheelDeltaX && event.wheelDeltaX === -3 * event.deltaX;
           var isTouchPad = verticalTouchDetected || horizontalTouchDetected;

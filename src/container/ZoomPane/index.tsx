@@ -146,6 +146,18 @@ const ZoomPane = ({
           .on('wheel.zoom', null);
       } else if (panOnTouchPadScroll && !zoomActivationKeyPressed) {
         d3Selection
+          .on('gesturestart', (event: any) => {
+            event.preventDefault();
+            console.log(event);
+          })
+          .on('gestureend', (event: any) => {
+            event.preventDefault();
+            console.log(event);
+          })
+          .on('gesturechange', (event: any) => {
+            event.preventDefault();
+            console.log(event);
+          })
           .on('wheel', (event: any) => {
             const verticalTouchDetected = !!event.wheelDeltaY && event.wheelDeltaY === -3 * event.deltaY;
             const horizontalTouchDetected = !!event.wheelDeltaX && event.wheelDeltaX === -3 * event.deltaX;
