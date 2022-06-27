@@ -87,6 +87,7 @@ const ReactFlow = forwardRef<ReactFlowRefType, ReactFlowProps>(
       connectionLineComponent,
       deleteKeyCode = 'Backspace',
       selectionKeyCode = 'Shift',
+      preventSelectionKeyCode = null,
       multiSelectionKeyCode = 'Meta',
       zoomActivationKeyCode = 'Meta',
       snapToGrid = false,
@@ -169,6 +170,7 @@ const ReactFlow = forwardRef<ReactFlowRefType, ReactFlowProps>(
             connectionLineStyle={connectionLineStyle}
             connectionLineComponent={connectionLineComponent}
             selectionKeyCode={selectionKeyCode}
+            preventSelectionKeyCode={preventSelectionKeyCode}
             deleteKeyCode={deleteKeyCode}
             multiSelectionKeyCode={multiSelectionKeyCode}
             zoomActivationKeyCode={zoomActivationKeyCode}

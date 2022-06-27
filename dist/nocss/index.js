@@ -2489,6 +2489,7 @@ var FlowRenderer = function FlowRenderer(_ref) {
       onMoveStart = _ref.onMoveStart,
       onMoveEnd = _ref.onMoveEnd,
       selectionKeyCode = _ref.selectionKeyCode,
+      preventSelectionKeyCode = _ref.preventSelectionKeyCode,
       multiSelectionKeyCode = _ref.multiSelectionKeyCode,
       zoomActivationKeyCode = _ref.zoomActivationKeyCode,
       elementsSelectable = _ref.elementsSelectable,
@@ -2517,6 +2518,7 @@ var FlowRenderer = function FlowRenderer(_ref) {
       nodesSelectionActive = _useStore.nodesSelectionActive;
 
   var selectionKeyPressed = useKeyPress(selectionKeyCode);
+  var preventSelectionKeyPressed = useKeyPress(preventSelectionKeyCode);
   useGlobalKeyHandler({
     deleteKeyCode: deleteKeyCode,
     multiSelectionKeyCode: multiSelectionKeyCode
@@ -2538,7 +2540,7 @@ var FlowRenderer = function FlowRenderer(_ref) {
     onMove: onMove,
     onMoveStart: onMoveStart,
     onMoveEnd: onMoveEnd,
-    selectionKeyPressed: selectionKeyPressed,
+    selectionKeyPressed: selectionKeyPressed && !preventSelectionKeyPressed,
     elementsSelectable: elementsSelectable,
     zoomOnScroll: zoomOnScroll,
     zoomOnPinch: zoomOnPinch,
@@ -2556,7 +2558,7 @@ var FlowRenderer = function FlowRenderer(_ref) {
     noWheelClassName: noWheelClassName,
     noPanClassName: noPanClassName
   }, children, /*#__PURE__*/React__default.createElement(UserSelection, {
-    selectionKeyPressed: selectionKeyPressed
+    selectionKeyPressed: selectionKeyPressed && !preventSelectionKeyPressed
   }), nodesSelectionActive && /*#__PURE__*/React__default.createElement(NodesSelection$1, {
     onSelectionDragStart: onSelectionDragStart,
     onSelectionDrag: onSelectionDrag,
@@ -3267,6 +3269,7 @@ var GraphView = function GraphView(_ref) {
       connectionLineStyle = _ref.connectionLineStyle,
       connectionLineComponent = _ref.connectionLineComponent,
       selectionKeyCode = _ref.selectionKeyCode,
+      preventSelectionKeyCode = _ref.preventSelectionKeyCode,
       multiSelectionKeyCode = _ref.multiSelectionKeyCode,
       zoomActivationKeyCode = _ref.zoomActivationKeyCode,
       deleteKeyCode = _ref.deleteKeyCode,
@@ -3307,6 +3310,7 @@ var GraphView = function GraphView(_ref) {
     onPaneScroll: onPaneScroll,
     deleteKeyCode: deleteKeyCode,
     selectionKeyCode: selectionKeyCode,
+    preventSelectionKeyCode: preventSelectionKeyCode,
     multiSelectionKeyCode: multiSelectionKeyCode,
     zoomActivationKeyCode: zoomActivationKeyCode,
     elementsSelectable: elementsSelectable,
@@ -3719,7 +3723,7 @@ var Wrapper = function Wrapper(_ref) {
 
 Wrapper.displayName = 'ReactFlowWrapper';
 
-var _excluded = ["nodes", "edges", "defaultNodes", "defaultEdges", "className", "nodeTypes", "edgeTypes", "onNodeClick", "onEdgeClick", "onInit", "onMove", "onMoveStart", "onMoveEnd", "onConnect", "onConnectStart", "onConnectStop", "onConnectEnd", "onNodeMouseEnter", "onNodeMouseMove", "onNodeMouseLeave", "onNodeContextMenu", "onNodeDoubleClick", "onNodeDragStart", "onNodeDrag", "onNodeDragStop", "onNodesDelete", "onEdgesDelete", "onSelectionChange", "onSelectionDragStart", "onSelectionDrag", "onSelectionDragStop", "onSelectionContextMenu", "connectionMode", "connectionLineType", "connectionLineStyle", "connectionLineComponent", "deleteKeyCode", "selectionKeyCode", "multiSelectionKeyCode", "zoomActivationKeyCode", "snapToGrid", "snapGrid", "onlyRenderVisibleElements", "selectNodesOnDrag", "nodesDraggable", "nodesConnectable", "elementsSelectable", "minZoom", "maxZoom", "defaultZoom", "defaultPosition", "translateExtent", "preventScrolling", "nodeExtent", "defaultMarkerColor", "zoomOnScroll", "zoomOnPinch", "panOnScroll", "panOnScrollSpeed", "panOnScrollMode", "zoomOnDoubleClick", "panOnDrag", "panOnMiddleButton", "panOnTouchPadScroll", "onPaneClick", "onPaneScroll", "onPaneContextMenu", "children", "onEdgeUpdate", "onEdgeContextMenu", "onEdgeDoubleClick", "onEdgeMouseEnter", "onEdgeMouseMove", "onEdgeMouseLeave", "onEdgeUpdateStart", "onEdgeUpdateEnd", "edgeUpdaterRadius", "onNodesChange", "onEdgesChange", "noDragClassName", "noWheelClassName", "noPanClassName", "fitView", "fitViewOptions", "connectOnClick", "attributionPosition", "proOptions", "defaultEdgeOptions"];
+var _excluded = ["nodes", "edges", "defaultNodes", "defaultEdges", "className", "nodeTypes", "edgeTypes", "onNodeClick", "onEdgeClick", "onInit", "onMove", "onMoveStart", "onMoveEnd", "onConnect", "onConnectStart", "onConnectStop", "onConnectEnd", "onNodeMouseEnter", "onNodeMouseMove", "onNodeMouseLeave", "onNodeContextMenu", "onNodeDoubleClick", "onNodeDragStart", "onNodeDrag", "onNodeDragStop", "onNodesDelete", "onEdgesDelete", "onSelectionChange", "onSelectionDragStart", "onSelectionDrag", "onSelectionDragStop", "onSelectionContextMenu", "connectionMode", "connectionLineType", "connectionLineStyle", "connectionLineComponent", "deleteKeyCode", "selectionKeyCode", "preventSelectionKeyCode", "multiSelectionKeyCode", "zoomActivationKeyCode", "snapToGrid", "snapGrid", "onlyRenderVisibleElements", "selectNodesOnDrag", "nodesDraggable", "nodesConnectable", "elementsSelectable", "minZoom", "maxZoom", "defaultZoom", "defaultPosition", "translateExtent", "preventScrolling", "nodeExtent", "defaultMarkerColor", "zoomOnScroll", "zoomOnPinch", "panOnScroll", "panOnScrollSpeed", "panOnScrollMode", "zoomOnDoubleClick", "panOnDrag", "panOnMiddleButton", "panOnTouchPadScroll", "onPaneClick", "onPaneScroll", "onPaneContextMenu", "children", "onEdgeUpdate", "onEdgeContextMenu", "onEdgeDoubleClick", "onEdgeMouseEnter", "onEdgeMouseMove", "onEdgeMouseLeave", "onEdgeUpdateStart", "onEdgeUpdateEnd", "edgeUpdaterRadius", "onNodesChange", "onEdgesChange", "noDragClassName", "noWheelClassName", "noPanClassName", "fitView", "fitViewOptions", "connectOnClick", "attributionPosition", "proOptions", "defaultEdgeOptions"];
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -3784,6 +3788,8 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
       deleteKeyCode = _ref$deleteKeyCode === void 0 ? 'Backspace' : _ref$deleteKeyCode,
       _ref$selectionKeyCode = _ref.selectionKeyCode,
       selectionKeyCode = _ref$selectionKeyCode === void 0 ? 'Shift' : _ref$selectionKeyCode,
+      _ref$preventSelection = _ref.preventSelectionKeyCode,
+      preventSelectionKeyCode = _ref$preventSelection === void 0 ? null : _ref$preventSelection,
       _ref$multiSelectionKe = _ref.multiSelectionKeyCode,
       multiSelectionKeyCode = _ref$multiSelectionKe === void 0 ? 'Meta' : _ref$multiSelectionKe,
       _ref$zoomActivationKe = _ref.zoomActivationKeyCode,
@@ -3888,6 +3894,7 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
     connectionLineStyle: connectionLineStyle,
     connectionLineComponent: connectionLineComponent,
     selectionKeyCode: selectionKeyCode,
+    preventSelectionKeyCode: preventSelectionKeyCode,
     deleteKeyCode: deleteKeyCode,
     multiSelectionKeyCode: multiSelectionKeyCode,
     zoomActivationKeyCode: zoomActivationKeyCode,
