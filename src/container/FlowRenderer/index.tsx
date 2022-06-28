@@ -41,6 +41,7 @@ const FlowRenderer = ({
   onMoveStart,
   onMoveEnd,
   selectionKeyCode,
+  preventSelectionKeyCode,
   multiSelectionKeyCode,
   zoomActivationKeyCode,
   elementsSelectable,
@@ -66,6 +67,7 @@ const FlowRenderer = ({
   const store = useStoreApi();
   const { resetSelectedElements, nodesSelectionActive } = useStore(selector, shallow);
   const selectionKeyPressed = useKeyPress(selectionKeyCode);
+  const preventSelectionKeyPressed = useKeyPress(preventSelectionKeyCode);
 
   useGlobalKeyHandler({ deleteKeyCode, multiSelectionKeyCode });
 
@@ -87,7 +89,7 @@ const FlowRenderer = ({
       onMove={onMove}
       onMoveStart={onMoveStart}
       onMoveEnd={onMoveEnd}
-      selectionKeyPressed={selectionKeyPressed}
+      selectionKeyPressed={selectionKeyPressed && !preventSelectionKeyPressed}
       elementsSelectable={elementsSelectable}
       zoomOnScroll={zoomOnScroll}
       zoomOnPinch={zoomOnPinch}
@@ -106,7 +108,7 @@ const FlowRenderer = ({
       noPanClassName={noPanClassName}
     >
       {children}
-      <UserSelection selectionKeyPressed={selectionKeyPressed} />
+      <UserSelection selectionKeyPressed={selectionKeyPressed && !preventSelectionKeyPressed} />
       {nodesSelectionActive && (
         <NodesSelection
           onSelectionDragStart={onSelectionDragStart}

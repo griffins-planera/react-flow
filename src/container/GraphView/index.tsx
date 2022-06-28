@@ -11,6 +11,7 @@ export interface GraphViewProps extends Omit<ReactFlowProps, 'onSelectionChange'
   nodeTypes: NodeTypes;
   edgeTypes: EdgeTypes;
   selectionKeyCode: KeyCode | null;
+  preventSelectionKeyCode?: KeyCode | null;
   deleteKeyCode: KeyCode | null;
   multiSelectionKeyCode: KeyCode | null;
   connectionLineType: ConnectionLineType;
@@ -50,6 +51,7 @@ const GraphView = ({
   connectionLineStyle,
   connectionLineComponent,
   selectionKeyCode,
+  preventSelectionKeyCode,
   multiSelectionKeyCode,
   zoomActivationKeyCode,
   deleteKeyCode,
@@ -93,6 +95,7 @@ const GraphView = ({
       onPaneScroll={onPaneScroll}
       deleteKeyCode={deleteKeyCode}
       selectionKeyCode={selectionKeyCode}
+      preventSelectionKeyCode={preventSelectionKeyCode}
       multiSelectionKeyCode={multiSelectionKeyCode}
       zoomActivationKeyCode={zoomActivationKeyCode}
       elementsSelectable={elementsSelectable}
