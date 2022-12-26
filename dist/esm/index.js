@@ -1,37 +1,39 @@
-import { _ as _slicedToArray, a as _defineProperty, P as Position, C as ConnectionMode, g as getHostForElement, u as useStoreApi, b as useStore, c as addEdge, d as getMarkerId, r as rectToBox, e as getConnectedEdges, f as getDimensions, h as PanOnScrollMode, i as clamp, j as getNodesInside, k as getSelectionChanges, l as getRectOfNodes, m as ConnectionLineType, M as MarkerType, n as isNumeric, o as Provider$1, p as createStore, q as applyEdgeChanges, s as applyNodeChanges } from './index-fdcea71e.js';
-export { B as BackgroundVariant, m as ConnectionLineType, C as ConnectionMode, M as MarkerType, h as PanOnScrollMode, P as Position, c as addEdge, q as applyEdgeChanges, s as applyNodeChanges, e as getConnectedEdges, x as getIncomers, w as getOutgoers, l as getRectOfNodes, z as getTransformForBounds, v as isEdge, t as isNode, y as updateEdge, b as useStore, u as useStoreApi } from './index-fdcea71e.js';
-import { _ as _toConsumableArray, a as _objectWithoutProperties, u as useReactFlow } from './useReactFlow-0b93bbea.js';
-export { u as useReactFlow } from './useReactFlow-0b93bbea.js';
+import { _ as _slicedToArray, a as _defineProperty, P as Position, C as ConnectionMode, g as getHostForElement, u as useStoreApi, b as useStore, c as addEdge, d as getMarkerId, i as internalsSymbol, r as rectToBox, e as getConnectedEdges, f as getDimensions, h as PanOnScrollMode, j as clamp, k as getNodesInside, l as getSelectionChanges, m as clampPosition, p as pointToRendererPoint, n as handleNodeClick, o as getRectOfNodes, q as ConnectionLineType, M as MarkerType, s as isNumeric, t as getMouseHandler$1, v as Provider$1, w as createStore, x as applyEdgeChanges, y as applyNodeChanges } from './index-6ac7458e.js';
+export { G as BackgroundVariant, q as ConnectionLineType, C as ConnectionMode, M as MarkerType, h as PanOnScrollMode, P as Position, c as addEdge, x as applyEdgeChanges, y as applyNodeChanges, e as getConnectedEdges, D as getIncomers, B as getOutgoers, o as getRectOfNodes, F as getTransformForBounds, A as isEdge, z as isNode, E as updateEdge, b as useStore, u as useStoreApi } from './index-6ac7458e.js';
+import { _ as _toConsumableArray, a as _objectWithoutProperties, u as useReactFlow } from './useReactFlow-00c92446.js';
+export { u as useReactFlow } from './useReactFlow-00c92446.js';
 import cc from 'classcat';
-import React__default, { memo, useRef, useState, useEffect, createContext, forwardRef, useContext, useCallback, useMemo } from 'react';
+import React, { memo, useRef, useState, useEffect, createContext, forwardRef, useContext, useMemo, useCallback } from 'react';
 import shallow from 'zustand/shallow';
 import { zoom, zoomIdentity } from 'd3-zoom';
 import { select, pointer } from 'd3-selection';
-import { DraggableCore } from 'react-draggable';
-export { default as MiniMap } from './index2.js';
-export { ControlButton, default as Controls } from './index3.js';
-export { default as Background } from './index4.js';
-export { default as useUpdateNodeInternals } from './useUpdateNodeInternals.js';
-export { default as useNodes } from './useNodes.js';
-export { default as useEdges } from './useEdges.js';
-export { default as useViewport } from './useViewport.js';
+import { drag } from 'd3-drag';
+export { i as MiniMap } from './index-0a4af350.js';
+export { C as ControlButton, i as Controls } from './index-97ceaccb.js';
+export { i as Background } from './index-d8b8470d.js';
+export { u as useUpdateNodeInternals } from './useUpdateNodeInternals-2715efa9.js';
+export { u as useNodes } from './useNodes-0cf446a6.js';
+export { u as useEdges } from './useEdges-df9336b5.js';
+export { u as useViewport } from './useViewport-4a102055.js';
 import 'zustand';
 import 'zustand/context';
+
+var accounts = ['paid-pro', 'paid-sponsor', 'paid-enterprise', 'paid-custom'];
 
 function Attribution(_ref) {
   var proOptions = _ref.proOptions,
       _ref$position = _ref.position,
       position = _ref$position === void 0 ? 'bottom-right' : _ref$position;
 
-  if (((proOptions === null || proOptions === void 0 ? void 0 : proOptions.account) === 'paid-sponsor' || (proOptions === null || proOptions === void 0 ? void 0 : proOptions.account) === 'paid-enterprise' || (proOptions === null || proOptions === void 0 ? void 0 : proOptions.account) === 'paid-custom') && proOptions !== null && proOptions !== void 0 && proOptions.hideAttribution) {
+  if (proOptions !== null && proOptions !== void 0 && proOptions.account && accounts.includes(proOptions === null || proOptions === void 0 ? void 0 : proOptions.account) && proOptions !== null && proOptions !== void 0 && proOptions.hideAttribution) {
     return null;
   }
 
   var positionClasses = "".concat(position).split('-');
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: cc(['react-flow__attribution'].concat(_toConsumableArray(positionClasses))),
     "data-message": "Please only hide this attribution when you are subscribed to React Flow Pro: https://pro.reactflow.dev/pricing"
-  }, /*#__PURE__*/React__default.createElement("a", {
+  }, /*#__PURE__*/React.createElement("a", {
     href: "https://reactflow.dev",
     target: "_blank",
     rel: "noopener noreferrer"
@@ -40,9 +42,9 @@ function Attribution(_ref) {
 
 var _excluded$2 = ["x", "y", "label", "labelStyle", "labelShowBg", "labelBgStyle", "labelBgPadding", "labelBgBorderRadius", "children", "className"];
 
-function ownKeys$a(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$b(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$a(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$a(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$a(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread$b(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$b(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$b(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 var EdgeText = function EdgeText(_ref) {
   var x = _ref.x,
@@ -91,10 +93,10 @@ var EdgeText = function EdgeText(_ref) {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement("g", _objectSpread$a({
+  return /*#__PURE__*/React.createElement("g", _objectSpread$b({
     transform: "translate(".concat(x - edgeTextBbox.width / 2, " ").concat(y - edgeTextBbox.height / 2, ")"),
     className: edgeTextClasses
-  }, rest), labelShowBg && /*#__PURE__*/React__default.createElement("rect", {
+  }, rest), labelShowBg && /*#__PURE__*/React.createElement("rect", {
     width: edgeTextBbox.width + 2 * labelBgPadding[0],
     x: -labelBgPadding[0],
     y: -labelBgPadding[1],
@@ -103,7 +105,7 @@ var EdgeText = function EdgeText(_ref) {
     style: labelBgStyle,
     rx: labelBgBorderRadius,
     ry: labelBgBorderRadius
-  }), /*#__PURE__*/React__default.createElement("text", {
+  }), /*#__PURE__*/React.createElement("text", {
     className: "react-flow__edge-text",
     y: edgeTextBbox.height / 2,
     dy: "0.3em",
@@ -127,7 +129,7 @@ var BaseEdge = (function (_ref) {
       style = _ref.style,
       markerEnd = _ref.markerEnd,
       markerStart = _ref.markerStart;
-  var text = label ? /*#__PURE__*/React__default.createElement(EdgeText$1, {
+  var text = label ? /*#__PURE__*/React.createElement(EdgeText$1, {
     x: centerX,
     y: centerY,
     label: label,
@@ -137,7 +139,7 @@ var BaseEdge = (function (_ref) {
     labelBgPadding: labelBgPadding,
     labelBgBorderRadius: labelBgBorderRadius
   }) : null;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("path", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("path", {
     style: style,
     d: path,
     className: "react-flow__edge-path",
@@ -286,7 +288,7 @@ var SimpleBezierEdge = /*#__PURE__*/memo(function (_ref4) {
       centerX = _getSimpleBezierCente2[0],
       centerY = _getSimpleBezierCente2[1];
 
-  return /*#__PURE__*/React__default.createElement(BaseEdge, {
+  return /*#__PURE__*/React.createElement(BaseEdge, {
     path: path,
     centerX: centerX,
     centerY: centerY,
@@ -302,6 +304,9 @@ var SimpleBezierEdge = /*#__PURE__*/memo(function (_ref4) {
   });
 });
 
+function ownKeys$a(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$a(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$a(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$a(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var getMarkerEnd = function getMarkerEnd(markerType, markerEndId) {
   if (typeof markerEndId !== 'undefined' && markerEndId) {
     return "url(#".concat(markerEndId, ")");
@@ -343,6 +348,14 @@ var getCenter = function getCenter(_ref) {
   var centerY = targetY < sourceY ? targetY + yOffset : targetY - yOffset;
   return [centerX, centerY, xOffset, yOffset];
 };
+function getMouseHandler(id, getState, handler) {
+  return handler === undefined ? handler : function (event) {
+    var edge = getState().edges.find(function (e) {
+      return e.id === id;
+    });
+    handler(event, _objectSpread$a({}, edge));
+  };
+}
 
 // The name indicates the direction of the path. "bottomLeftCorner" goes
 // from bottom to the left and "leftBottomCorner" goes from left to the bottom.
@@ -494,7 +507,7 @@ var SmoothStepEdge = /*#__PURE__*/memo(function (_ref2) {
     targetPosition: targetPosition,
     borderRadius: borderRadius
   });
-  return /*#__PURE__*/React__default.createElement(BaseEdge, {
+  return /*#__PURE__*/React.createElement(BaseEdge, {
     path: path,
     centerX: centerX,
     centerY: centerY,
@@ -514,7 +527,7 @@ function ownKeys$9(object, enumerableOnly) { var keys = Object.keys(object); if 
 
 function _objectSpread$9(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$9(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$9(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var StepEdge = /*#__PURE__*/memo(function (props) {
-  return /*#__PURE__*/React__default.createElement(SmoothStepEdge, _objectSpread$9(_objectSpread$9({}, props), {}, {
+  return /*#__PURE__*/React.createElement(SmoothStepEdge, _objectSpread$9(_objectSpread$9({}, props), {}, {
     borderRadius: 0
   }));
 });
@@ -538,7 +551,7 @@ var StraightEdge = /*#__PURE__*/memo(function (_ref) {
   var xOffset = Math.abs(targetX - sourceX) / 2;
   var centerX = targetX < sourceX ? targetX + xOffset : targetX - xOffset;
   var path = "M ".concat(sourceX, ",").concat(sourceY, "L ").concat(targetX, ",").concat(targetY);
-  return /*#__PURE__*/React__default.createElement(BaseEdge, {
+  return /*#__PURE__*/React.createElement(BaseEdge, {
     path: path,
     centerX: centerX,
     centerY: centerY,
@@ -725,7 +738,7 @@ var BezierEdge = /*#__PURE__*/memo(function (_ref4) {
       centerX = _getBezierCenter2[0],
       centerY = _getBezierCenter2[1];
 
-  return /*#__PURE__*/React__default.createElement(BaseEdge, {
+  return /*#__PURE__*/React.createElement(BaseEdge, {
     path: path,
     centerX: centerX,
     centerY: centerY,
@@ -803,7 +816,7 @@ function resetRecentHandle(hoveredHandle) {
   hoveredHandle === null || hoveredHandle === void 0 ? void 0 : hoveredHandle.classList.remove('react-flow__handle-connecting');
 }
 
-function onMouseDown(event, handleId, nodeId, setState, onConnect, isTarget, isValidConnection, connectionMode, elementEdgeUpdaterType, onEdgeUpdateEnd, onConnectStart, onConnectStop, onConnectEnd) {
+function handleMouseDown(event, handleId, nodeId, setState, onConnect, isTarget, isValidConnection, connectionMode, elementEdgeUpdaterType, onEdgeUpdateEnd, onConnectStart, onConnectStop, onConnectEnd) {
   var reactFlowNode = event.target.closest('.react-flow'); // when react-flow is used inside a shadow root we can't use document
 
   var doc = getHostForElement(event.target);
@@ -918,7 +931,7 @@ function onMouseDown(event, handleId, nodeId, setState, onConnect, isTarget, isV
   doc.addEventListener('keydown', onEscapePress);
 }
 
-var _excluded$1 = ["type", "position", "isValidConnection", "isConnectable", "id", "onConnect", "children", "className"];
+var _excluded$1 = ["type", "position", "isValidConnection", "isConnectable", "id", "onConnect", "children", "className", "onMouseDown"];
 
 function ownKeys$8(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -934,6 +947,9 @@ var selector$d = function selector(s) {
     onConnectStart: s.onConnectStart,
     onConnectStop: s.onConnectStop,
     onConnectEnd: s.onConnectEnd,
+    onClickConnectStart: s.onClickConnectStart,
+    onClickConnectStop: s.onClickConnectStop,
+    onClickConnectEnd: s.onClickConnectEnd,
     connectionMode: s.connectionMode,
     connectionStartHandle: s.connectionStartHandle,
     connectOnClick: s.connectOnClick,
@@ -954,6 +970,7 @@ var Handle = /*#__PURE__*/forwardRef(function (_ref, ref) {
       onConnect = _ref.onConnect,
       children = _ref.children,
       className = _ref.className,
+      onMouseDown = _ref.onMouseDown,
       rest = _objectWithoutProperties(_ref, _excluded$1);
 
   var store = useStoreApi();
@@ -964,6 +981,9 @@ var Handle = /*#__PURE__*/forwardRef(function (_ref, ref) {
       onConnectStart = _useStore.onConnectStart,
       onConnectStop = _useStore.onConnectStop,
       onConnectEnd = _useStore.onConnectEnd,
+      onClickConnectStart = _useStore.onClickConnectStart,
+      onClickConnectStop = _useStore.onClickConnectStop,
+      onClickConnectEnd = _useStore.onClickConnectEnd,
       connectionMode = _useStore.connectionMode,
       connectionStartHandle = _useStore.connectionStartHandle,
       connectOnClick = _useStore.connectOnClick,
@@ -971,7 +991,8 @@ var Handle = /*#__PURE__*/forwardRef(function (_ref, ref) {
 
   var handleId = id || null;
   var isTarget = type === 'target';
-  var onConnectExtended = useCallback(function (params) {
+
+  var onConnectExtended = function onConnectExtended(params) {
     var _store$getState = store.getState(),
         defaultEdgeOptions = _store$getState.defaultEdgeOptions;
 
@@ -988,15 +1009,19 @@ var Handle = /*#__PURE__*/forwardRef(function (_ref, ref) {
 
     onConnectAction === null || onConnectAction === void 0 ? void 0 : onConnectAction(edgeParams);
     onConnect === null || onConnect === void 0 ? void 0 : onConnect(edgeParams);
-  }, [hasDefaultEdges, onConnectAction, onConnect]);
-  var onMouseDownHandler = useCallback(function (event) {
+  };
+
+  var onMouseDownHandler = function onMouseDownHandler(event) {
     if (event.button === 0) {
-      onMouseDown(event, handleId, nodeId, store.setState, onConnectExtended, isTarget, isValidConnection, connectionMode, undefined, undefined, onConnectStart, onConnectStop, onConnectEnd);
+      handleMouseDown(event, handleId, nodeId, store.setState, onConnectExtended, isTarget, isValidConnection, connectionMode, undefined, undefined, onConnectStart, onConnectStop, onConnectEnd);
     }
-  }, [handleId, nodeId, onConnectExtended, isTarget, isValidConnection, connectionMode, onConnectStart, onConnectStop, onConnectEnd]);
-  var onClick = useCallback(function (event) {
+
+    onMouseDown === null || onMouseDown === void 0 ? void 0 : onMouseDown(event);
+  };
+
+  var onClick = function onClick(event) {
     if (!connectionStartHandle) {
-      onConnectStart === null || onConnectStart === void 0 ? void 0 : onConnectStart(event, {
+      onClickConnectStart === null || onClickConnectStart === void 0 ? void 0 : onClickConnectStart(event, {
         nodeId: nodeId,
         handleId: handleId,
         handleType: type
@@ -1008,32 +1033,34 @@ var Handle = /*#__PURE__*/forwardRef(function (_ref, ref) {
           handleId: handleId
         }
       });
-    } else {
-      var doc = getHostForElement(event.target);
-
-      var _checkElementBelowIsV = checkElementBelowIsValid(event, connectionMode, connectionStartHandle.type === 'target', connectionStartHandle.nodeId, connectionStartHandle.handleId || null, isValidConnection, doc),
-          connection = _checkElementBelowIsV.connection,
-          isValid = _checkElementBelowIsV.isValid;
-
-      onConnectStop === null || onConnectStop === void 0 ? void 0 : onConnectStop(event);
-
-      if (isValid) {
-        onConnectExtended(connection);
-      }
-
-      onConnectEnd === null || onConnectEnd === void 0 ? void 0 : onConnectEnd(event);
-      store.setState({
-        connectionStartHandle: null
-      });
+      return;
     }
-  }, [connectionStartHandle, onConnectStart, onConnectExtended, onConnectStop, onConnectEnd, isTarget, nodeId, handleId, type]);
+
+    var doc = getHostForElement(event.target);
+
+    var _checkElementBelowIsV = checkElementBelowIsValid(event, connectionMode, connectionStartHandle.type === 'target', connectionStartHandle.nodeId, connectionStartHandle.handleId || null, isValidConnection, doc),
+        connection = _checkElementBelowIsV.connection,
+        isValid = _checkElementBelowIsV.isValid;
+
+    onClickConnectStop === null || onClickConnectStop === void 0 ? void 0 : onClickConnectStop(event);
+
+    if (isValid) {
+      onConnectExtended(connection);
+    }
+
+    onClickConnectEnd === null || onClickConnectEnd === void 0 ? void 0 : onClickConnectEnd(event);
+    store.setState({
+      connectionStartHandle: null
+    });
+  };
+
   var handleClasses = cc(['react-flow__handle', "react-flow__handle-".concat(position), 'nodrag', className, {
     source: !isTarget,
     target: isTarget,
     connectable: isConnectable,
     connecting: (connectionStartHandle === null || connectionStartHandle === void 0 ? void 0 : connectionStartHandle.nodeId) === nodeId && (connectionStartHandle === null || connectionStartHandle === void 0 ? void 0 : connectionStartHandle.handleId) === handleId && (connectionStartHandle === null || connectionStartHandle === void 0 ? void 0 : connectionStartHandle.type) === type
   }]);
-  return /*#__PURE__*/React__default.createElement("div", _objectSpread$8({
+  return /*#__PURE__*/React.createElement("div", _objectSpread$8({
     "data-handleid": handleId,
     "data-nodeid": nodeId,
     "data-handlepos": position,
@@ -1053,11 +1080,11 @@ var DefaultNode = function DefaultNode(_ref) {
       targetPosition = _ref$targetPosition === void 0 ? Position.Top : _ref$targetPosition,
       _ref$sourcePosition = _ref.sourcePosition,
       sourcePosition = _ref$sourcePosition === void 0 ? Position.Bottom : _ref$sourcePosition;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Handle$1, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Handle$1, {
     type: "target",
     position: targetPosition,
     isConnectable: isConnectable
-  }), data === null || data === void 0 ? void 0 : data.label, /*#__PURE__*/React__default.createElement(Handle$1, {
+  }), data === null || data === void 0 ? void 0 : data.label, /*#__PURE__*/React.createElement(Handle$1, {
     type: "source",
     position: sourcePosition,
     isConnectable: isConnectable
@@ -1072,7 +1099,7 @@ var InputNode = function InputNode(_ref) {
       isConnectable = _ref.isConnectable,
       _ref$sourcePosition = _ref.sourcePosition,
       sourcePosition = _ref$sourcePosition === void 0 ? Position.Bottom : _ref$sourcePosition;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, data === null || data === void 0 ? void 0 : data.label, /*#__PURE__*/React__default.createElement(Handle$1, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, data === null || data === void 0 ? void 0 : data.label, /*#__PURE__*/React.createElement(Handle$1, {
     type: "source",
     position: sourcePosition,
     isConnectable: isConnectable
@@ -1087,7 +1114,7 @@ var OutputNode = function OutputNode(_ref) {
       isConnectable = _ref.isConnectable,
       _ref$targetPosition = _ref.targetPosition,
       targetPosition = _ref$targetPosition === void 0 ? Position.Top : _ref$targetPosition;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Handle$1, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Handle$1, {
     type: "target",
     position: targetPosition,
     isConnectable: isConnectable
@@ -1183,6 +1210,9 @@ var StoreUpdater = function StoreUpdater(_ref) {
       onConnectStart = _ref.onConnectStart,
       onConnectStop = _ref.onConnectStop,
       onConnectEnd = _ref.onConnectEnd,
+      onClickConnectStart = _ref.onClickConnectStart,
+      onClickConnectStop = _ref.onClickConnectStop,
+      onClickConnectEnd = _ref.onClickConnectEnd,
       nodesDraggable = _ref.nodesDraggable,
       nodesConnectable = _ref.nodesConnectable,
       minZoom = _ref.minZoom,
@@ -1225,6 +1255,9 @@ var StoreUpdater = function StoreUpdater(_ref) {
   useDirectStoreUpdater('onConnectStart', onConnectStart, store.setState);
   useDirectStoreUpdater('onConnectStop', onConnectStop, store.setState);
   useDirectStoreUpdater('onConnectEnd', onConnectEnd, store.setState);
+  useDirectStoreUpdater('onClickConnectStart', onClickConnectStart, store.setState);
+  useDirectStoreUpdater('onClickConnectStop', onClickConnectStop, store.setState);
+  useDirectStoreUpdater('onClickConnectEnd', onClickConnectEnd, store.setState);
   useDirectStoreUpdater('nodesDraggable', nodesDraggable, store.setState);
   useDirectStoreUpdater('nodesConnectable', nodesConnectable, store.setState);
   useDirectStoreUpdater('elementsSelectable', elementsSelectable, store.setState);
@@ -1248,9 +1281,9 @@ var StoreUpdater = function StoreUpdater(_ref) {
   return null;
 };
 
-var css_248z$1 = ".react-flow{height:100%;overflow:hidden;position:relative;width:100%}.react-flow__container{height:100%;left:0;position:absolute;top:0;width:100%}.react-flow__pane{z-index:1}.react-flow__viewport{pointer-events:none;transform-origin:0 0;z-index:2}.react-flow__renderer{z-index:4}.react-flow__selectionpane{z-index:5}.react-flow .react-flow__edges{overflow:visible;pointer-events:none}.react-flow__edge{pointer-events:visibleStroke}.react-flow__edge.inactive{pointer-events:none}@-webkit-keyframes dashdraw{0%{stroke-dashoffset:10}}@keyframes dashdraw{0%{stroke-dashoffset:10}}.react-flow__edge-path{fill:none}.react-flow__edge-textwrapper{pointer-events:all}.react-flow__edge-text{pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.react-flow__connection{pointer-events:none}.react-flow__connection .animated{stroke-dasharray:5;-webkit-animation:dashdraw .5s linear infinite;animation:dashdraw .5s linear infinite}.react-flow__connection-path{fill:none}.react-flow__nodes{pointer-events:none;transform-origin:0 0}.react-flow__node{box-sizing:border-box;pointer-events:all;position:absolute;transform-origin:0 0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.react-flow__nodesselection{pointer-events:none;transform-origin:left top;z-index:3}.react-flow__nodesselection-rect{cursor:-webkit-grab;cursor:grab;pointer-events:all;position:absolute}.react-flow__handle{pointer-events:none}.react-flow__handle.connectable{pointer-events:all}.react-flow__handle-bottom{bottom:-4px;left:50%;top:auto;transform:translate(-50%)}.react-flow__handle-top{left:50%;top:-4px;transform:translate(-50%)}.react-flow__handle-left{left:-4px;top:50%;transform:translateY(-50%)}.react-flow__handle-right{right:-4px;top:50%;transform:translateY(-50%)}.react-flow__edgeupdater{cursor:move;pointer-events:all}.react-flow__controls{bottom:20px;left:15px;position:absolute;z-index:5}.react-flow__controls-button{border:none;height:24px;width:24px}.react-flow__controls-button svg{width:100%}.react-flow__minimap{bottom:20px;position:absolute;right:15px;z-index:5}.react-flow__attribution{background:hsla(0,0%,100%,.5);color:#999;font-size:10px;padding:2px 3px;position:absolute;z-index:1000}.react-flow__attribution a{color:#555;text-decoration:none}.react-flow__attribution.top{top:0}.react-flow__attribution.bottom{bottom:0}.react-flow__attribution.left{left:0}.react-flow__attribution.right{right:0}.react-flow__attribution.center{left:50%;transform:translateX(-50%)}";
+var css_248z$1 = ".react-flow{height:100%;overflow:hidden;position:relative;width:100%}.react-flow__container{height:100%;left:0;position:absolute;top:0;width:100%}.react-flow__pane{z-index:1}.react-flow__viewport{pointer-events:none;transform-origin:0 0;z-index:2}.react-flow__renderer{z-index:4}.react-flow__selectionpane{z-index:5}.react-flow .react-flow__edges{overflow:visible;pointer-events:none}.react-flow .react-flow__connectionline{z-index:1001}.react-flow__edge{pointer-events:visibleStroke}.react-flow__edge.inactive{pointer-events:none}@-webkit-keyframes dashdraw{0%{stroke-dashoffset:10}}@keyframes dashdraw{0%{stroke-dashoffset:10}}.react-flow__edge-path{fill:none}.react-flow__edge-textwrapper{pointer-events:all}.react-flow__edge-text{pointer-events:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.react-flow__connection{pointer-events:none}.react-flow__connection .animated{stroke-dasharray:5;-webkit-animation:dashdraw .5s linear infinite;animation:dashdraw .5s linear infinite}.react-flow__connection-path{fill:none}.react-flow__nodes{pointer-events:none;transform-origin:0 0}.react-flow__node{box-sizing:border-box;pointer-events:all;position:absolute;transform-origin:0 0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.react-flow__nodesselection{pointer-events:none;transform-origin:left top;z-index:3}.react-flow__nodesselection-rect{cursor:-webkit-grab;cursor:grab;pointer-events:all;position:absolute}.react-flow__handle{pointer-events:none}.react-flow__handle.connectable{pointer-events:all}.react-flow__handle-bottom{bottom:-4px;left:50%;top:auto;transform:translate(-50%)}.react-flow__handle-top{left:50%;top:-4px;transform:translate(-50%)}.react-flow__handle-left{left:-4px;top:50%;transform:translateY(-50%)}.react-flow__handle-right{right:-4px;top:50%;transform:translateY(-50%)}.react-flow__edgeupdater{cursor:move;pointer-events:all}.react-flow__controls{bottom:20px;left:15px;position:absolute;z-index:5}.react-flow__controls-button{border:none;height:24px;width:24px}.react-flow__controls-button svg{width:100%}.react-flow__minimap{bottom:20px;position:absolute;right:15px;z-index:5}.react-flow__attribution{background:hsla(0,0%,100%,.5);color:#999;font-size:10px;padding:2px 3px;position:absolute;z-index:1000}.react-flow__attribution a{color:#555;text-decoration:none}.react-flow__attribution.top{top:0}.react-flow__attribution.bottom{bottom:0}.react-flow__attribution.left{left:0}.react-flow__attribution.right{right:0}.react-flow__attribution.center{left:50%;transform:translateX(-50%)}";
 
-var css_248z = ".react-flow__edge.selected .react-flow__edge-path{stroke:#555}.react-flow__edge.animated path{stroke-dasharray:5;-webkit-animation:dashdraw .5s linear infinite;animation:dashdraw .5s linear infinite}.react-flow__edge.updating .react-flow__edge-path{stroke:#777}.react-flow__edge-path{stroke:#b1b1b7;stroke-width:1}.react-flow__edge-text{font-size:10px}.react-flow__edge-textbg{fill:#fff}.react-flow__connection-path{stroke:#b1b1b7;stroke-width:1}.react-flow__node{cursor:-webkit-grab;cursor:grab}.react-flow__node-default,.react-flow__node-group,.react-flow__node-input,.react-flow__node-output{background:#fff;border:1px solid #1a192b;border-radius:3px;color:#222;font-size:12px;padding:10px;text-align:center;width:150px}.react-flow__node-default.selected,.react-flow__node-default.selected:hover,.react-flow__node-group.selected,.react-flow__node-group.selected:hover,.react-flow__node-input.selected,.react-flow__node-input.selected:hover,.react-flow__node-output.selected,.react-flow__node-output.selected:hover{box-shadow:0 0 0 .5px #1a192b}.react-flow__node-default .react-flow__handle,.react-flow__node-group .react-flow__handle,.react-flow__node-input .react-flow__handle,.react-flow__node-output .react-flow__handle{background:#1a192b}.react-flow__node-default.selectable:hover,.react-flow__node-group.selectable:hover,.react-flow__node-input.selectable:hover,.react-flow__node-output.selectable:hover{box-shadow:0 1px 4px 1px rgba(0,0,0,.08)}.react-flow__node-group{background:hsla(0,0%,94%,.25);border-color:#1a192b}.react-flow__node-group.selected,.react-flow__node-group.selected:hover{box-shadow:0 0 0 .5px #1a192b}.react-flow__nodesselection-rect,.react-flow__selection{background:rgba(0,89,220,.08);border:1px dotted rgba(0,89,220,.8)}.react-flow__handle{background:#555;border:1px solid #fff;border-radius:100%;height:6px;position:absolute;width:6px}.react-flow__handle.connectable{cursor:crosshair}.react-flow__minimap{background-color:#fff}.react-flow__controls{box-shadow:0 0 2px 1px rgba(0,0,0,.08)}.react-flow__controls-button{align-items:center;background:#fefefe;border-bottom:1px solid #eee;box-sizing:content-box;cursor:pointer;display:flex;height:16px;justify-content:center;padding:5px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:16px}.react-flow__controls-button svg{max-height:12px;max-width:12px}.react-flow__controls-button:hover{background:#f4f4f4}";
+var css_248z = ".react-flow__edge.selected .react-flow__edge-path{stroke:#555}.react-flow__edge.animated path{stroke-dasharray:5;-webkit-animation:dashdraw .5s linear infinite;animation:dashdraw .5s linear infinite}.react-flow__edge.updating .react-flow__edge-path{stroke:#777}.react-flow__edge-path{stroke:#b1b1b7;stroke-width:1}.react-flow__edge-text{font-size:10px}.react-flow__edge-textbg{fill:#fff}.react-flow__connection-path{stroke:#b1b1b7;stroke-width:1}.react-flow__node{cursor:-webkit-grab;cursor:grab}.react-flow__node-default,.react-flow__node-group,.react-flow__node-input,.react-flow__node-output{background:#fff;border:1px solid #1a192b;border-radius:3px;color:#222;font-size:12px;padding:10px;text-align:center;width:150px}.react-flow__node-default.selected,.react-flow__node-group.selected,.react-flow__node-input.selected,.react-flow__node-output.selected{box-shadow:0 0 0 .5px #1a192b}.react-flow__node-default .react-flow__handle,.react-flow__node-group .react-flow__handle,.react-flow__node-input .react-flow__handle,.react-flow__node-output .react-flow__handle{background:#1a192b}.react-flow__node-default.selectable:hover,.react-flow__node-group.selectable:hover,.react-flow__node-input.selectable:hover,.react-flow__node-output.selectable:hover{box-shadow:0 1px 4px 1px rgba(0,0,0,.08)}.react-flow__node-default.selectable.selected,.react-flow__node-group.selectable.selected,.react-flow__node-input.selectable.selected,.react-flow__node-output.selectable.selected{box-shadow:0 0 0 .5px #1a192b}.react-flow__node-group{background:hsla(0,0%,94%,.25);border-color:#1a192b}.react-flow__nodesselection-rect,.react-flow__selection{background:rgba(0,89,220,.08);border:1px dotted rgba(0,89,220,.8)}.react-flow__handle{background:#555;border:1px solid #fff;border-radius:100%;height:6px;position:absolute;width:6px}.react-flow__handle.connectable{cursor:crosshair}.react-flow__minimap{background-color:#fff}.react-flow__controls{box-shadow:0 0 2px 1px rgba(0,0,0,.08)}.react-flow__controls-button{align-items:center;background:#fefefe;border-bottom:1px solid #eee;box-sizing:content-box;cursor:pointer;display:flex;height:16px;justify-content:center;padding:5px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:16px}.react-flow__controls-button svg{max-height:12px;max-width:12px}.react-flow__controls-button:hover{background:#f4f4f4}";
 
 var shiftX = function shiftX(x, shift, position) {
   if (position === Position.Left) return x - shift;
@@ -1271,7 +1304,7 @@ var EdgeAnchor = function EdgeAnchor(_ref) {
       centerY = _ref.centerY,
       _ref$radius = _ref.radius,
       radius = _ref$radius === void 0 ? 10 : _ref$radius;
-  return /*#__PURE__*/React__default.createElement("circle", {
+  return /*#__PURE__*/React.createElement("circle", {
     className: cc(['react-flow__edgeupdater', className]),
     cx: shiftX(centerX, radius, position),
     cy: shiftY(centerY, radius, position),
@@ -1327,85 +1360,56 @@ var wrapEdge = (function (EdgeComponent) {
         onEdgeUpdateEnd = _ref.onEdgeUpdateEnd,
         markerEnd = _ref.markerEnd,
         markerStart = _ref.markerStart;
-    var store = useStoreApi();
-
-    var _useStore = useStore(selector$a, shallow),
-        addSelectedEdges = _useStore.addSelectedEdges,
-        connectionMode = _useStore.connectionMode;
 
     var _useState = useState(false),
         _useState2 = _slicedToArray(_useState, 2),
         updating = _useState2[0],
         setUpdating = _useState2[1];
 
-    var inactive = !elementsSelectable && !onClick;
-    var handleEdgeUpdate = typeof onEdgeUpdate !== 'undefined';
-    var edgeClasses = cc(['react-flow__edge', "react-flow__edge-".concat(type), className, {
-      selected: selected,
-      animated: animated,
-      inactive: inactive,
-      updating: updating
-    }]);
-    var edgeElement = useMemo(function () {
-      var el = {
-        id: id,
-        source: source,
-        target: target,
-        type: type
-      };
+    var _useStore = useStore(selector$a, shallow),
+        addSelectedEdges = _useStore.addSelectedEdges,
+        connectionMode = _useStore.connectionMode;
 
-      if (sourceHandleId) {
-        el.sourceHandle = sourceHandleId;
-      }
+    var store = useStoreApi();
 
-      if (targetHandleId) {
-        el.targetHandle = targetHandleId;
-      }
+    var onEdgeClick = function onEdgeClick(event) {
+      var edge = store.getState().edges.find(function (e) {
+        return e.id === id;
+      });
 
-      if (typeof data !== 'undefined') {
-        el.data = data;
-      }
-
-      return el;
-    }, [id, source, target, type, sourceHandleId, targetHandleId, data]);
-    var onEdgeClick = useCallback(function (event) {
       if (elementsSelectable) {
         store.setState({
           nodesSelectionActive: false
         });
-        addSelectedEdges([edgeElement.id]);
+        addSelectedEdges([id]);
       }
 
-      onClick === null || onClick === void 0 ? void 0 : onClick(event, edgeElement);
-    }, [elementsSelectable, edgeElement, onClick]);
-    var onEdgeDoubleClickHandler = useCallback(function (event) {
-      onEdgeDoubleClick === null || onEdgeDoubleClick === void 0 ? void 0 : onEdgeDoubleClick(event, edgeElement);
-    }, [edgeElement, onEdgeDoubleClick]);
-    var onEdgeContextMenu = useCallback(function (event) {
-      onContextMenu === null || onContextMenu === void 0 ? void 0 : onContextMenu(event, edgeElement);
-    }, [edgeElement, onContextMenu]);
-    var onEdgeMouseEnter = useCallback(function (event) {
-      onMouseEnter === null || onMouseEnter === void 0 ? void 0 : onMouseEnter(event, edgeElement);
-    }, [edgeElement, onContextMenu]);
-    var onEdgeMouseMove = useCallback(function (event) {
-      onMouseMove === null || onMouseMove === void 0 ? void 0 : onMouseMove(event, edgeElement);
-    }, [edgeElement, onContextMenu]);
-    var onEdgeMouseLeave = useCallback(function (event) {
-      onMouseLeave === null || onMouseLeave === void 0 ? void 0 : onMouseLeave(event, edgeElement);
-    }, [edgeElement, onContextMenu]);
-    var handleEdgeUpdater = useCallback(function (event, isSourceHandle) {
+      onClick === null || onClick === void 0 ? void 0 : onClick(event, edge);
+    };
+
+    var onEdgeDoubleClickHandler = getMouseHandler(id, store.getState, onEdgeDoubleClick);
+    var onEdgeContextMenu = getMouseHandler(id, store.getState, onContextMenu);
+    var onEdgeMouseEnter = getMouseHandler(id, store.getState, onMouseEnter);
+    var onEdgeMouseMove = getMouseHandler(id, store.getState, onMouseMove);
+    var onEdgeMouseLeave = getMouseHandler(id, store.getState, onMouseLeave);
+
+    var handleEdgeUpdater = function handleEdgeUpdater(event, isSourceHandle) {
       var nodeId = isSourceHandle ? target : source;
-      var handleId = isSourceHandle ? targetHandleId : sourceHandleId;
+      var handleId = (isSourceHandle ? targetHandleId : sourceHandleId) || null;
+      var handleType = isSourceHandle ? 'target' : 'source';
 
       var isValidConnection = function isValidConnection() {
         return true;
       };
 
       var isTarget = isSourceHandle;
-      onEdgeUpdateStart === null || onEdgeUpdateStart === void 0 ? void 0 : onEdgeUpdateStart(event, edgeElement);
+      var edge = store.getState().edges.find(function (e) {
+        return e.id === id;
+      });
+      onEdgeUpdateStart === null || onEdgeUpdateStart === void 0 ? void 0 : onEdgeUpdateStart(event, edge, handleType);
 
       var _onEdgeUpdate = onEdgeUpdateEnd ? function (evt) {
-        return onEdgeUpdateEnd(evt, edgeElement);
+        return onEdgeUpdateEnd(evt, edge, handleType);
       } : undefined;
 
       var onConnectEdge = function onConnectEdge(connection) {
@@ -1421,20 +1425,25 @@ var wrapEdge = (function (EdgeComponent) {
         }
       };
 
-      onMouseDown(event, handleId, nodeId, store.setState, onConnectEdge, isTarget, isValidConnection, connectionMode, isSourceHandle ? 'target' : 'source', _onEdgeUpdate, store.getState);
-    }, [id, source, target, type, sourceHandleId, targetHandleId, edgeElement, onEdgeUpdate]);
-    var onEdgeUpdaterSourceMouseDown = useCallback(function (event) {
-      handleEdgeUpdater(event, true);
-    }, [id, source, sourceHandleId, handleEdgeUpdater]);
-    var onEdgeUpdaterTargetMouseDown = useCallback(function (event) {
-      handleEdgeUpdater(event, false);
-    }, [id, target, targetHandleId, handleEdgeUpdater]);
-    var onEdgeUpdaterMouseEnter = useCallback(function () {
+      handleMouseDown(event, handleId, nodeId, store.setState, onConnectEdge, isTarget, isValidConnection, connectionMode, handleType, _onEdgeUpdate, store.getState);
+    };
+
+    var onEdgeUpdaterSourceMouseDown = function onEdgeUpdaterSourceMouseDown(event) {
+      return handleEdgeUpdater(event, true);
+    };
+
+    var onEdgeUpdaterTargetMouseDown = function onEdgeUpdaterTargetMouseDown(event) {
+      return handleEdgeUpdater(event, false);
+    };
+
+    var onEdgeUpdaterMouseEnter = function onEdgeUpdaterMouseEnter() {
       return setUpdating(true);
-    }, [setUpdating]);
-    var onEdgeUpdaterMouseOut = useCallback(function () {
+    };
+
+    var onEdgeUpdaterMouseOut = function onEdgeUpdaterMouseOut() {
       return setUpdating(false);
-    }, [setUpdating]);
+    };
+
     var markerStartUrl = useMemo(function () {
       return "url(#".concat(getMarkerId(markerStart), ")");
     }, [markerStart]);
@@ -1446,7 +1455,15 @@ var wrapEdge = (function (EdgeComponent) {
       return null;
     }
 
-    return /*#__PURE__*/React__default.createElement("g", {
+    var inactive = !elementsSelectable && !onClick;
+    var handleEdgeUpdate = typeof onEdgeUpdate !== 'undefined';
+    var edgeClasses = cc(['react-flow__edge', "react-flow__edge-".concat(type), className, {
+      selected: selected,
+      animated: animated,
+      inactive: inactive,
+      updating: updating
+    }]);
+    return /*#__PURE__*/React.createElement("g", {
       className: edgeClasses,
       onClick: onEdgeClick,
       onDoubleClick: onEdgeDoubleClickHandler,
@@ -1454,7 +1471,7 @@ var wrapEdge = (function (EdgeComponent) {
       onMouseEnter: onEdgeMouseEnter,
       onMouseMove: onEdgeMouseMove,
       onMouseLeave: onEdgeMouseLeave
-    }, /*#__PURE__*/React__default.createElement(EdgeComponent, {
+    }, /*#__PURE__*/React.createElement(EdgeComponent, {
       id: id,
       source: source,
       target: target,
@@ -1478,20 +1495,20 @@ var wrapEdge = (function (EdgeComponent) {
       targetHandleId: targetHandleId,
       markerStart: markerStartUrl,
       markerEnd: markerEndUrl
-    }), handleEdgeUpdate && /*#__PURE__*/React__default.createElement("g", {
+    }), handleEdgeUpdate && /*#__PURE__*/React.createElement("g", {
       onMouseDown: onEdgeUpdaterSourceMouseDown,
       onMouseEnter: onEdgeUpdaterMouseEnter,
       onMouseOut: onEdgeUpdaterMouseOut
-    }, /*#__PURE__*/React__default.createElement(EdgeAnchor, {
+    }, /*#__PURE__*/React.createElement(EdgeAnchor, {
       position: sourcePosition,
       centerX: sourceX,
       centerY: sourceY,
       radius: edgeUpdaterRadius
-    })), handleEdgeUpdate && /*#__PURE__*/React__default.createElement("g", {
+    })), handleEdgeUpdate && /*#__PURE__*/React.createElement("g", {
       onMouseDown: onEdgeUpdaterTargetMouseDown,
       onMouseEnter: onEdgeUpdaterMouseEnter,
       onMouseOut: onEdgeUpdaterMouseOut
-    }, /*#__PURE__*/React__default.createElement(EdgeAnchor, {
+    }, /*#__PURE__*/React.createElement(EdgeAnchor, {
       position: targetPosition,
       centerX: targetX,
       centerY: targetY,
@@ -1622,17 +1639,17 @@ function isEdgeVisible(_ref) {
   return overlappingArea > 0;
 }
 function getNodeData(nodeInternals, nodeId) {
-  var _node$positionAbsolut, _node$positionAbsolut2, _node$positionAbsolut3, _node$positionAbsolut4;
+  var _node$internalsSymbol, _node$positionAbsolut, _node$positionAbsolut2, _node$positionAbsolut3, _node$positionAbsolut4;
 
   var node = nodeInternals.get(nodeId);
-  var handleBounds = node === null || node === void 0 ? void 0 : node.handleBounds;
-  var isInvalid = !node || !node.handleBounds || !node.width || !node.height || typeof ((_node$positionAbsolut = node.positionAbsolute) === null || _node$positionAbsolut === void 0 ? void 0 : _node$positionAbsolut.x) === 'undefined' || typeof ((_node$positionAbsolut2 = node.positionAbsolute) === null || _node$positionAbsolut2 === void 0 ? void 0 : _node$positionAbsolut2.y) === 'undefined';
+  var handleBounds = (node === null || node === void 0 ? void 0 : (_node$internalsSymbol = node[internalsSymbol]) === null || _node$internalsSymbol === void 0 ? void 0 : _node$internalsSymbol.handleBounds) || null;
+  var isInvalid = !node || !handleBounds || !node.width || !node.height || typeof ((_node$positionAbsolut = node.positionAbsolute) === null || _node$positionAbsolut === void 0 ? void 0 : _node$positionAbsolut.x) === 'undefined' || typeof ((_node$positionAbsolut2 = node.positionAbsolute) === null || _node$positionAbsolut2 === void 0 ? void 0 : _node$positionAbsolut2.y) === 'undefined';
   return [{
     x: (node === null || node === void 0 ? void 0 : (_node$positionAbsolut3 = node.positionAbsolute) === null || _node$positionAbsolut3 === void 0 ? void 0 : _node$positionAbsolut3.x) || 0,
     y: (node === null || node === void 0 ? void 0 : (_node$positionAbsolut4 = node.positionAbsolute) === null || _node$positionAbsolut4 === void 0 ? void 0 : _node$positionAbsolut4.y) || 0,
     width: (node === null || node === void 0 ? void 0 : node.width) || 0,
     height: (node === null || node === void 0 ? void 0 : node.height) || 0
-  }, handleBounds || null, !isInvalid];
+  }, handleBounds, !isInvalid];
 }
 
 var doc = typeof document !== 'undefined' ? document : null; // the keycode can be a string 'a' or an array of strings ['a', 'a+d']
@@ -1879,10 +1896,12 @@ function useResizeHandler(rendererNode) {
         return;
       }
 
-      var size = getDimensions(rendererNode.current);
+      var size = getDimensions(rendererNode.current); // @ts-ignore
 
-      if (size.height === 0 || size.width === 0) {
-        console.warn('The React Flow parent container needs a width and a height to render the graph.');
+      if (process.env.NODE_ENV === 'development') {
+        if (size.height === 0 || size.width === 0) {
+          console.warn('[React Flow]: The React Flow parent container needs a width and a height to render the graph. Help: https://reactflow.dev/error#400');
+        }
       }
 
       store.setState({
@@ -2180,7 +2199,7 @@ var ZoomPane = function ZoomPane(_ref) {
       });
     }
   }, [d3Zoom, zoomOnScroll, zoomOnPinch, panOnScroll, zoomOnDoubleClick, panOnDrag, panOnMiddleButton, panOnTouchPadScroll, selectionKeyPressed, elementsSelectable, zoomActivationKeyPressed]);
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "react-flow__renderer react-flow__container",
     ref: zoomPane
   }, children);
@@ -2230,15 +2249,21 @@ var UserSelection = /*#__PURE__*/memo(function (_ref) {
       elementsSelectable = _useStore.elementsSelectable;
 
   var renderUserSelectionPane = userSelectionActive || selectionKeyPressed;
-  var resetUserSelection = useCallback(function () {
+
+  if (!elementsSelectable || !renderUserSelectionPane) {
+    return null;
+  }
+
+  var resetUserSelection = function resetUserSelection() {
     setUserSelectionRect(initialRect);
     store.setState({
       userSelectionActive: false
     });
     prevSelectedNodesCount.current = 0;
     prevSelectedEdgesCount.current = 0;
-  }, []);
-  var onMouseDown = useCallback(function (event) {
+  };
+
+  var onMouseDown = function onMouseDown(event) {
     var reactFlowNode = event.target.closest('.react-flow');
     containerBounds.current = reactFlowNode.getBoundingClientRect();
     var mousePos = getMousePosition(event, containerBounds.current);
@@ -2255,7 +2280,7 @@ var UserSelection = /*#__PURE__*/memo(function (_ref) {
       userSelectionActive: true,
       nodesSelectionActive: false
     });
-  }, []);
+  };
 
   var onMouseMove = function onMouseMove(event) {
     var _userSelectionRect$st, _userSelectionRect$st2;
@@ -2282,13 +2307,7 @@ var UserSelection = /*#__PURE__*/memo(function (_ref) {
         onNodesChange = _store$getState.onNodesChange,
         onEdgesChange = _store$getState.onEdgesChange;
 
-    var nodes = Array.from(nodeInternals).map(function (_ref2) {
-      var _ref3 = _slicedToArray(_ref2, 2);
-          _ref3[0];
-          var node = _ref3[1];
-
-      return node;
-    });
+    var nodes = Array.from(nodeInternals.values());
     var selectedNodes = getNodesInside(nodeInternals, nextUserSelectRect, transform, false, true);
     var selectedEdgeIds = getConnectedEdges(selectedNodes, edges).map(function (e) {
       return e.id;
@@ -2319,30 +2338,27 @@ var UserSelection = /*#__PURE__*/memo(function (_ref) {
     setUserSelectionRect(nextUserSelectRect);
   };
 
-  var onMouseUp = useCallback(function () {
+  var onMouseUp = function onMouseUp() {
     store.setState({
       nodesSelectionActive: prevSelectedNodesCount.current > 0
     });
     resetUserSelection();
-  }, []);
-  var onMouseLeave = useCallback(function () {
+  };
+
+  var onMouseLeave = function onMouseLeave() {
     store.setState({
       nodesSelectionActive: false
     });
     resetUserSelection();
-  }, []);
+  };
 
-  if (!elementsSelectable || !renderUserSelectionPane) {
-    return null;
-  }
-
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "react-flow__selectionpane react-flow__container",
     onMouseDown: onMouseDown,
     onMouseMove: onMouseMove,
     onMouseUp: onMouseUp,
     onMouseLeave: onMouseLeave
-  }, userSelectionRect.draw && /*#__PURE__*/React__default.createElement("div", {
+  }, userSelectionRect.draw && /*#__PURE__*/React.createElement("div", {
     className: "react-flow__selection react-flow__container",
     style: {
       width: userSelectionRect.width,
@@ -2352,126 +2368,338 @@ var UserSelection = /*#__PURE__*/memo(function (_ref) {
   }));
 });
 
+function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$5(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function isParentSelected(node, nodeInternals) {
+  if (!node.parentNode) {
+    return false;
+  }
+
+  var parentNode = nodeInternals.get(node.parentNode);
+
+  if (!parentNode) {
+    return false;
+  }
+
+  if (parentNode.selected) {
+    return true;
+  }
+
+  return isParentSelected(parentNode, nodeInternals);
+}
+function hasSelector(target, selector, nodeRef) {
+  var current = target;
+
+  do {
+    var _current;
+
+    if ((_current = current) !== null && _current !== void 0 && _current.matches(selector)) return true;
+    if (current === nodeRef.current) return false;
+    current = current.parentElement;
+  } while (current);
+
+  return false;
+} // looks for all selected nodes and created a NodeDragItem for each of them
+
+function getDragItems(nodeInternals, mousePos, nodeId) {
+  return Array.from(nodeInternals.values()).filter(function (n) {
+    return (n.selected || n.id === nodeId) && (!n.parentNode || !isParentSelected(n, nodeInternals));
+  }).map(function (n) {
+    var _n$positionAbsolute$x, _n$positionAbsolute, _n$positionAbsolute$y, _n$positionAbsolute2;
+
+    return {
+      id: n.id,
+      position: n.positionAbsolute || {
+        x: 0,
+        y: 0
+      },
+      distance: {
+        x: mousePos.x - ((_n$positionAbsolute$x = (_n$positionAbsolute = n.positionAbsolute) === null || _n$positionAbsolute === void 0 ? void 0 : _n$positionAbsolute.x) !== null && _n$positionAbsolute$x !== void 0 ? _n$positionAbsolute$x : 0),
+        y: mousePos.y - ((_n$positionAbsolute$y = (_n$positionAbsolute2 = n.positionAbsolute) === null || _n$positionAbsolute2 === void 0 ? void 0 : _n$positionAbsolute2.y) !== null && _n$positionAbsolute$y !== void 0 ? _n$positionAbsolute$y : 0)
+      },
+      delta: {
+        x: 0,
+        y: 0
+      },
+      extent: n.extent,
+      parentNode: n.parentNode,
+      width: n.width,
+      height: n.height
+    };
+  });
+}
+function updatePosition(dragItem, mousePos, nodeInternals, nodeExtent) {
+  var currentExtent = dragItem.extent || nodeExtent;
+  var nextPosition = {
+    x: mousePos.x - dragItem.distance.x,
+    y: mousePos.y - dragItem.distance.y
+  };
+
+  if (dragItem.extent === 'parent') {
+    if (dragItem.parentNode && dragItem.width && dragItem.height) {
+      var parent = nodeInternals.get(dragItem.parentNode);
+      currentExtent = parent !== null && parent !== void 0 && parent.positionAbsolute && parent !== null && parent !== void 0 && parent.width && parent !== null && parent !== void 0 && parent.height ? [[parent.positionAbsolute.x, parent.positionAbsolute.y], [parent.positionAbsolute.x + parent.width - dragItem.width, parent.positionAbsolute.y + parent.height - dragItem.height]] : currentExtent;
+    } else {
+      // @ts-ignore
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[React Flow]: Only child nodes can use a parent extent. Help: https://reactflow.dev/error#500');
+      }
+
+      currentExtent = nodeExtent;
+    }
+  }
+
+  dragItem.position = currentExtent ? clampPosition(nextPosition, currentExtent) : nextPosition;
+  return dragItem;
+} // returns two params:
+// 1. the dragged node (or the first of the list, if we are dragging a node selection)
+// 2. array of selected nodes (handy when multi selection is active)
+
+function getEventHandlerParams(_ref) {
+  var nodeId = _ref.nodeId,
+      dragItems = _ref.dragItems,
+      nodeInternals = _ref.nodeInternals;
+  var extentedDragItems = dragItems.map(function (n) {
+    var node = nodeInternals.get(n.id);
+    return _objectSpread$5({}, node);
+  });
+  return [nodeId ? extentedDragItems.find(function (n) {
+    return n.id === nodeId;
+  }) : extentedDragItems[0], extentedDragItems];
+}
+
+function useDrag(_ref) {
+  var onStart = _ref.onStart,
+      onDrag = _ref.onDrag,
+      onStop = _ref.onStop,
+      nodeRef = _ref.nodeRef,
+      _ref$disabled = _ref.disabled,
+      disabled = _ref$disabled === void 0 ? false : _ref$disabled,
+      noDragClassName = _ref.noDragClassName,
+      handleSelector = _ref.handleSelector,
+      nodeId = _ref.nodeId,
+      isSelectable = _ref.isSelectable,
+      selectNodesOnDrag = _ref.selectNodesOnDrag;
+
+  var _useState = useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      dragging = _useState2[0],
+      setDragging = _useState2[1];
+
+  var store = useStoreApi();
+  var dragItems = useRef();
+  var lastPos = useRef({
+    x: null,
+    y: null
+  }); // returns the pointer position projected to the RF coordinate system
+
+  var getPointerPosition = useCallback(function (_ref2) {
+    var sourceEvent = _ref2.sourceEvent;
+
+    var _store$getState = store.getState(),
+        transform = _store$getState.transform,
+        snapGrid = _store$getState.snapGrid,
+        snapToGrid = _store$getState.snapToGrid;
+
+    var x = sourceEvent.touches ? sourceEvent.touches[0].clientX : sourceEvent.clientX;
+    var y = sourceEvent.touches ? sourceEvent.touches[0].clientY : sourceEvent.clientY;
+    var pointerPos = pointToRendererPoint({
+      x: x,
+      y: y
+    }, transform, snapToGrid, snapGrid);
+    return pointerPos;
+  }, []);
+  useEffect(function () {
+    if (nodeRef !== null && nodeRef !== void 0 && nodeRef.current) {
+      var selection = select(nodeRef.current);
+
+      if (disabled) {
+        selection.on('.drag', null);
+      } else {
+        var dragHandler = drag().on('start', function (event) {
+          var _store$getState2 = store.getState(),
+              nodeInternals = _store$getState2.nodeInternals,
+              multiSelectionActive = _store$getState2.multiSelectionActive,
+              unselectNodesAndEdges = _store$getState2.unselectNodesAndEdges;
+
+          if (!selectNodesOnDrag && !multiSelectionActive && nodeId) {
+            var _nodeInternals$get;
+
+            if (!((_nodeInternals$get = nodeInternals.get(nodeId)) !== null && _nodeInternals$get !== void 0 && _nodeInternals$get.selected)) {
+              // we need to reset selected nodes when selectNodesOnDrag=false
+              unselectNodesAndEdges();
+            }
+          }
+
+          if (nodeId && isSelectable && selectNodesOnDrag) {
+            handleNodeClick({
+              id: nodeId,
+              store: store
+            });
+          }
+
+          var pointerPos = getPointerPosition(event);
+          dragItems.current = getDragItems(nodeInternals, pointerPos, nodeId);
+
+          if (onStart && dragItems.current) {
+            var _getEventHandlerParam = getEventHandlerParams({
+              nodeId: nodeId,
+              dragItems: dragItems.current,
+              nodeInternals: nodeInternals
+            }),
+                _getEventHandlerParam2 = _slicedToArray(_getEventHandlerParam, 2),
+                currentNode = _getEventHandlerParam2[0],
+                nodes = _getEventHandlerParam2[1];
+
+            onStart(event.sourceEvent, currentNode, nodes);
+          }
+        }).on('drag', function (event) {
+          var _store$getState3 = store.getState(),
+              updateNodePositions = _store$getState3.updateNodePositions,
+              nodeInternals = _store$getState3.nodeInternals,
+              nodeExtent = _store$getState3.nodeExtent;
+
+          var pointerPos = getPointerPosition(event); // skip events without movement
+
+          if ((lastPos.current.x !== pointerPos.x || lastPos.current.y !== pointerPos.y) && dragItems.current) {
+            lastPos.current = pointerPos;
+            dragItems.current = dragItems.current.map(function (n) {
+              return updatePosition(n, pointerPos, nodeInternals, nodeExtent);
+            });
+            updateNodePositions(dragItems.current, true, true);
+            setDragging(true);
+
+            if (onDrag) {
+              var _getEventHandlerParam3 = getEventHandlerParams({
+                nodeId: nodeId,
+                dragItems: dragItems.current,
+                nodeInternals: nodeInternals
+              }),
+                  _getEventHandlerParam4 = _slicedToArray(_getEventHandlerParam3, 2),
+                  currentNode = _getEventHandlerParam4[0],
+                  nodes = _getEventHandlerParam4[1];
+
+              onDrag(event.sourceEvent, currentNode, nodes);
+            }
+          }
+
+          event.on('end', function (event) {
+            setDragging(false);
+
+            if (dragItems.current) {
+              updateNodePositions(dragItems.current, false, false);
+
+              if (onStop) {
+                var _getEventHandlerParam5 = getEventHandlerParams({
+                  nodeId: nodeId,
+                  dragItems: dragItems.current,
+                  nodeInternals: nodeInternals
+                }),
+                    _getEventHandlerParam6 = _slicedToArray(_getEventHandlerParam5, 2),
+                    _currentNode = _getEventHandlerParam6[0],
+                    _nodes = _getEventHandlerParam6[1];
+
+                onStop(event.sourceEvent, _currentNode, _nodes);
+              }
+            }
+          });
+        }).filter(function (event) {
+          var target = event.target;
+          var isDraggable = !event.ctrlKey && !event.button && (!noDragClassName || !hasSelector(target, ".".concat(noDragClassName), nodeRef)) && (!handleSelector || hasSelector(target, handleSelector, nodeRef));
+          return isDraggable;
+        });
+        selection.call(dragHandler);
+        return function () {
+          selection.on('.drag', null);
+        };
+      }
+    }
+  }, [onStart, onDrag, onStop, nodeRef, disabled, noDragClassName, handleSelector, isSelectable, store, nodeId, selectNodesOnDrag, getPointerPosition]);
+  return dragging;
+}
+
+/**
+ * The nodes selection rectangle gets displayed when a user
+ * made a selection with on or several nodes
+ */
+
 var selector$6 = function selector(s) {
   return {
     transform: s.transform,
-    selectedNodesBbox: s.selectedNodesBbox,
-    userSelectionActive: s.userSelectionActive,
-    selectedNodes: Array.from(s.nodeInternals).filter(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 2);
-          _ref2[0];
-          var n = _ref2[1];
-
-      return n.selected;
-    }).map(function (_ref3) {
-      var _ref4 = _slicedToArray(_ref3, 2);
-          _ref4[0];
-          var n = _ref4[1];
-
-      return n;
-    }),
-    snapToGrid: s.snapToGrid,
-    snapGrid: s.snapGrid,
-    updateNodePosition: s.updateNodePosition
+    userSelectionActive: s.userSelectionActive
   };
 };
 
-var selectedRectPadding = 8;
+var bboxSelector = function bboxSelector(s) {
+  var selectedNodes = Array.from(s.nodeInternals.values()).filter(function (n) {
+    return n.selected;
+  });
+  return getRectOfNodes(selectedNodes);
+};
 
-function NodesSelection(_ref5) {
-  var onSelectionDragStart = _ref5.onSelectionDragStart,
-      onSelectionDrag = _ref5.onSelectionDrag,
-      onSelectionDragStop = _ref5.onSelectionDragStop,
-      onSelectionContextMenu = _ref5.onSelectionContextMenu,
-      noPanClassName = _ref5.noPanClassName;
+function useGetMemoizedHandler(handler) {
+  return useCallback(function (event, _, nodes) {
+    return handler === null || handler === void 0 ? void 0 : handler(event, nodes);
+  }, [handler]);
+}
+
+function NodesSelection(_ref) {
+  var onSelectionDragStart = _ref.onSelectionDragStart,
+      onSelectionDrag = _ref.onSelectionDrag,
+      onSelectionDragStop = _ref.onSelectionDragStop,
+      onSelectionContextMenu = _ref.onSelectionContextMenu,
+      noPanClassName = _ref.noPanClassName;
+  var store = useStoreApi();
 
   var _useStore = useStore(selector$6, shallow),
       transform = _useStore.transform,
-      userSelectionActive = _useStore.userSelectionActive,
-      selectedNodes = _useStore.selectedNodes,
-      snapToGrid = _useStore.snapToGrid,
-      snapGrid = _useStore.snapGrid,
-      updateNodePosition = _useStore.updateNodePosition;
+      userSelectionActive = _useStore.userSelectionActive;
 
-  var _transform = _slicedToArray(transform, 3),
-      tX = _transform[0],
-      tY = _transform[1],
-      tScale = _transform[2];
+  var _useStore2 = useStore(bboxSelector, shallow),
+      width = _useStore2.width,
+      height = _useStore2.height,
+      left = _useStore2.x,
+      top = _useStore2.y;
 
-  var nodeRef = useRef(null);
-  var grid = useMemo(function () {
-    return snapToGrid ? snapGrid : [1, 1];
-  }, [snapToGrid, snapGrid]);
-  var style = useMemo(function () {
-    return {
-      transform: "translate(".concat(tX, "px,").concat(tY, "px) scale(").concat(tScale, ")")
-    };
-  }, [tX, tY, tScale]);
-  var selectedNodesBbox = useMemo(function () {
-    return getRectOfNodes(selectedNodes);
-  }, [selectedNodes]);
-  var innerStyle = useMemo(function () {
-    return {
-      width: selectedNodesBbox.width + 2 * selectedRectPadding,
-      height: selectedNodesBbox.height + 2 * selectedRectPadding,
-      top: selectedNodesBbox.y - selectedRectPadding,
-      left: selectedNodesBbox.x - selectedRectPadding
-    };
-  }, [selectedNodesBbox]);
+  var nodeRef = useRef(null); // it's important that these handlers are memoized to avoid multiple creation of d3 drag handler
 
-  var _onStart = useCallback(function (event) {
-    onSelectionDragStart === null || onSelectionDragStart === void 0 ? void 0 : onSelectionDragStart(event, selectedNodes);
-  }, [onSelectionDragStart, selectedNodes]);
+  var onStart = useGetMemoizedHandler(onSelectionDragStart);
+  var onDrag = useGetMemoizedHandler(onSelectionDrag);
+  var onStop = useGetMemoizedHandler(onSelectionDragStop);
+  useDrag({
+    onStart: onStart,
+    onDrag: onDrag,
+    onStop: onStop,
+    nodeRef: nodeRef
+  });
 
-  var _onDrag = useCallback(function (event, data) {
-    updateNodePosition({
-      diff: {
-        x: data.deltaX,
-        y: data.deltaY
-      },
-      dragging: true
-    });
-    onSelectionDrag === null || onSelectionDrag === void 0 ? void 0 : onSelectionDrag(event, selectedNodes);
-  }, [onSelectionDrag, selectedNodes, updateNodePosition]);
-
-  var _onStop = useCallback(function (event) {
-    updateNodePosition({
-      dragging: false
-    });
-    onSelectionDragStop === null || onSelectionDragStop === void 0 ? void 0 : onSelectionDragStop(event, selectedNodes);
-  }, [selectedNodes, onSelectionDragStop]);
-
-  var onContextMenu = useCallback(function (event) {
-    onSelectionContextMenu === null || onSelectionContextMenu === void 0 ? void 0 : onSelectionContextMenu(event, selectedNodes);
-  }, [onSelectionContextMenu, selectedNodes]);
-
-  if (!(selectedNodes !== null && selectedNodes !== void 0 && selectedNodes.length) || userSelectionActive) {
+  if (userSelectionActive || !width || !height) {
     return null;
   }
 
-  return /*#__PURE__*/React__default.createElement("div", {
+  var onContextMenu = onSelectionContextMenu ? function (event) {
+    var selectedNodes = Array.from(store.getState().nodeInternals.values()).filter(function (n) {
+      return n.selected;
+    });
+    onSelectionContextMenu(event, selectedNodes);
+  } : undefined;
+  return /*#__PURE__*/React.createElement("div", {
     className: cc(['react-flow__nodesselection', 'react-flow__container', noPanClassName]),
-    style: style
-  }, /*#__PURE__*/React__default.createElement(DraggableCore, {
-    scale: tScale,
-    grid: grid,
-    onStart: function onStart(event) {
-      return _onStart(event);
-    },
-    onDrag: function onDrag(event, data) {
-      return _onDrag(event, data);
-    },
-    onStop: function onStop(event) {
-      return _onStop(event);
-    },
-    nodeRef: nodeRef,
-    enableUserSelectHack: false
-  }, /*#__PURE__*/React__default.createElement("div", {
+    style: {
+      transform: "translate(".concat(transform[0], "px,").concat(transform[1], "px) scale(").concat(transform[2], ")")
+    }
+  }, /*#__PURE__*/React.createElement("div", {
     ref: nodeRef,
     className: "react-flow__nodesselection-rect",
     onContextMenu: onContextMenu,
-    style: innerStyle
-  })));
+    style: {
+      width: width,
+      height: height,
+      top: top,
+      left: left
+    }
+  }));
 }
 
 var NodesSelection$1 = /*#__PURE__*/memo(NodesSelection);
@@ -2527,20 +2755,24 @@ var FlowRenderer = function FlowRenderer(_ref) {
     deleteKeyCode: deleteKeyCode,
     multiSelectionKeyCode: multiSelectionKeyCode
   });
-  var onClick = useCallback(function (event) {
+
+  var onClick = function onClick(event) {
     onPaneClick === null || onPaneClick === void 0 ? void 0 : onPaneClick(event);
     resetSelectedElements();
     store.setState({
       nodesSelectionActive: false
     });
-  }, [onPaneClick]);
-  var onContextMenu = useCallback(function (event) {
+  };
+
+  var onContextMenu = function onContextMenu(event) {
     return onPaneContextMenu === null || onPaneContextMenu === void 0 ? void 0 : onPaneContextMenu(event);
-  }, [onPaneContextMenu]);
-  var onWheel = useCallback(function (event) {
+  };
+
+  var onWheel = function onWheel(event) {
     return onPaneScroll === null || onPaneScroll === void 0 ? void 0 : onPaneScroll(event);
-  }, [onPaneScroll]);
-  return /*#__PURE__*/React__default.createElement(ZoomPane, {
+  };
+
+  return /*#__PURE__*/React.createElement(ZoomPane, {
     onMove: onMove,
     onMoveStart: onMoveStart,
     onMoveEnd: onMoveEnd,
@@ -2561,15 +2793,15 @@ var FlowRenderer = function FlowRenderer(_ref) {
     preventScrolling: preventScrolling,
     noWheelClassName: noWheelClassName,
     noPanClassName: noPanClassName
-  }, children, /*#__PURE__*/React__default.createElement(UserSelection, {
+  }, children, /*#__PURE__*/React.createElement(UserSelection, {
     selectionKeyPressed: selectionKeyPressed && !preventSelectionKeyPressed
-  }), nodesSelectionActive && /*#__PURE__*/React__default.createElement(NodesSelection$1, {
+  }), nodesSelectionActive && /*#__PURE__*/React.createElement(NodesSelection$1, {
     onSelectionDragStart: onSelectionDragStart,
     onSelectionDrag: onSelectionDrag,
     onSelectionDragStop: onSelectionDragStop,
     onSelectionContextMenu: onSelectionContextMenu,
     noPanClassName: noPanClassName
-  }), /*#__PURE__*/React__default.createElement("div", {
+  }), /*#__PURE__*/React.createElement("div", {
     className: "react-flow__pane react-flow__container",
     onClick: onClick,
     onContextMenu: onContextMenu,
@@ -2587,39 +2819,26 @@ function useVisibleNodes(onlyRenderVisible) {
       y: 0,
       width: s.width,
       height: s.height
-    }, s.transform, true) : Array.from(s.nodeInternals).map(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 2);
-          _ref2[0];
-          var node = _ref2[1];
-
-      return node;
-    });
+    }, s.transform, true) : Array.from(s.nodeInternals.values());
   }, [onlyRenderVisible]));
   return nodes;
 }
 
 var selector$4 = function selector(s) {
   return {
-    scale: s.transform[2],
     nodesDraggable: s.nodesDraggable,
     nodesConnectable: s.nodesConnectable,
     elementsSelectable: s.elementsSelectable,
-    updateNodeDimensions: s.updateNodeDimensions,
-    snapGrid: s.snapGrid,
-    snapToGrid: s.snapToGrid,
-    nodeInternals: s.nodeInternals
+    updateNodeDimensions: s.updateNodeDimensions
   };
 };
 
 var NodeRenderer = function NodeRenderer(props) {
   var _useStore = useStore(selector$4, shallow),
-      scale = _useStore.scale,
       nodesDraggable = _useStore.nodesDraggable,
       nodesConnectable = _useStore.nodesConnectable,
       elementsSelectable = _useStore.elementsSelectable,
-      updateNodeDimensions = _useStore.updateNodeDimensions,
-      snapGrid = _useStore.snapGrid,
-      snapToGrid = _useStore.snapToGrid;
+      updateNodeDimensions = _useStore.updateNodeDimensions;
 
   var nodes = useVisibleNodes(props.onlyRenderVisibleElements);
   var resizeObserverRef = useRef();
@@ -2648,22 +2867,27 @@ var NodeRenderer = function NodeRenderer(props) {
       resizeObserverRef === null || resizeObserverRef === void 0 ? void 0 : (_resizeObserverRef$cu = resizeObserverRef.current) === null || _resizeObserverRef$cu === void 0 ? void 0 : _resizeObserverRef$cu.disconnect();
     };
   }, []);
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "react-flow__nodes react-flow__container"
   }, nodes.map(function (node) {
-    var _node$positionAbsolut, _node$positionAbsolut2, _node$positionAbsolut3, _node$positionAbsolut4, _node$z;
+    var _node$positionAbsolut, _node$positionAbsolut2, _node$positionAbsolut3, _node$positionAbsolut4, _node$internalsSymbol, _node$internalsSymbol2, _node$internalsSymbol3;
 
     var nodeType = node.type || 'default';
 
     if (!props.nodeTypes[nodeType]) {
-      console.warn("Node type \"".concat(nodeType, "\" not found. Using fallback type \"default\"."));
+      // @ts-ignore
+      if (process.env.NODE_ENV === 'development') {
+        console.warn("[React Flow]: Node type \"".concat(nodeType, "\" not found. Using fallback type \"default\". Help: https://reactflow.dev/error#300"));
+      }
+
+      nodeType = 'default';
     }
 
     var NodeComponent = props.nodeTypes[nodeType] || props.nodeTypes["default"];
     var isDraggable = !!(node.draggable || nodesDraggable && typeof node.draggable === 'undefined');
     var isSelectable = !!(node.selectable || elementsSelectable && typeof node.selectable === 'undefined');
     var isConnectable = !!(node.connectable || nodesConnectable && typeof node.connectable === 'undefined');
-    return /*#__PURE__*/React__default.createElement(NodeComponent, {
+    return /*#__PURE__*/React.createElement(NodeComponent, {
       key: node.id,
       id: node.id,
       className: node.className,
@@ -2675,28 +2899,24 @@ var NodeRenderer = function NodeRenderer(props) {
       hidden: node.hidden,
       xPos: (_node$positionAbsolut = (_node$positionAbsolut2 = node.positionAbsolute) === null || _node$positionAbsolut2 === void 0 ? void 0 : _node$positionAbsolut2.x) !== null && _node$positionAbsolut !== void 0 ? _node$positionAbsolut : 0,
       yPos: (_node$positionAbsolut3 = (_node$positionAbsolut4 = node.positionAbsolute) === null || _node$positionAbsolut4 === void 0 ? void 0 : _node$positionAbsolut4.y) !== null && _node$positionAbsolut3 !== void 0 ? _node$positionAbsolut3 : 0,
-      dragging: !!node.dragging,
-      snapGrid: snapGrid,
-      snapToGrid: snapToGrid,
       selectNodesOnDrag: props.selectNodesOnDrag,
       onClick: props.onNodeClick,
       onMouseEnter: props.onNodeMouseEnter,
       onMouseMove: props.onNodeMouseMove,
       onMouseLeave: props.onNodeMouseLeave,
       onContextMenu: props.onNodeContextMenu,
-      onNodeDoubleClick: props.onNodeDoubleClick,
-      onNodeDragStart: props.onNodeDragStart,
-      onNodeDrag: props.onNodeDrag,
-      onNodeDragStop: props.onNodeDragStop,
-      scale: scale,
+      onDoubleClick: props.onNodeDoubleClick,
+      onDragStart: props.onNodeDragStart,
+      onDrag: props.onNodeDrag,
+      onDragStop: props.onNodeDragStop,
       selected: !!node.selected,
       isDraggable: isDraggable,
       isSelectable: isSelectable,
       isConnectable: isConnectable,
       resizeObserver: resizeObserver,
       dragHandle: node.dragHandle,
-      zIndex: (_node$z = node.z) !== null && _node$z !== void 0 ? _node$z : 0,
-      isParent: !!node.isParent,
+      zIndex: (_node$internalsSymbol = (_node$internalsSymbol2 = node[internalsSymbol]) === null || _node$internalsSymbol2 === void 0 ? void 0 : _node$internalsSymbol2.z) !== null && _node$internalsSymbol !== void 0 ? _node$internalsSymbol : 0,
+      isParent: !!((_node$internalsSymbol3 = node[internalsSymbol]) !== null && _node$internalsSymbol3 !== void 0 && _node$internalsSymbol3.isParent),
       noDragClassName: props.noDragClassName,
       noPanClassName: props.noPanClassName
     });
@@ -2706,9 +2926,9 @@ var NodeRenderer = function NodeRenderer(props) {
 NodeRenderer.displayName = 'NodeRenderer';
 var NodeRenderer$1 = /*#__PURE__*/memo(NodeRenderer);
 
-function ownKeys$5(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$5(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$5(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$5(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$4(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 var selector$3 = function selector(s) {
   return {
@@ -2718,7 +2938,7 @@ var selector$3 = function selector(s) {
 };
 
 var ConnectionLine = (function (_ref) {
-  var _fromNode$current$han, _fromNode$current$han2, _fromNode$current$wid, _fromNode$current, _fromNode$current$hei, _fromNode$current2, _fromNode$current$pos, _fromNode$current$pos2;
+  var _fromNode$current, _fromNode$current$int, _fromNode$current$wid, _fromNode$current2, _fromNode$current$hei, _fromNode$current3, _fromNode$current$pos, _fromNode$current$pos2;
 
   var connectionNodeId = _ref.connectionNodeId,
       connectionHandleId = _ref.connectionHandleId,
@@ -2738,17 +2958,18 @@ var ConnectionLine = (function (_ref) {
       transform = _useStore.transform;
 
   var fromNode = useRef(nodeInternals.get(nodeId));
+  var fromHandleBounds = (_fromNode$current = fromNode.current) === null || _fromNode$current === void 0 ? void 0 : (_fromNode$current$int = _fromNode$current[internalsSymbol]) === null || _fromNode$current$int === void 0 ? void 0 : _fromNode$current$int.handleBounds;
 
-  if (!fromNode.current || !fromNode.current || !isConnectable || !((_fromNode$current$han = fromNode.current.handleBounds) !== null && _fromNode$current$han !== void 0 && _fromNode$current$han[connectionHandleType])) {
+  if (!fromNode.current || !isConnectable || !(fromHandleBounds !== null && fromHandleBounds !== void 0 && fromHandleBounds[connectionHandleType])) {
     return null;
   }
 
-  var handleBound = (_fromNode$current$han2 = fromNode.current.handleBounds) === null || _fromNode$current$han2 === void 0 ? void 0 : _fromNode$current$han2[connectionHandleType];
+  var handleBound = fromHandleBounds[connectionHandleType];
   var fromHandle = handleId ? handleBound === null || handleBound === void 0 ? void 0 : handleBound.find(function (d) {
     return d.id === handleId;
   }) : handleBound === null || handleBound === void 0 ? void 0 : handleBound[0];
-  var fromHandleX = fromHandle ? fromHandle.x + fromHandle.width / 2 : ((_fromNode$current$wid = (_fromNode$current = fromNode.current) === null || _fromNode$current === void 0 ? void 0 : _fromNode$current.width) !== null && _fromNode$current$wid !== void 0 ? _fromNode$current$wid : 0) / 2;
-  var fromHandleY = fromHandle ? fromHandle.y + fromHandle.height / 2 : (_fromNode$current$hei = (_fromNode$current2 = fromNode.current) === null || _fromNode$current2 === void 0 ? void 0 : _fromNode$current2.height) !== null && _fromNode$current$hei !== void 0 ? _fromNode$current$hei : 0;
+  var fromHandleX = fromHandle ? fromHandle.x + fromHandle.width / 2 : ((_fromNode$current$wid = (_fromNode$current2 = fromNode.current) === null || _fromNode$current2 === void 0 ? void 0 : _fromNode$current2.width) !== null && _fromNode$current$wid !== void 0 ? _fromNode$current$wid : 0) / 2;
+  var fromHandleY = fromHandle ? fromHandle.y + fromHandle.height / 2 : (_fromNode$current$hei = (_fromNode$current3 = fromNode.current) === null || _fromNode$current3 === void 0 ? void 0 : _fromNode$current3.height) !== null && _fromNode$current$hei !== void 0 ? _fromNode$current$hei : 0;
   var fromX = (((_fromNode$current$pos = fromNode.current.positionAbsolute) === null || _fromNode$current$pos === void 0 ? void 0 : _fromNode$current$pos.x) || 0) + fromHandleX;
   var fromY = (((_fromNode$current$pos2 = fromNode.current.positionAbsolute) === null || _fromNode$current$pos2 === void 0 ? void 0 : _fromNode$current$pos2.y) || 0) + fromHandleY;
   var toX = (connectionPositionX - transform[0]) / transform[2];
@@ -2801,9 +3022,9 @@ var ConnectionLine = (function (_ref) {
   }
 
   if (CustomConnectionLineComponent) {
-    return /*#__PURE__*/React__default.createElement("g", {
+    return /*#__PURE__*/React.createElement("g", {
       className: "react-flow__connection"
-    }, /*#__PURE__*/React__default.createElement(CustomConnectionLineComponent, {
+    }, /*#__PURE__*/React.createElement(CustomConnectionLineComponent, {
       sourceX: sourceX,
       sourceY: sourceY,
       sourcePosition: sourcePosition,
@@ -2834,7 +3055,7 @@ var ConnectionLine = (function (_ref) {
     // we assume the destination position is opposite to the source position
     dAttr = getBezierPath(pathParams);
   } else if (connectionLineType === ConnectionLineType.Step) {
-    dAttr = getSmoothStepPath(_objectSpread$5(_objectSpread$5({}, pathParams), {}, {
+    dAttr = getSmoothStepPath(_objectSpread$4(_objectSpread$4({}, pathParams), {}, {
       borderRadius: 0
     }));
   } else if (connectionLineType === ConnectionLineType.SmoothStep) {
@@ -2845,9 +3066,9 @@ var ConnectionLine = (function (_ref) {
     dAttr = "M".concat(sourceX, ",").concat(sourceY, " ").concat(targetX, ",").concat(targetY);
   }
 
-  return /*#__PURE__*/React__default.createElement("g", {
+  return /*#__PURE__*/React.createElement("g", {
     className: "react-flow__connection"
-  }, /*#__PURE__*/React__default.createElement("path", {
+  }, /*#__PURE__*/React.createElement("path", {
     d: dAttr,
     className: "react-flow__connection-path",
     style: connectionLineStyle
@@ -2871,7 +3092,7 @@ var ArrowSymbol = function ArrowSymbol(_ref) {
       color = _ref$color === void 0 ? 'none' : _ref$color,
       _ref$strokeWidth = _ref.strokeWidth,
       strokeWidth = _ref$strokeWidth === void 0 ? 1 : _ref$strokeWidth;
-  return /*#__PURE__*/React__default.createElement("polyline", {
+  return /*#__PURE__*/React.createElement("polyline", {
     stroke: color,
     strokeLinecap: "round",
     strokeLinejoin: "round",
@@ -2886,7 +3107,7 @@ var ArrowClosedSymbol = function ArrowClosedSymbol(_ref2) {
       color = _ref2$color === void 0 ? 'none' : _ref2$color,
       _ref2$strokeWidth = _ref2.strokeWidth,
       strokeWidth = _ref2$strokeWidth === void 0 ? 1 : _ref2$strokeWidth;
-  return /*#__PURE__*/React__default.createElement("polyline", {
+  return /*#__PURE__*/React.createElement("polyline", {
     stroke: color,
     strokeLinecap: "round",
     strokeLinejoin: "round",
@@ -2902,7 +3123,11 @@ function useMarkerSymbol(type) {
     var symbolExists = MarkerSymbols.hasOwnProperty(type);
 
     if (!symbolExists) {
-      console.warn("marker type \"".concat(type, "\" doesn't exist."));
+      // @ts-ignore
+      if (process.env.NODE_ENV === 'development') {
+        console.warn("[React Flow]: Marker type \"".concat(type, "\" doesn't exist. Help: https://reactflow.dev/error#900"));
+      }
+
       return function () {
         return null;
       };
@@ -2913,9 +3138,9 @@ function useMarkerSymbol(type) {
   return symbol;
 }
 
-function ownKeys$4(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread$4(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$4(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$4(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$3(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 var Marker = function Marker(_ref) {
   var id = _ref.id,
@@ -2933,7 +3158,7 @@ var Marker = function Marker(_ref) {
 
   var _Symbol = useMarkerSymbol(type);
 
-  return /*#__PURE__*/React__default.createElement("marker", {
+  return /*#__PURE__*/React.createElement("marker", {
     className: "react-flow__arrowhead",
     id: id,
     markerWidth: "".concat(width),
@@ -2943,7 +3168,7 @@ var Marker = function Marker(_ref) {
     orient: orient,
     refX: "0",
     refY: "0"
-  }, /*#__PURE__*/React__default.createElement(_Symbol, {
+  }, /*#__PURE__*/React.createElement(_Symbol, {
     color: color,
     strokeWidth: strokeWidth
   }));
@@ -2964,7 +3189,7 @@ var MarkerDefinitions = function MarkerDefinitions(_ref2) {
           var markerId = getMarkerId(marker);
 
           if (!ids.includes(markerId)) {
-            markers.push(_objectSpread$4({
+            markers.push(_objectSpread$3({
               id: markerId,
               color: marker.color || defaultColor
             }, marker));
@@ -2977,8 +3202,8 @@ var MarkerDefinitions = function MarkerDefinitions(_ref2) {
       });
     }, []);
   }, [edges, defaultColor]);
-  return /*#__PURE__*/React__default.createElement("defs", null, markers.map(function (marker) {
-    return /*#__PURE__*/React__default.createElement(Marker, {
+  return /*#__PURE__*/React.createElement("defs", null, markers.map(function (marker) {
+    return /*#__PURE__*/React.createElement(Marker, {
       id: marker.id,
       key: marker.id,
       type: marker.type,
@@ -3001,11 +3226,17 @@ var defaultEdgeTree = [{
 }];
 
 function groupEdgesByZLevel(edges, nodeInternals) {
+  var elevateEdgesOnSelect = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
   var maxLevel = -1;
   var levelLookup = edges.reduce(function (tree, edge) {
-    var _nodeInternals$get, _nodeInternals$get2;
+    var hasZIndex = isNumeric(edge.zIndex);
+    var z = hasZIndex ? edge.zIndex : 0;
 
-    var z = isNumeric(edge.zIndex) ? edge.zIndex : Math.max(((_nodeInternals$get = nodeInternals.get(edge.source)) === null || _nodeInternals$get === void 0 ? void 0 : _nodeInternals$get.z) || 0, ((_nodeInternals$get2 = nodeInternals.get(edge.target)) === null || _nodeInternals$get2 === void 0 ? void 0 : _nodeInternals$get2.z) || 0);
+    if (elevateEdgesOnSelect) {
+      var _nodeInternals$get, _nodeInternals$get$in, _nodeInternals$get2, _nodeInternals$get2$i;
+
+      z = hasZIndex ? edge.zIndex : Math.max(((_nodeInternals$get = nodeInternals.get(edge.source)) === null || _nodeInternals$get === void 0 ? void 0 : (_nodeInternals$get$in = _nodeInternals$get[internalsSymbol]) === null || _nodeInternals$get$in === void 0 ? void 0 : _nodeInternals$get$in.z) || 0, ((_nodeInternals$get2 = nodeInternals.get(edge.target)) === null || _nodeInternals$get2 === void 0 ? void 0 : (_nodeInternals$get2$i = _nodeInternals$get2[internalsSymbol]) === null || _nodeInternals$get2$i === void 0 ? void 0 : _nodeInternals$get2$i.z) || 0);
+    }
 
     if (tree[z]) {
       tree[z].push(edge);
@@ -3036,7 +3267,7 @@ function groupEdgesByZLevel(edges, nodeInternals) {
   return edgeTree;
 }
 
-function useVisibleEdges(onlyRenderVisible, nodeInternals) {
+function useVisibleEdges(onlyRenderVisible, nodeInternals, elevateEdgesOnSelect) {
   var edges = useStore(useCallback(function (s) {
     if (!onlyRenderVisible) {
       return s.edges;
@@ -3064,7 +3295,7 @@ function useVisibleEdges(onlyRenderVisible, nodeInternals) {
       });
     });
   }, [onlyRenderVisible, nodeInternals]));
-  return groupEdgesByZLevel(edges, nodeInternals);
+  return groupEdgesByZLevel(edges, nodeInternals, elevateEdgesOnSelect);
 }
 
 var selector$2 = function selector(s) {
@@ -3095,7 +3326,7 @@ var EdgeRenderer = function EdgeRenderer(props) {
       connectionMode = _useStore.connectionMode,
       nodeInternals = _useStore.nodeInternals;
 
-  var edgeTree = useVisibleEdges(props.onlyRenderVisibleElements, nodeInternals);
+  var edgeTree = useVisibleEdges(props.onlyRenderVisibleElements, nodeInternals, props.elevateEdgesOnSelect);
 
   if (!width) {
     return null;
@@ -3104,13 +3335,14 @@ var EdgeRenderer = function EdgeRenderer(props) {
   var connectionLineType = props.connectionLineType,
       defaultMarkerColor = props.defaultMarkerColor,
       connectionLineStyle = props.connectionLineStyle,
-      connectionLineComponent = props.connectionLineComponent;
+      connectionLineComponent = props.connectionLineComponent,
+      connectionLineContainerStyle = props.connectionLineContainerStyle;
   var renderConnectionLine = connectionNodeId && connectionHandleType;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, edgeTree.map(function (_ref) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, edgeTree.map(function (_ref) {
     var level = _ref.level,
         edges = _ref.edges,
         isMaxLevel = _ref.isMaxLevel;
-    return /*#__PURE__*/React__default.createElement("svg", {
+    return /*#__PURE__*/React.createElement("svg", {
       key: level,
       style: {
         zIndex: level
@@ -3118,9 +3350,9 @@ var EdgeRenderer = function EdgeRenderer(props) {
       width: width,
       height: height,
       className: "react-flow__edges react-flow__container"
-    }, isMaxLevel && /*#__PURE__*/React__default.createElement(MarkerDefinitions, {
+    }, isMaxLevel && /*#__PURE__*/React.createElement(MarkerDefinitions, {
       defaultColor: defaultMarkerColor
-    }), /*#__PURE__*/React__default.createElement("g", null, edges.map(function (edge) {
+    }), /*#__PURE__*/React.createElement("g", null, edges.map(function (edge) {
       var _getNodeData = getNodeData(nodeInternals, edge.source),
           _getNodeData2 = _slicedToArray(_getNodeData, 3),
           sourceNodeRect = _getNodeData2[0],
@@ -3147,12 +3379,20 @@ var EdgeRenderer = function EdgeRenderer(props) {
       var targetPosition = (targetHandle === null || targetHandle === void 0 ? void 0 : targetHandle.position) || Position.Top;
 
       if (!sourceHandle) {
-        console.warn("couldn't create edge for source handle id: ".concat(edge.sourceHandle, "; edge id: ").concat(edge.id));
+        // @ts-ignore
+        if (process.env.NODE_ENV === 'development') {
+          console.warn("[React Flow]: Couldn't create edge for source handle id: ".concat(edge.sourceHandle, "; edge id: ").concat(edge.id, ". Help: https://reactflow.dev/error#800"));
+        }
+
         return null;
       }
 
       if (!targetHandle) {
-        console.warn("couldn't create edge for target handle id: ".concat(edge.targetHandle, "; edge id: ").concat(edge.id));
+        // @ts-ignore
+        if (process.env.NODE_ENV === 'development') {
+          console.warn("[React Flow]: Couldn't create edge for target handle id: ".concat(edge.targetHandle, "; edge id: ").concat(edge.id, ". Help: https://reactflow.dev/error#800"));
+        }
+
         return null;
       }
 
@@ -3162,7 +3402,7 @@ var EdgeRenderer = function EdgeRenderer(props) {
           targetX = _getEdgePositions.targetX,
           targetY = _getEdgePositions.targetY;
 
-      return /*#__PURE__*/React__default.createElement(EdgeComponent, {
+      return /*#__PURE__*/React.createElement(EdgeComponent, {
         key: edge.id,
         id: edge.id,
         className: cc([edge.className, props.noPanClassName]),
@@ -3202,18 +3442,23 @@ var EdgeRenderer = function EdgeRenderer(props) {
         onEdgeUpdateStart: props.onEdgeUpdateStart,
         onEdgeUpdateEnd: props.onEdgeUpdateEnd
       });
-    }), renderConnectionLine && isMaxLevel && /*#__PURE__*/React__default.createElement(ConnectionLine, {
-      connectionNodeId: connectionNodeId,
-      connectionHandleId: connectionHandleId,
-      connectionHandleType: connectionHandleType,
-      connectionPositionX: connectionPosition.x,
-      connectionPositionY: connectionPosition.y,
-      connectionLineStyle: connectionLineStyle,
-      connectionLineType: connectionLineType,
-      isConnectable: nodesConnectable,
-      CustomConnectionLineComponent: connectionLineComponent
     })));
-  }));
+  }), renderConnectionLine && /*#__PURE__*/React.createElement("svg", {
+    style: connectionLineContainerStyle,
+    width: width,
+    height: height,
+    className: "react-flow__edges react-flow__connectionline react-flow__container"
+  }, /*#__PURE__*/React.createElement(ConnectionLine, {
+    connectionNodeId: connectionNodeId,
+    connectionHandleId: connectionHandleId,
+    connectionHandleType: connectionHandleType,
+    connectionPositionX: connectionPosition.x,
+    connectionPositionY: connectionPosition.y,
+    connectionLineStyle: connectionLineStyle,
+    connectionLineType: connectionLineType,
+    isConnectable: nodesConnectable,
+    CustomConnectionLineComponent: connectionLineComponent
+  })));
 };
 
 EdgeRenderer.displayName = 'EdgeRenderer';
@@ -3226,7 +3471,7 @@ var selector$1 = function selector(s) {
 function Viewport(_ref) {
   var children = _ref.children;
   var transform = useStore(selector$1);
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: "react-flow__viewport react-flow__container",
     style: {
       transform: "translate(".concat(transform[0], "px,").concat(transform[1], "px) scale(").concat(transform[2], ")")
@@ -3272,6 +3517,7 @@ var GraphView = function GraphView(_ref) {
       connectionLineType = _ref.connectionLineType,
       connectionLineStyle = _ref.connectionLineStyle,
       connectionLineComponent = _ref.connectionLineComponent,
+      connectionLineContainerStyle = _ref.connectionLineContainerStyle,
       selectionKeyCode = _ref.selectionKeyCode,
       preventSelectionKeyCode = _ref.preventSelectionKeyCode,
       multiSelectionKeyCode = _ref.multiSelectionKeyCode,
@@ -3306,9 +3552,10 @@ var GraphView = function GraphView(_ref) {
       onEdgeUpdateEnd = _ref.onEdgeUpdateEnd,
       noDragClassName = _ref.noDragClassName,
       noWheelClassName = _ref.noWheelClassName,
-      noPanClassName = _ref.noPanClassName;
+      noPanClassName = _ref.noPanClassName,
+      elevateEdgesOnSelect = _ref.elevateEdgesOnSelect;
   useOnInitHandler(onInit);
-  return /*#__PURE__*/React__default.createElement(FlowRenderer$1, {
+  return /*#__PURE__*/React.createElement(FlowRenderer$1, {
     onPaneClick: onPaneClick,
     onPaneContextMenu: onPaneContextMenu,
     onPaneScroll: onPaneScroll,
@@ -3340,13 +3587,14 @@ var GraphView = function GraphView(_ref) {
     noDragClassName: noDragClassName,
     noWheelClassName: noWheelClassName,
     noPanClassName: noPanClassName
-  }, /*#__PURE__*/React__default.createElement(Viewport, null, /*#__PURE__*/React__default.createElement(EdgeRenderer$1, {
+  }, /*#__PURE__*/React.createElement(Viewport, null, /*#__PURE__*/React.createElement(EdgeRenderer$1, {
     edgeTypes: edgeTypes,
     onEdgeClick: onEdgeClick,
     onEdgeDoubleClick: onEdgeDoubleClick,
     connectionLineType: connectionLineType,
     connectionLineStyle: connectionLineStyle,
     connectionLineComponent: connectionLineComponent,
+    connectionLineContainerStyle: connectionLineContainerStyle,
     onEdgeUpdate: onEdgeUpdate,
     onlyRenderVisibleElements: onlyRenderVisibleElements,
     onEdgeContextMenu: onEdgeContextMenu,
@@ -3357,8 +3605,9 @@ var GraphView = function GraphView(_ref) {
     onEdgeUpdateEnd: onEdgeUpdateEnd,
     edgeUpdaterRadius: edgeUpdaterRadius,
     defaultMarkerColor: defaultMarkerColor,
-    noPanClassName: noPanClassName
-  }), /*#__PURE__*/React__default.createElement(NodeRenderer$1, {
+    noPanClassName: noPanClassName,
+    elevateEdgesOnSelect: !!elevateEdgesOnSelect
+  }), /*#__PURE__*/React.createElement(NodeRenderer$1, {
     nodeTypes: nodeTypes,
     onNodeClick: onNodeClick,
     onNodeDoubleClick: onNodeDoubleClick,
@@ -3385,31 +3634,12 @@ var GroupNode = function GroupNode() {
 
 GroupNode.displayName = 'GroupNode';
 
-function ownKeys$3(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$3(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$3(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$3(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function useMemoizedMouseHandler(id, dragging, getState, handler) {
-  var memoizedHandler = useCallback(function (event) {
-    if (typeof handler !== 'undefined' && !dragging) {
-      var node = getState().nodeInternals.get(id);
-      handler(event, _objectSpread$3({}, node));
-    }
-  }, [handler, dragging, id]);
-  return memoizedHandler;
-}
-
 function ownKeys$2(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$2(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys$2(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys$2(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 var selector = function selector(s) {
-  return {
-    addSelectedNodes: s.addSelectedNodes,
-    updateNodePosition: s.updateNodePosition,
-    unselectNodesAndEdges: s.unselectNodesAndEdges,
-    updateNodeDimensions: s.updateNodeDimensions
-  };
+  return s.updateNodeDimensions;
 };
 
 var wrapNode = (function (NodeComponent) {
@@ -3417,7 +3647,6 @@ var wrapNode = (function (NodeComponent) {
     var id = _ref.id,
         type = _ref.type,
         data = _ref.data,
-        scale = _ref.scale,
         xPos = _ref.xPos,
         yPos = _ref.yPos,
         selected = _ref.selected,
@@ -3426,10 +3655,10 @@ var wrapNode = (function (NodeComponent) {
         onMouseMove = _ref.onMouseMove,
         onMouseLeave = _ref.onMouseLeave,
         onContextMenu = _ref.onContextMenu,
-        onNodeDoubleClick = _ref.onNodeDoubleClick,
-        onNodeDragStart = _ref.onNodeDragStart,
-        onNodeDrag = _ref.onNodeDrag,
-        onNodeDragStop = _ref.onNodeDragStop,
+        onDoubleClick = _ref.onDoubleClick,
+        onDragStart = _ref.onDragStart,
+        onDrag = _ref.onDrag,
+        onDragStop = _ref.onDragStop,
         style = _ref.style,
         className = _ref.className,
         isDraggable = _ref.isDraggable,
@@ -3439,9 +3668,6 @@ var wrapNode = (function (NodeComponent) {
         sourcePosition = _ref.sourcePosition,
         targetPosition = _ref.targetPosition,
         hidden = _ref.hidden,
-        snapToGrid = _ref.snapToGrid,
-        snapGrid = _ref.snapGrid,
-        dragging = _ref.dragging,
         resizeObserver = _ref.resizeObserver,
         dragHandle = _ref.dragHandle,
         zIndex = _ref.zIndex,
@@ -3449,137 +3675,36 @@ var wrapNode = (function (NodeComponent) {
         noPanClassName = _ref.noPanClassName,
         noDragClassName = _ref.noDragClassName;
     var store = useStoreApi();
-
-    var _useStore = useStore(selector, shallow),
-        addSelectedNodes = _useStore.addSelectedNodes,
-        unselectNodesAndEdges = _useStore.unselectNodesAndEdges,
-        updateNodePosition = _useStore.updateNodePosition,
-        updateNodeDimensions = _useStore.updateNodeDimensions;
-
-    var nodeElement = useRef(null);
+    var updateNodeDimensions = useStore(selector);
+    var nodeRef = useRef(null);
     var prevSourcePosition = useRef(sourcePosition);
     var prevTargetPosition = useRef(targetPosition);
     var prevType = useRef(type);
     var hasPointerEvents = isSelectable || isDraggable || onClick || onMouseEnter || onMouseMove || onMouseLeave;
-    var nodeStyle = useMemo(function () {
-      return _objectSpread$2({
-        zIndex: zIndex,
-        transform: "translate(".concat(xPos, "px,").concat(yPos, "px)"),
-        pointerEvents: hasPointerEvents ? 'all' : 'none'
-      }, style);
-    }, [zIndex, xPos, yPos, hasPointerEvents, style]);
-    var grid = useMemo(function () {
-      return snapToGrid ? snapGrid : [1, 1];
-    }, [snapToGrid, snapGrid === null || snapGrid === void 0 ? void 0 : snapGrid[0], snapGrid === null || snapGrid === void 0 ? void 0 : snapGrid[1]]);
-    var onMouseEnterHandler = useMemoizedMouseHandler(id, dragging, store.getState, onMouseEnter);
-    var onMouseMoveHandler = useMemoizedMouseHandler(id, dragging, store.getState, onMouseMove);
-    var onMouseLeaveHandler = useMemoizedMouseHandler(id, dragging, store.getState, onMouseLeave);
-    var onContextMenuHandler = useMemoizedMouseHandler(id, false, store.getState, onContextMenu);
-    var onNodeDoubleClickHandler = useMemoizedMouseHandler(id, false, store.getState, onNodeDoubleClick);
-    var onSelectNodeHandler = useCallback(function (event) {
-      if (!isDraggable) {
-        if (isSelectable) {
-          store.setState({
-            nodesSelectionActive: false
-          });
+    var onMouseEnterHandler = getMouseHandler$1(id, store.getState, onMouseEnter);
+    var onMouseMoveHandler = getMouseHandler$1(id, store.getState, onMouseMove);
+    var onMouseLeaveHandler = getMouseHandler$1(id, store.getState, onMouseLeave);
+    var onContextMenuHandler = getMouseHandler$1(id, store.getState, onContextMenu);
+    var onDoubleClickHandler = getMouseHandler$1(id, store.getState, onDoubleClick);
 
-          if (!selected) {
-            addSelectedNodes([id]);
-          }
-        }
-
-        if (onClick) {
-          var node = store.getState().nodeInternals.get(id);
-          onClick(event, _objectSpread$2({}, node));
-        }
-      }
-    }, [isSelectable, selected, isDraggable, onClick, id]);
-    var onDragStart = useCallback(function (event) {
-      if (selectNodesOnDrag && isSelectable) {
-        store.setState({
-          nodesSelectionActive: false
+    var onSelectNodeHandler = function onSelectNodeHandler(event) {
+      if (isSelectable && (!selectNodesOnDrag || !isDraggable)) {
+        // this handler gets called within the drag start event when selectNodesOnDrag=true
+        handleNodeClick({
+          id: id,
+          store: store
         });
-
-        if (!selected) {
-          addSelectedNodes([id]);
-        }
-      } else if (!selectNodesOnDrag && !selected && isSelectable) {
-        var _store$getState = store.getState(),
-            multiSelectionActive = _store$getState.multiSelectionActive;
-
-        if (multiSelectionActive) {
-          addSelectedNodes([id]);
-        } else {
-          unselectNodesAndEdges();
-          store.setState({
-            nodesSelectionActive: false
-          });
-        }
       }
 
-      if (onNodeDragStart) {
+      if (onClick) {
         var node = store.getState().nodeInternals.get(id);
-        onNodeDragStart(event, _objectSpread$2({}, node));
+        onClick(event, _objectSpread$2({}, node));
       }
-    }, [id, selected, selectNodesOnDrag, isSelectable, onNodeDragStart]);
-    var onDrag = useCallback(function (event, draggableData) {
-      updateNodePosition({
-        id: id,
-        dragging: true,
-        diff: {
-          x: draggableData.deltaX,
-          y: draggableData.deltaY
-        }
-      });
+    };
 
-      if (onNodeDrag) {
-        var _node$positionAbsolut, _node$positionAbsolut2;
-
-        var node = store.getState().nodeInternals.get(id);
-        onNodeDrag(event, _objectSpread$2(_objectSpread$2({}, node), {}, {
-          dragging: true,
-          position: {
-            x: node.position.x + draggableData.deltaX,
-            y: node.position.y + draggableData.deltaY
-          },
-          positionAbsolute: {
-            x: (((_node$positionAbsolut = node.positionAbsolute) === null || _node$positionAbsolut === void 0 ? void 0 : _node$positionAbsolut.x) || 0) + draggableData.deltaX,
-            y: (((_node$positionAbsolut2 = node.positionAbsolute) === null || _node$positionAbsolut2 === void 0 ? void 0 : _node$positionAbsolut2.y) || 0) + draggableData.deltaY
-          }
-        }));
-      }
-    }, [id, onNodeDrag]);
-    var onDragStop = useCallback(function (event) {
-      // onDragStop also gets called when user just clicks on a node.
-      // Because of that we set dragging to true inside the onDrag handler and handle the click here
-      var node;
-
-      if (onClick || onNodeDragStop) {
-        node = store.getState().nodeInternals.get(id);
-      }
-
-      if (!dragging) {
-        if (onClick && node) {
-          onClick(event, _objectSpread$2({}, node));
-        }
-
-        return;
-      }
-
-      updateNodePosition({
-        id: id,
-        dragging: false
-      });
-
-      if (onNodeDragStop && node) {
-        onNodeDragStop(event, _objectSpread$2(_objectSpread$2({}, node), {}, {
-          dragging: false
-        }));
-      }
-    }, [id, isSelectable, selectNodesOnDrag, onClick, onNodeDragStop, dragging, selected]);
     useEffect(function () {
-      if (nodeElement.current && !hidden) {
-        var currNode = nodeElement.current;
+      if (nodeRef.current && !hidden) {
+        var currNode = nodeRef.current;
         resizeObserver === null || resizeObserver === void 0 ? void 0 : resizeObserver.observe(currNode);
         return function () {
           return resizeObserver === null || resizeObserver === void 0 ? void 0 : resizeObserver.unobserve(currNode);
@@ -3592,7 +3717,7 @@ var wrapNode = (function (NodeComponent) {
       var sourcePosChanged = prevSourcePosition.current !== sourcePosition;
       var targetPosChanged = prevTargetPosition.current !== targetPosition;
 
-      if (nodeElement.current && (typeChanged || sourcePosChanged || targetPosChanged)) {
+      if (nodeRef.current && (typeChanged || sourcePosChanged || targetPosChanged)) {
         if (typeChanged) {
           prevType.current = type;
         }
@@ -3607,46 +3732,50 @@ var wrapNode = (function (NodeComponent) {
 
         updateNodeDimensions([{
           id: id,
-          nodeElement: nodeElement.current,
+          nodeElement: nodeRef.current,
           forceUpdate: true
         }]);
       }
     }, [id, type, sourcePosition, targetPosition]);
+    var dragging = useDrag({
+      onStart: onDragStart,
+      onDrag: onDrag,
+      onStop: onDragStop,
+      nodeRef: nodeRef,
+      disabled: !isDraggable,
+      noDragClassName: noDragClassName,
+      handleSelector: dragHandle,
+      nodeId: id,
+      isSelectable: isSelectable,
+      selectNodesOnDrag: selectNodesOnDrag
+    });
 
     if (hidden) {
       return null;
     }
 
-    var nodeClasses = cc(['react-flow__node', "react-flow__node-".concat(type), noPanClassName, className, {
-      selected: selected,
-      selectable: isSelectable,
-      parent: isParent
-    }]);
-    return /*#__PURE__*/React__default.createElement(DraggableCore, {
-      onStart: onDragStart,
-      onDrag: onDrag,
-      onStop: onDragStop,
-      scale: scale,
-      disabled: !isDraggable,
-      cancel: ".".concat(noDragClassName),
-      nodeRef: nodeElement,
-      grid: grid,
-      enableUserSelectHack: false,
-      handle: dragHandle
-    }, /*#__PURE__*/React__default.createElement("div", {
-      className: nodeClasses,
-      ref: nodeElement,
-      style: nodeStyle,
+    return /*#__PURE__*/React.createElement("div", {
+      className: cc(['react-flow__node', "react-flow__node-".concat(type), noPanClassName, className, {
+        selected: selected,
+        selectable: isSelectable,
+        parent: isParent
+      }]),
+      ref: nodeRef,
+      style: _objectSpread$2({
+        zIndex: zIndex,
+        transform: "translate(".concat(xPos, "px,").concat(yPos, "px)"),
+        pointerEvents: hasPointerEvents ? 'all' : 'none'
+      }, style),
       onMouseEnter: onMouseEnterHandler,
       onMouseMove: onMouseMoveHandler,
       onMouseLeave: onMouseLeaveHandler,
       onContextMenu: onContextMenuHandler,
       onClick: onSelectNodeHandler,
-      onDoubleClick: onNodeDoubleClickHandler,
+      onDoubleClick: onDoubleClickHandler,
       "data-id": id
-    }, /*#__PURE__*/React__default.createElement(Provider, {
+    }, /*#__PURE__*/React.createElement(Provider, {
       value: id
-    }, /*#__PURE__*/React__default.createElement(NodeComponent, {
+    }, /*#__PURE__*/React.createElement(NodeComponent, {
       id: id,
       data: data,
       type: type,
@@ -3659,7 +3788,7 @@ var wrapNode = (function (NodeComponent) {
       dragging: dragging,
       dragHandle: dragHandle,
       zIndex: zIndex
-    }))));
+    })));
   };
 
   NodeWrapper.displayName = 'NodeWrapper';
@@ -3689,11 +3818,12 @@ function createNodeTypes(nodeTypes) {
 function useNodeOrEdgeTypes(nodeOrEdgeTypes, createTypes) {
   var typesKeysRef = useRef(null);
   var typesParsed = useMemo(function () {
+    // @ts-ignore
     if (process.env.NODE_ENV === 'development') {
       var typeKeys = Object.keys(nodeOrEdgeTypes);
 
       if (shallow(typesKeysRef.current, typeKeys)) {
-        console.warn("React Flow: It looks like that you created a new nodeTypes or edgeTypes object. If this wasn't on purpose please define the nodeTypes/edgeTypes outside of the component or memoize them.");
+        console.warn("[React Flow]: It looks like you have created a new nodeTypes or edgeTypes object. If this wasn't on purpose please define the nodeTypes/edgeTypes outside of the component or memoize them. Help: https://reactflow.dev/error#200");
       }
 
       typesKeysRef.current = typeKeys;
@@ -3724,17 +3854,17 @@ var Wrapper = function Wrapper(_ref) {
   if (isWrapped) {
     // we need to wrap it with a fragment because it's not allowed for children to be a ReactNode
     // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18051
-    return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, children);
+    return /*#__PURE__*/React.createElement(React.Fragment, null, children);
   }
 
-  return /*#__PURE__*/React__default.createElement(Provider$1, {
+  return /*#__PURE__*/React.createElement(Provider$1, {
     createStore: createStore
   }, children);
 };
 
 Wrapper.displayName = 'ReactFlowWrapper';
 
-var _excluded = ["nodes", "edges", "defaultNodes", "defaultEdges", "className", "nodeTypes", "edgeTypes", "onNodeClick", "onEdgeClick", "onInit", "onMove", "onMoveStart", "onMoveEnd", "onConnect", "onConnectStart", "onConnectStop", "onConnectEnd", "onNodeMouseEnter", "onNodeMouseMove", "onNodeMouseLeave", "onNodeContextMenu", "onNodeDoubleClick", "onNodeDragStart", "onNodeDrag", "onNodeDragStop", "onNodesDelete", "onEdgesDelete", "onSelectionChange", "onSelectionDragStart", "onSelectionDrag", "onSelectionDragStop", "onSelectionContextMenu", "connectionMode", "connectionLineType", "connectionLineStyle", "connectionLineComponent", "deleteKeyCode", "selectionKeyCode", "preventSelectionKeyCode", "multiSelectionKeyCode", "zoomActivationKeyCode", "snapToGrid", "snapGrid", "onlyRenderVisibleElements", "selectNodesOnDrag", "nodesDraggable", "nodesConnectable", "elementsSelectable", "minZoom", "maxZoom", "defaultZoom", "defaultPosition", "translateExtent", "preventScrolling", "nodeExtent", "defaultMarkerColor", "zoomOnScroll", "zoomOnPinch", "panOnScroll", "panOnScrollSpeed", "panOnScrollMode", "zoomOnDoubleClick", "panOnDrag", "panOnMiddleButton", "panOnTouchPadScroll", "onPaneClick", "onPaneScroll", "onPaneContextMenu", "children", "onEdgeUpdate", "onEdgeContextMenu", "onEdgeDoubleClick", "onEdgeMouseEnter", "onEdgeMouseMove", "onEdgeMouseLeave", "onEdgeUpdateStart", "onEdgeUpdateEnd", "edgeUpdaterRadius", "onNodesChange", "onEdgesChange", "noDragClassName", "noWheelClassName", "noPanClassName", "fitView", "fitViewOptions", "connectOnClick", "attributionPosition", "proOptions", "defaultEdgeOptions"];
+var _excluded = ["nodes", "edges", "defaultNodes", "defaultEdges", "className", "nodeTypes", "edgeTypes", "onNodeClick", "onEdgeClick", "onInit", "onMove", "onMoveStart", "onMoveEnd", "onConnect", "onConnectStart", "onConnectStop", "onConnectEnd", "onClickConnectStart", "onClickConnectStop", "onClickConnectEnd", "onNodeMouseEnter", "onNodeMouseMove", "onNodeMouseLeave", "onNodeContextMenu", "onNodeDoubleClick", "onNodeDragStart", "onNodeDrag", "onNodeDragStop", "onNodesDelete", "onEdgesDelete", "onSelectionChange", "onSelectionDragStart", "onSelectionDrag", "onSelectionDragStop", "onSelectionContextMenu", "connectionMode", "connectionLineType", "connectionLineStyle", "connectionLineComponent", "connectionLineContainerStyle", "deleteKeyCode", "selectionKeyCode", "preventSelectionKeyCode", "multiSelectionKeyCode", "zoomActivationKeyCode", "snapToGrid", "snapGrid", "onlyRenderVisibleElements", "selectNodesOnDrag", "nodesDraggable", "nodesConnectable", "elementsSelectable", "minZoom", "maxZoom", "defaultZoom", "defaultPosition", "translateExtent", "preventScrolling", "nodeExtent", "defaultMarkerColor", "zoomOnScroll", "zoomOnPinch", "panOnScroll", "panOnScrollSpeed", "panOnScrollMode", "zoomOnDoubleClick", "panOnDrag", "panOnMiddleButton", "panOnTouchPadScroll", "onPaneClick", "onPaneScroll", "onPaneContextMenu", "children", "onEdgeUpdate", "onEdgeContextMenu", "onEdgeDoubleClick", "onEdgeMouseEnter", "onEdgeMouseMove", "onEdgeMouseLeave", "onEdgeUpdateStart", "onEdgeUpdateEnd", "edgeUpdaterRadius", "onNodesChange", "onEdgesChange", "noDragClassName", "noWheelClassName", "noPanClassName", "fitView", "fitViewOptions", "connectOnClick", "attributionPosition", "proOptions", "defaultEdgeOptions", "elevateEdgesOnSelect"];
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -3779,6 +3909,9 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
       onConnectStart = _ref.onConnectStart,
       onConnectStop = _ref.onConnectStop,
       onConnectEnd = _ref.onConnectEnd,
+      onClickConnectStart = _ref.onClickConnectStart,
+      onClickConnectStop = _ref.onClickConnectStop,
+      onClickConnectEnd = _ref.onClickConnectEnd,
       onNodeMouseEnter = _ref.onNodeMouseEnter,
       onNodeMouseMove = _ref.onNodeMouseMove,
       onNodeMouseLeave = _ref.onNodeMouseLeave,
@@ -3800,6 +3933,7 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
       connectionLineType = _ref$connectionLineTy === void 0 ? ConnectionLineType.Bezier : _ref$connectionLineTy,
       connectionLineStyle = _ref.connectionLineStyle,
       connectionLineComponent = _ref.connectionLineComponent,
+      connectionLineContainerStyle = _ref.connectionLineContainerStyle,
       _ref$deleteKeyCode = _ref.deleteKeyCode,
       deleteKeyCode = _ref$deleteKeyCode === void 0 ? 'Backspace' : _ref$deleteKeyCode,
       _ref$selectionKeyCode = _ref.selectionKeyCode,
@@ -3881,15 +4015,17 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
       attributionPosition = _ref.attributionPosition,
       proOptions = _ref.proOptions,
       defaultEdgeOptions = _ref.defaultEdgeOptions,
+      _ref$elevateEdgesOnSe = _ref.elevateEdgesOnSelect,
+      elevateEdgesOnSelect = _ref$elevateEdgesOnSe === void 0 ? false : _ref$elevateEdgesOnSe,
       rest = _objectWithoutProperties(_ref, _excluded);
 
-  var nodeTypesParsed = useNodeOrEdgeTypes(nodeTypes, createNodeTypes);
-  var edgeTypesParsed = useNodeOrEdgeTypes(edgeTypes, createEdgeTypes);
+  var nodeTypesWrapped = useNodeOrEdgeTypes(nodeTypes, createNodeTypes);
+  var edgeTypesWrapped = useNodeOrEdgeTypes(edgeTypes, createEdgeTypes);
   var reactFlowClasses = cc(['react-flow', className]);
-  return /*#__PURE__*/React__default.createElement("div", _objectSpread(_objectSpread({}, rest), {}, {
+  return /*#__PURE__*/React.createElement("div", _objectSpread(_objectSpread({}, rest), {}, {
     ref: ref,
     className: reactFlowClasses
-  }), /*#__PURE__*/React__default.createElement(Wrapper, null, /*#__PURE__*/React__default.createElement(GraphView$1, {
+  }), /*#__PURE__*/React.createElement(Wrapper, null, /*#__PURE__*/React.createElement(GraphView$1, {
     onInit: onInit,
     onMove: onMove,
     onMoveStart: onMoveStart,
@@ -3904,11 +4040,12 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
     onNodeDragStart: onNodeDragStart,
     onNodeDrag: onNodeDrag,
     onNodeDragStop: onNodeDragStop,
-    nodeTypes: nodeTypesParsed,
-    edgeTypes: edgeTypesParsed,
+    nodeTypes: nodeTypesWrapped,
+    edgeTypes: edgeTypesWrapped,
     connectionLineType: connectionLineType,
     connectionLineStyle: connectionLineStyle,
     connectionLineComponent: connectionLineComponent,
+    connectionLineContainerStyle: connectionLineContainerStyle,
     selectionKeyCode: selectionKeyCode,
     preventSelectionKeyCode: preventSelectionKeyCode,
     deleteKeyCode: deleteKeyCode,
@@ -3947,8 +4084,9 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
     defaultMarkerColor: defaultMarkerColor,
     noDragClassName: noDragClassName,
     noWheelClassName: noWheelClassName,
-    noPanClassName: noPanClassName
-  }), /*#__PURE__*/React__default.createElement(StoreUpdater, {
+    noPanClassName: noPanClassName,
+    elevateEdgesOnSelect: elevateEdgesOnSelect
+  }), /*#__PURE__*/React.createElement(StoreUpdater, {
     nodes: nodes,
     edges: edges,
     defaultNodes: defaultNodes,
@@ -3957,6 +4095,9 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
     onConnectStart: onConnectStart,
     onConnectStop: onConnectStop,
     onConnectEnd: onConnectEnd,
+    onClickConnectStart: onClickConnectStart,
+    onClickConnectStop: onClickConnectStop,
+    onClickConnectEnd: onClickConnectEnd,
     nodesDraggable: nodesDraggable,
     nodesConnectable: nodesConnectable,
     elementsSelectable: elementsSelectable,
@@ -3975,9 +4116,9 @@ var ReactFlow = /*#__PURE__*/forwardRef(function (_ref, ref) {
     fitViewOptions: fitViewOptions,
     onNodesDelete: onNodesDelete,
     onEdgesDelete: onEdgesDelete
-  }), onSelectionChange && /*#__PURE__*/React__default.createElement(SelectionListener$1, {
+  }), onSelectionChange && /*#__PURE__*/React.createElement(SelectionListener$1, {
     onSelectionChange: onSelectionChange
-  }), children, /*#__PURE__*/React__default.createElement(Attribution, {
+  }), children, /*#__PURE__*/React.createElement(Attribution, {
     proOptions: proOptions,
     position: attributionPosition
   })));
@@ -3986,7 +4127,7 @@ ReactFlow.displayName = 'ReactFlow';
 
 var ReactFlowProvider = function ReactFlowProvider(_ref) {
   var children = _ref.children;
-  return /*#__PURE__*/React__default.createElement(Provider$1, {
+  return /*#__PURE__*/React.createElement(Provider$1, {
     createStore: createStore
   }, children);
 };

@@ -49,14 +49,7 @@
   border-color: #1a192b;
 }
 
-.react-flow__node-default.selected,
-  .react-flow__node-default.selected:hover,
-  .react-flow__node-input.selected,
-  .react-flow__node-input.selected:hover,
-  .react-flow__node-output.selected,
-  .react-flow__node-output.selected:hover,
-  .react-flow__node-group.selected,
-  .react-flow__node-group.selected:hover {
+.react-flow__node-default.selected, .react-flow__node-input.selected, .react-flow__node-output.selected, .react-flow__node-group.selected {
     box-shadow: 0 0 0 0.5px #1a192b;
   }
 
@@ -68,15 +61,14 @@
     box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.08);
   }
 
+.react-flow__node-default.selectable.selected, .react-flow__node-input.selectable.selected, .react-flow__node-output.selectable.selected, .react-flow__node-group.selectable.selected {
+    box-shadow: 0 0 0 0.5px #1a192b;
+  }
+
 .react-flow__node-group {
   background: rgba(240, 240, 240, 0.25);
   border-color: #1a192b;
 }
-
-.react-flow__node-group.selected,
-  .react-flow__node-group.selected:hover {
-    box-shadow: 0 0 0 0.5px #1a192b;
-  }
 
 .react-flow__nodesselection-rect,
 .react-flow__selection {
