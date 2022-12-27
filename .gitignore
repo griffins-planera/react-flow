@@ -8,3 +8,6 @@ cypress/screenshots
 stats.html
 .eslintcache
 .idea
+.log
+.turbo
+.rollup.cache
