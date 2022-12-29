@@ -96,7 +96,7 @@ importers:
   packages/background:
     specifiers:
       '@babel/runtime': ^7.18.9
-      '@reactflow/core': workspace:*
+      '@reactflow/core': file:../core
       '@reactflow/eslint-config': workspace:^0.0.0
       '@reactflow/rollup-config': workspace:*
       '@reactflow/tsconfig': workspace:*
@@ -108,7 +108,7 @@ importers:
       zustand: ^4.1.1
     dependencies:
       '@babel/runtime': registry.npmjs.org/@babel/runtime/7.19.0
-      '@reactflow/core': link:../core
+      '@reactflow/core': file:packages/core_react@18.2.0
       classcat: registry.npmjs.org/classcat/5.0.4
       zustand: registry.npmjs.org/zustand/4.1.1_react@18.2.0
     devDependencies:
@@ -346,6 +346,29 @@ importers:
     specifiers: {}
 
 packages:
+
+  file:packages/core_react@18.2.0:
+    resolution: {directory: packages/core, type: directory}
+    id: file:packages/core
+    name: '@reactflow/core'
+    version: 11.4.0
+    peerDependencies:
+      react: '>=17'
+      react-dom: '>=17'
+    dependencies:
+      '@types/d3': registry.npmjs.org/@types/d3/7.4.0
+      '@types/d3-drag': registry.npmjs.org/@types/d3-drag/3.0.1
+      '@types/d3-selection': registry.npmjs.org/@types/d3-selection/3.0.3
+      '@types/d3-zoom': registry.npmjs.org/@types/d3-zoom/3.0.1
+      classcat: registry.npmjs.org/classcat/5.0.4
+      d3-drag: registry.npmjs.org/d3-drag/3.0.0
+      d3-selection: registry.npmjs.org/d3-selection/3.0.0
+      d3-zoom: registry.npmjs.org/d3-zoom/3.0.0
+      react: registry.npmjs.org/react/18.2.0
+      zustand: registry.npmjs.org/zustand/4.1.1_react@18.2.0
+    transitivePeerDependencies:
+      - immer
+    dev: false
 
   registry.npmjs.org/@ampproject/remapping/2.2.0:
     resolution: {integrity: sha512-qRmjj8nj9qmLTQXXmaR1cck3UXSRMPrbsLJAasZpF+t3riI71BXed5ebIOYwQntykeZuhjsdweEc9BxH5Jc26w==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.2.0.tgz}

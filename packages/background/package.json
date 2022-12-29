@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.18.9",
-    "@reactflow/core": "workspace:*",
+    "@reactflow/core": "file:../core",
     "classcat": "^5.0.3",
     "zustand": "^4.1.1"
   },
