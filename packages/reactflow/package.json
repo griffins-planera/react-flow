@@ -35,20 +35,21 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@reactflow/background": "workspace:*",
-    "@reactflow/controls": "workspace:*",
-    "@reactflow/core": "workspace:*",
-    "@reactflow/minimap": "workspace:*",
-    "@reactflow/node-toolbar": "workspace:*"
+    "@reactflow/background": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/background?planera11",
+    "@reactflow/controls": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/controls?planera11",
+    "@reactflow/core": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/core?planera11",
+    "@reactflow/minimap": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/minimap?planera11",
+    "@reactflow/node-toolbar": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/node-toolbar?planera11",
+    "@reactflow/node-resizer": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/node-resizer?planera11"
   },
   "peerDependencies": {
     "react": ">=17",
     "react-dom": ">=17"
   },
   "devDependencies": {
-    "@reactflow/eslint-config": "workspace:^0.0.0",
-    "@reactflow/rollup-config": "workspace:*",
-    "@reactflow/tsconfig": "workspace:*",
+    "@reactflow/eslint-config": "^0.0.0",
+    "@reactflow/rollup-config": "0.0.0",
+    "@reactflow/tsconfig": "0.0.0",
     "@types/node": "^18.7.16",
     "@types/react": "^18.0.19",
     "react": "^18.2.0",
