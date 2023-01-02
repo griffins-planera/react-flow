@@ -1,7 +1,7 @@
 import type { HTMLAttributes, MouseEvent } from 'react';
 import type { Node, PanelPosition, XYPosition } from '@reactflow/core';
-export declare type GetMiniMapNodeAttribute<NodeData = any> = (node: Node<NodeData>) => string;
-export declare type MiniMapProps<NodeData = any> = Omit<HTMLAttributes<SVGSVGElement>, 'onClick'> & {
+export type GetMiniMapNodeAttribute<NodeData = any> = (node: Node<NodeData>) => string;
+export type MiniMapProps<NodeData = any> = Omit<HTMLAttributes<SVGSVGElement>, 'onClick'> & {
     nodeColor?: string | GetMiniMapNodeAttribute<NodeData>;
     nodeStrokeColor?: string | GetMiniMapNodeAttribute<NodeData>;
     nodeClassName?: string | GetMiniMapNodeAttribute<NodeData>;

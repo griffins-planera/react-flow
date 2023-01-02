@@ -7,35 +7,35 @@ import type { Edge, EdgeProps, WrapEdgeProps } from './edges';
 import type { HandleType, StartHandle } from './handles';
 import type { DefaultEdgeOptions } from '.';
 import type { ReactFlowInstance } from './instance';
-export declare type NodeTypes = {
+export type NodeTypes = {
     [key: string]: ComponentType<NodeProps>;
 };
-export declare type NodeTypesWrapped = {
+export type NodeTypesWrapped = {
     [key: string]: MemoExoticComponent<ComponentType<WrapNodeProps>>;
 };
-export declare type EdgeTypes = {
+export type EdgeTypes = {
     [key: string]: ComponentType<EdgeProps>;
 };
-export declare type EdgeTypesWrapped = {
+export type EdgeTypesWrapped = {
     [key: string]: MemoExoticComponent<ComponentType<WrapEdgeProps>>;
 };
-export declare type FitView = (fitViewOptions?: FitViewOptions) => void;
-export declare type Project = (position: XYPosition) => XYPosition;
-export declare type OnNodesChange = (changes: NodeChange[]) => void;
-export declare type OnEdgesChange = (changes: EdgeChange[]) => void;
-export declare type OnNodesDelete = (nodes: Node[]) => void;
-export declare type OnEdgesDelete = (edges: Edge[]) => void;
-export declare type OnMove = (event: MouseEvent | TouchEvent, viewport: Viewport) => void;
-export declare type OnMoveStart = OnMove;
-export declare type OnMoveEnd = OnMove;
-export declare type ZoomInOut = (options?: ViewportHelperFunctionOptions) => void;
-export declare type ZoomTo = (zoomLevel: number, options?: ViewportHelperFunctionOptions) => void;
-export declare type GetZoom = () => number;
-export declare type GetViewport = () => Viewport;
-export declare type SetViewport = (viewport: Viewport, options?: ViewportHelperFunctionOptions) => void;
-export declare type SetCenter = (x: number, y: number, options?: SetCenterOptions) => void;
-export declare type FitBounds = (bounds: Rect, options?: FitBoundsOptions) => void;
-export declare type OnInit<NodeData = any, EdgeData = any> = (reactFlowInstance: ReactFlowInstance<NodeData, EdgeData>) => void;
+export type FitView = (fitViewOptions?: FitViewOptions) => void;
+export type Project = (position: XYPosition) => XYPosition;
+export type OnNodesChange = (changes: NodeChange[]) => void;
+export type OnEdgesChange = (changes: EdgeChange[]) => void;
+export type OnNodesDelete = (nodes: Node[]) => void;
+export type OnEdgesDelete = (edges: Edge[]) => void;
+export type OnMove = (event: MouseEvent | TouchEvent, viewport: Viewport) => void;
+export type OnMoveStart = OnMove;
+export type OnMoveEnd = OnMove;
+export type ZoomInOut = (options?: ViewportHelperFunctionOptions) => void;
+export type ZoomTo = (zoomLevel: number, options?: ViewportHelperFunctionOptions) => void;
+export type GetZoom = () => number;
+export type GetViewport = () => Viewport;
+export type SetViewport = (viewport: Viewport, options?: ViewportHelperFunctionOptions) => void;
+export type SetCenter = (x: number, y: number, options?: SetCenterOptions) => void;
+export type FitBounds = (bounds: Rect, options?: FitBoundsOptions) => void;
+export type OnInit<NodeData = any, EdgeData = any> = (reactFlowInstance: ReactFlowInstance<NodeData, EdgeData>) => void;
 export interface Connection {
     source: string | null;
     target: string | null;
@@ -46,48 +46,48 @@ export declare enum ConnectionMode {
     Strict = "strict",
     Loose = "loose"
 }
-export declare type OnConnect = (connection: Connection) => void;
-export declare type FitViewOptions = {
+export type OnConnect = (connection: Connection) => void;
+export type FitViewOptions = {
     padding?: number;
     includeHiddenNodes?: boolean;
     minZoom?: number;
     maxZoom?: number;
     duration?: number;
 };
-export declare type OnConnectStartParams = {
+export type OnConnectStartParams = {
     nodeId: string | null;
     handleId: string | null;
     handleType: HandleType | null;
 };
-export declare type OnConnectStart = (event: ReactMouseEvent, params: OnConnectStartParams) => void;
-export declare type OnConnectEnd = (event: MouseEvent) => void;
-export declare type Viewport = {
+export type OnConnectStart = (event: ReactMouseEvent, params: OnConnectStartParams) => void;
+export type OnConnectEnd = (event: MouseEvent) => void;
+export type Viewport = {
     x: number;
     y: number;
     zoom: number;
 };
-export declare type KeyCode = string | Array<string>;
-export declare type SnapGrid = [number, number];
+export type KeyCode = string | Array<string>;
+export type SnapGrid = [number, number];
 export declare enum PanOnScrollMode {
     Free = "free",
     Vertical = "vertical",
     Horizontal = "horizontal"
 }
-export declare type ViewportHelperFunctionOptions = {
+export type ViewportHelperFunctionOptions = {
     duration?: number;
 };
-export declare type SetCenterOptions = ViewportHelperFunctionOptions & {
+export type SetCenterOptions = ViewportHelperFunctionOptions & {
     zoom?: number;
 };
-export declare type FitBoundsOptions = ViewportHelperFunctionOptions & {
+export type FitBoundsOptions = ViewportHelperFunctionOptions & {
     padding?: number;
 };
-export declare type UnselectNodesAndEdgesParams = {
+export type UnselectNodesAndEdgesParams = {
     nodes?: Node[];
     edges?: Edge[];
 };
-export declare type OnViewportChange = (viewport: Viewport) => void;
-export declare type ViewportHelperFunctions = {
+export type OnViewportChange = (viewport: Viewport) => void;
+export type ViewportHelperFunctions = {
     zoomIn: ZoomInOut;
     zoomOut: ZoomInOut;
     zoomTo: ZoomTo;
@@ -100,7 +100,7 @@ export declare type ViewportHelperFunctions = {
     project: Project;
     viewportInitialized: boolean;
 };
-export declare type ReactFlowStore = {
+export type ReactFlowStore = {
     rfId: string;
     width: number;
     height: number;
@@ -164,7 +164,7 @@ export declare type ReactFlowStore = {
     onSelectionChange?: OnSelectionChangeFunc;
     ariaLiveMessage: string;
 };
-export declare type ReactFlowActions = {
+export type ReactFlowActions = {
     setNodes: (nodes: Node[]) => void;
     getNodes: () => Node[];
     setEdges: (edges: Edge[]) => void;
@@ -183,24 +183,24 @@ export declare type ReactFlowActions = {
     reset: () => void;
     triggerNodeChanges: (changes: NodeChange[]) => void;
 };
-export declare type ReactFlowState = ReactFlowStore & ReactFlowActions;
-export declare type UpdateNodeInternals = (nodeId: string) => void;
-export declare type OnSelectionChangeParams = {
+export type ReactFlowState = ReactFlowStore & ReactFlowActions;
+export type UpdateNodeInternals = (nodeId: string) => void;
+export type OnSelectionChangeParams = {
     nodes: Node[];
     edges: Edge[];
 };
-export declare type OnSelectionChangeFunc = (params: OnSelectionChangeParams) => void;
-export declare type PanelPosition = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
-export declare type ProOptions = {
+export type OnSelectionChangeFunc = (params: OnSelectionChangeParams) => void;
+export type PanelPosition = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
+export type ProOptions = {
     account?: string;
     hideAttribution: boolean;
 };
-export declare type UseDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;
+export type UseDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;
 export declare enum SelectionMode {
     Partial = "partial",
     Full = "full"
 }
-export declare type SelectionRect = Rect & {
+export type SelectionRect = Rect & {
     startX: number;
     startY: number;
 };

@@ -2,8 +2,8 @@ import type { MouseEvent as ReactMouseEvent } from 'react';
 import { StoreApi } from 'zustand';
 import { ConnectionMode } from '../../types';
 import type { OnConnect, Connection, HandleType, ReactFlowState } from '../../types';
-declare type ValidConnectionFunc = (connection: Connection) => boolean;
-declare type Result = {
+type ValidConnectionFunc = (connection: Connection) => boolean;
+type Result = {
     elementBelow: Element | null;
     isValid: boolean;
     connection: Connection;

@@ -1,5 +1,5 @@
 import type { OnSelectionChangeFunc } from '../types';
-export declare type UseOnSelectionChangeOptions = {
+export type UseOnSelectionChangeOptions = {
     onChange?: OnSelectionChangeFunc;
 };
 declare function useOnSelectionChange({ onChange }: UseOnSelectionChangeOptions): void;

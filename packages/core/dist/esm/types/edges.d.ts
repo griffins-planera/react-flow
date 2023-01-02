@@ -1,7 +1,7 @@
 import type { CSSProperties, ComponentType, HTMLAttributes, ReactNode, MouseEvent as ReactMouseEvent } from 'react';
 import { Position } from '.';
 import type { Connection, HandleElement, HandleType, Node } from '.';
-declare type EdgeLabelOptions = {
+type EdgeLabelOptions = {
     label?: string | ReactNode;
     labelStyle?: CSSProperties;
     labelShowBg?: boolean;
@@ -9,7 +9,7 @@ declare type EdgeLabelOptions = {
     labelBgPadding?: [number, number];
     labelBgBorderRadius?: number;
 };
-declare type DefaultEdge<T = any> = {
+type DefaultEdge<T = any> = {
     id: string;
     type?: string;
     source: string;
@@ -32,25 +32,25 @@ declare type DefaultEdge<T = any> = {
     interactionWidth?: number;
     focusable?: boolean;
 } & EdgeLabelOptions;
-export declare type SmoothStepPathOptions = {
+export type SmoothStepPathOptions = {
     offset?: number;
     borderRadius?: number;
 };
-declare type SmoothStepEdgeType<T> = DefaultEdge<T> & {
+type SmoothStepEdgeType<T> = DefaultEdge<T> & {
     type: 'smoothstep';
     pathOptions?: SmoothStepPathOptions;
 };
-export declare type BezierPathOptions = {
+export type BezierPathOptions = {
     curvature?: number;
 };
-declare type BezierEdgeType<T> = DefaultEdge<T> & {
+type BezierEdgeType<T> = DefaultEdge<T> & {
     type: 'default';
     pathOptions?: BezierPathOptions;
 };
-export declare type Edge<T = any> = DefaultEdge<T> | SmoothStepEdgeType<T> | BezierEdgeType<T>;
-export declare type DefaultEdgeOptions = Omit<Edge, 'id' | 'source' | 'target' | 'sourceHandle' | 'targetHandle' | 'sourceNode' | 'targetNode'>;
-export declare type EdgeMouseHandler = (event: ReactMouseEvent, edge: Edge) => void;
-export declare type WrapEdgeProps<T = any> = Omit<Edge<T>, 'sourceHandle' | 'targetHandle'> & {
+export type Edge<T = any> = DefaultEdge<T> | SmoothStepEdgeType<T> | BezierEdgeType<T>;
+export type DefaultEdgeOptions = Omit<Edge, 'id' | 'source' | 'target' | 'sourceHandle' | 'targetHandle' | 'sourceNode' | 'targetNode'>;
+export type EdgeMouseHandler = (event: ReactMouseEvent, edge: Edge) => void;
+export type WrapEdgeProps<T = any> = Omit<Edge<T>, 'sourceHandle' | 'targetHandle'> & {
     onClick?: EdgeMouseHandler;
     onEdgeDoubleClick?: EdgeMouseHandler;
     sourceHandleId?: string | null;
@@ -74,23 +74,23 @@ export declare type WrapEdgeProps<T = any> = Omit<Edge<T>, 'sourceHandle' | 'tar
     isFocusable: boolean;
     pathOptions?: BezierPathOptions | SmoothStepPathOptions;
 };
-export declare type EdgeProps<T = any> = Pick<Edge<T>, 'id' | 'animated' | 'data' | 'style' | 'selected' | 'source' | 'target'> & Pick<WrapEdgeProps, 'sourceX' | 'sourceY' | 'targetX' | 'targetY' | 'sourcePosition' | 'targetPosition' | 'sourceHandleId' | 'targetHandleId' | 'interactionWidth'> & EdgeLabelOptions & {
+export type EdgeProps<T = any> = Pick<Edge<T>, 'id' | 'animated' | 'data' | 'style' | 'selected' | 'source' | 'target'> & Pick<WrapEdgeProps, 'sourceX' | 'sourceY' | 'targetX' | 'targetY' | 'sourcePosition' | 'targetPosition' | 'sourceHandleId' | 'targetHandleId' | 'interactionWidth'> & EdgeLabelOptions & {
     markerStart?: string;
     markerEnd?: string;
     pathOptions?: any;
 };
-export declare type BaseEdgeProps = Pick<EdgeProps, 'style' | 'markerStart' | 'markerEnd' | 'interactionWidth'> & EdgeLabelOptions & {
+export type BaseEdgeProps = Pick<EdgeProps, 'style' | 'markerStart' | 'markerEnd' | 'interactionWidth'> & EdgeLabelOptions & {
     labelX?: number;
     labelY?: number;
     path: string;
 };
-export declare type SmoothStepEdgeProps<T = any> = EdgeProps<T> & {
+export type SmoothStepEdgeProps<T = any> = EdgeProps<T> & {
     pathOptions?: SmoothStepPathOptions;
 };
-export declare type BezierEdgeProps<T = any> = EdgeProps<T> & {
+export type BezierEdgeProps<T = any> = EdgeProps<T> & {
     pathOptions?: BezierPathOptions;
 };
-export declare type EdgeTextProps = HTMLAttributes<SVGElement> & EdgeLabelOptions & {
+export type EdgeTextProps = HTMLAttributes<SVGElement> & EdgeLabelOptions & {
     x: number;
     y: number;
 };
@@ -101,7 +101,7 @@ export declare enum ConnectionLineType {
     SmoothStep = "smoothstep",
     SimpleBezier = "simplebezier"
 }
-export declare type ConnectionLineComponentProps = {
+export type ConnectionLineComponentProps = {
     connectionLineStyle?: CSSProperties;
     connectionLineType: ConnectionLineType;
     fromNode?: Node;
@@ -113,9 +113,9 @@ export declare type ConnectionLineComponentProps = {
     fromPosition: Position;
     toPosition: Position;
 };
-export declare type ConnectionLineComponent = ComponentType<ConnectionLineComponentProps>;
-export declare type OnEdgeUpdateFunc<T = any> = (oldEdge: Edge<T>, newConnection: Connection) => void;
-export declare type EdgeMarker = {
+export type ConnectionLineComponent = ComponentType<ConnectionLineComponentProps>;
+export type OnEdgeUpdateFunc<T = any> = (oldEdge: Edge<T>, newConnection: Connection) => void;
+export type EdgeMarker = {
     type: MarkerType;
     color?: string;
     width?: number;
@@ -124,7 +124,7 @@ export declare type EdgeMarker = {
     orient?: string;
     strokeWidth?: number;
 };
-export declare type EdgeMarkerType = string | EdgeMarker;
+export type EdgeMarkerType = string | EdgeMarker;
 export declare enum MarkerType {
     Arrow = "arrow",
     ArrowClosed = "arrowclosed"

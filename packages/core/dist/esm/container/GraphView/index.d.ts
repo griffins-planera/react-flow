@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import type { EdgeTypesWrapped, NodeTypesWrapped, ReactFlowProps } from '../../types';
-export declare type GraphViewProps = Omit<ReactFlowProps, 'onSelectionChange' | 'nodes' | 'edges' | 'nodeTypes' | 'edgeTypes'> & Required<Pick<ReactFlowProps, 'selectionKeyCode' | 'deleteKeyCode' | 'multiSelectionKeyCode' | 'connectionLineType' | 'onlyRenderVisibleElements' | 'translateExtent' | 'minZoom' | 'maxZoom' | 'defaultMarkerColor' | 'selectNodesOnDrag' | 'noDragClassName' | 'noDragClassName' | 'noWheelClassName' | 'noPanClassName' | 'defaultViewport' | 'disableKeyboardA11y' | 'nodeOrigin'>> & {
+export type GraphViewProps = Omit<ReactFlowProps, 'onSelectionChange' | 'nodes' | 'edges' | 'nodeTypes' | 'edgeTypes'> & Required<Pick<ReactFlowProps, 'selectionKeyCode' | 'deleteKeyCode' | 'multiSelectionKeyCode' | 'connectionLineType' | 'onlyRenderVisibleElements' | 'translateExtent' | 'minZoom' | 'maxZoom' | 'defaultMarkerColor' | 'selectNodesOnDrag' | 'noDragClassName' | 'noDragClassName' | 'noWheelClassName' | 'noPanClassName' | 'defaultViewport' | 'disableKeyboardA11y' | 'nodeOrigin'>> & {
     nodeTypes: NodeTypesWrapped;
     edgeTypes: EdgeTypesWrapped;
     rfId: string;

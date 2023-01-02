@@ -3,7 +3,7 @@
  */
 import { ReactNode } from 'react';
 import type { ReactFlowProps } from '../../types';
-declare type PaneProps = {
+type PaneProps = {
     isSelecting: boolean;
     children: ReactNode;
 } & Partial<Pick<ReactFlowProps, 'selectionMode' | 'panOnDrag' | 'onSelectionStart' | 'onSelectionEnd' | 'onPaneClick' | 'onPaneContextMenu' | 'onPaneScroll' | 'onPaneMouseEnter' | 'onPaneMouseMove' | 'onPaneMouseLeave'>>;

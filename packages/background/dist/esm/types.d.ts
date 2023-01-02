@@ -4,7 +4,7 @@ export declare enum BackgroundVariant {
     Dots = "dots",
     Cross = "cross"
 }
-export declare type BackgroundProps = {
+export type BackgroundProps = {
     color?: string;
     className?: string;
     gap?: number | [number, number];

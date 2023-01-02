@@ -1,7 +1,7 @@
 import type { CSSProperties, MouseEvent as ReactMouseEvent } from 'react';
 import { internalsSymbol } from '../utils';
 import type { XYPosition, Position, CoordinateExtent, HandleElement } from '.';
-export declare type Node<T = any> = {
+export type Node<T = any> = {
     id: string;
     position: XYPosition;
     data: T;
@@ -34,10 +34,10 @@ export declare type Node<T = any> = {
         isParent?: boolean;
     };
 };
-export declare type NodeMouseHandler = (event: ReactMouseEvent, node: Node) => void;
-export declare type NodeDragHandler = (event: ReactMouseEvent, node: Node, nodes: Node[]) => void;
-export declare type SelectionDragHandler = (event: ReactMouseEvent, nodes: Node[]) => void;
-export declare type WrapNodeProps<T = any> = Pick<Node<T>, 'id' | 'data' | 'style' | 'className' | 'dragHandle' | 'sourcePosition' | 'targetPosition' | 'hidden' | 'ariaLabel'> & Required<Pick<Node<T>, 'selected' | 'type' | 'zIndex'>> & {
+export type NodeMouseHandler = (event: ReactMouseEvent, node: Node) => void;
+export type NodeDragHandler = (event: ReactMouseEvent, node: Node, nodes: Node[]) => void;
+export type SelectionDragHandler = (event: ReactMouseEvent, nodes: Node[]) => void;
+export type WrapNodeProps<T = any> = Pick<Node<T>, 'id' | 'data' | 'style' | 'className' | 'dragHandle' | 'sourcePosition' | 'targetPosition' | 'hidden' | 'ariaLabel'> & Required<Pick<Node<T>, 'selected' | 'type' | 'zIndex'>> & {
     isConnectable: boolean;
     xPos: number;
     yPos: number;
@@ -61,26 +61,26 @@ export declare type WrapNodeProps<T = any> = Pick<Node<T>, 'id' | 'data' | 'styl
     rfId: string;
     disableKeyboardA11y: boolean;
 };
-export declare type NodeProps<T = any> = Pick<WrapNodeProps<T>, 'id' | 'data' | 'dragHandle' | 'type' | 'selected' | 'isConnectable' | 'xPos' | 'yPos' | 'zIndex'> & {
+export type NodeProps<T = any> = Pick<WrapNodeProps<T>, 'id' | 'data' | 'dragHandle' | 'type' | 'selected' | 'isConnectable' | 'xPos' | 'yPos' | 'zIndex'> & {
     dragging: boolean;
     targetPosition?: Position;
     sourcePosition?: Position;
 };
-export declare type NodeHandleBounds = {
+export type NodeHandleBounds = {
     source: HandleElement[] | null;
     target: HandleElement[] | null;
 };
-export declare type NodeDimensionUpdate = {
+export type NodeDimensionUpdate = {
     id: string;
     nodeElement: HTMLDivElement;
     forceUpdate?: boolean;
 };
-export declare type NodeInternals = Map<string, Node>;
-export declare type NodeBounds = XYPosition & {
+export type NodeInternals = Map<string, Node>;
+export type NodeBounds = XYPosition & {
     width: number | null;
     height: number | null;
 };
-export declare type NodeDragItem = {
+export type NodeDragItem = {
     id: string;
     position: XYPosition;
     positionAbsolute: XYPosition;
@@ -91,5 +91,5 @@ export declare type NodeDragItem = {
     parentNode?: string;
     dragging?: boolean;
 };
-export declare type NodeOrigin = [number, number];
+export type NodeOrigin = [number, number];
 //# sourceMappingURL=nodes.d.ts.map

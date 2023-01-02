@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-declare type ViewportProps = {
+type ViewportProps = {
     children: ReactNode;
 };
 declare function Viewport({ children }: ViewportProps): JSX.Element;

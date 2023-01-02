@@ -1,5 +1,5 @@
 import type { OnViewportChange } from '../types';
-export declare type UseOnViewportChangeOptions = {
+export type UseOnViewportChangeOptions = {
     onStart?: OnViewportChange;
     onChange?: OnViewportChange;
     onEnd?: OnViewportChange;

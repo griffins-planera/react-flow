@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import type { OnSelectionChangeFunc } from '../../types';
-declare type SelectionListenerProps = {
+type SelectionListenerProps = {
     onSelectionChange?: OnSelectionChangeFunc;
 };
 declare function Wrapper({ onSelectionChange }: SelectionListenerProps): JSX.Element | null;

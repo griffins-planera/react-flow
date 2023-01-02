@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import type { PanelPosition, ProOptions } from '../../types';
-declare type AttributionProps = {
+type AttributionProps = {
     proOptions?: ProOptions;
     position?: PanelPosition;
 };

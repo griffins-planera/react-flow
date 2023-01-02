@@ -1,10 +1,10 @@
 import { ViewportHelperFunctions, Viewport, Node, Edge, Rect } from '.';
-export declare type ReactFlowJsonObject<NodeData = any, EdgeData = any> = {
+export type ReactFlowJsonObject<NodeData = any, EdgeData = any> = {
     nodes: Node<NodeData>[];
     edges: Edge<EdgeData>[];
     viewport: Viewport;
 };
-export declare type DeleteElementsOptions = {
+export type DeleteElementsOptions = {
     nodes?: (Partial<Node> & {
         id: Node['id'];
     })[];
@@ -30,7 +30,7 @@ export declare namespace Instance {
         id: Node['id'];
     }) | Rect, area: Rect, partially?: boolean) => boolean;
 }
-export declare type ReactFlowInstance<NodeData = any, EdgeData = any> = {
+export type ReactFlowInstance<NodeData = any, EdgeData = any> = {
     getNodes: Instance.GetNodes<NodeData>;
     setNodes: Instance.SetNodes<NodeData>;
     addNodes: Instance.AddNodes<NodeData>;

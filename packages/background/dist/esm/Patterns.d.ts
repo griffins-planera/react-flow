@@ -1,11 +1,11 @@
 /// <reference types="react" />
-declare type LinePatternProps = {
+type LinePatternProps = {
     dimensions: [number, number];
     lineWidth?: number;
     color: string;
 };
 export declare function LinePattern({ color, dimensions, lineWidth, }: LinePatternProps): JSX.Element;
-declare type DotPatternProps = {
+type DotPatternProps = {
     radius: number;
     color: string;
 };

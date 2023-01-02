@@ -1,5 +1,5 @@
 import type { XYPosition, Position, Dimensions, OnConnect, Connection } from '.';
-export declare type HandleType = 'source' | 'target';
+export type HandleType = 'source' | 'target';
 export interface HandleElement extends XYPosition, Dimensions {
     id?: string | null;
     position: Position;

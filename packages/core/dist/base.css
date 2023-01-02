@@ -9,14 +9,12 @@
 }
 .react-flow__pane {
   z-index: 1;
-  cursor: -webkit-grab;
   cursor: grab;
 }
 .react-flow__pane.selection {
     cursor: pointer;
   }
 .react-flow__pane.dragging {
-    cursor: -webkit-grabbing;
     cursor: grabbing;
   }
 .react-flow__viewport {
@@ -50,13 +48,11 @@
 }
 .react-flow__edge.animated path {
     stroke-dasharray: 5;
-    -webkit-animation: dashdraw 0.5s linear infinite;
-            animation: dashdraw 0.5s linear infinite;
+    animation: dashdraw 0.5s linear infinite;
   }
 .react-flow__edge.animated path.react-flow__edge-interaction {
     stroke-dasharray: none;
-    -webkit-animation: none;
-            animation: none;
+    animation: none;
   }
 .react-flow__edge.inactive {
     pointer-events: none;
@@ -88,8 +84,7 @@
 }
 .react-flow__connection.animated {
     stroke-dasharray: 5;
-    -webkit-animation: dashdraw 0.5s linear infinite;
-            animation: dashdraw 0.5s linear infinite;
+    animation: dashdraw 0.5s linear infinite;
   }
 .react-flow__connectionline {
   z-index: 1001;
@@ -106,11 +101,9 @@
   pointer-events: all;
   transform-origin: 0 0;
   box-sizing: border-box;
-  cursor: -webkit-grab;
   cursor: grab;
 }
 .react-flow__node.dragging {
-    cursor: -webkit-grabbing;
     cursor: grabbing;
   }
 .react-flow__nodesselection {
@@ -121,7 +114,6 @@
 .react-flow__nodesselection-rect {
     position: absolute;
     pointer-events: all;
-    cursor: -webkit-grab;
     cursor: grab;
   }
 .react-flow__handle {
@@ -191,11 +183,6 @@
     text-decoration: none;
     color: #999;
   }
-@-webkit-keyframes dashdraw {
-  from {
-    stroke-dashoffset: 10;
-  }
-}
 @keyframes dashdraw {
   from {
     stroke-dashoffset: 10;

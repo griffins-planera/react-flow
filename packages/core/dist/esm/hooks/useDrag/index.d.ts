@@ -1,9 +1,9 @@
 import type { RefObject } from 'react';
-export declare type UseDragData = {
+export type UseDragData = {
     dx: number;
     dy: number;
 };
-declare type UseDragParams = {
+type UseDragParams = {
     nodeRef: RefObject<Element>;
     disabled?: boolean;
     noDragClassName?: string;

@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import type { EdgeProps } from '../../types';
-export declare type GetStraightPathParams = {
+export type GetStraightPathParams = {
     sourceX: number;
     sourceY: number;
     targetX: number;

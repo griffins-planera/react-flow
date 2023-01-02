@@ -1,12 +1,12 @@
 import type { CSSProperties, ReactNode } from 'react';
 import type { D3DragEvent, SubjectPosition } from 'd3-drag';
-export declare type ResizeEventParams = {
+export type ResizeEventParams = {
     x: number;
     y: number;
     width: number;
     height: number;
 };
-export declare type NodeResizerProps = {
+export type NodeResizerProps = {
     nodeId?: string;
     color?: string;
     handleClassName?: string;
@@ -20,21 +20,21 @@ export declare type NodeResizerProps = {
     onResize?: (event: ResizeDragEvent, params: ResizeEventParams) => void;
     onResizeEnd?: (event: ResizeDragEvent, params: ResizeEventParams) => void;
 };
-export declare type ControlLinePosition = 'top' | 'bottom' | 'left' | 'right';
-export declare type ControlPosition = ControlLinePosition | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+export type ControlLinePosition = 'top' | 'bottom' | 'left' | 'right';
+export type ControlPosition = ControlLinePosition | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 export declare enum ResizeControlVariant {
     Line = "line",
     Handle = "handle"
 }
-export declare type ResizeControlProps = Pick<NodeResizerProps, 'nodeId' | 'color' | 'minWidth' | 'minHeight' | 'onResizeStart' | 'onResize' | 'onResizeEnd'> & {
+export type ResizeControlProps = Pick<NodeResizerProps, 'nodeId' | 'color' | 'minWidth' | 'minHeight' | 'onResizeStart' | 'onResize' | 'onResizeEnd'> & {
     position?: ControlPosition;
     variant?: ResizeControlVariant;
     className?: string;
     style?: CSSProperties;
     children?: ReactNode;
 };
-export declare type ResizeControlLineProps = ResizeControlProps & {
+export type ResizeControlLineProps = ResizeControlProps & {
     position?: ControlLinePosition;
 };
-export declare type ResizeDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;
+export type ResizeDragEvent = D3DragEvent<HTMLDivElement, null, SubjectPosition>;
 //# sourceMappingURL=types.d.ts.map

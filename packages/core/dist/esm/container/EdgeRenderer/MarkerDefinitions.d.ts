@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare type MarkerDefinitionsProps = {
+type MarkerDefinitionsProps = {
     defaultColor: string;
     rfId?: string;
 };

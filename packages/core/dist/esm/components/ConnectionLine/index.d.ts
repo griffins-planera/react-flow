@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 import type { ConnectionLineComponent, HandleType } from '../../types';
 import { ConnectionLineType } from '../../types';
-declare type ConnectionLineProps = {
+type ConnectionLineProps = {
     connectionNodeId: string;
     connectionHandleType: HandleType;
     connectionLineType: ConnectionLineType;

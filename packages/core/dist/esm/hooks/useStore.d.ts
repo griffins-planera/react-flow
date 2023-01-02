@@ -1,6 +1,6 @@
 import type { StoreApi } from 'zustand';
 import type { ReactFlowState } from '../types';
-declare type ExtractState = StoreApi<ReactFlowState> extends {
+type ExtractState = StoreApi<ReactFlowState> extends {
     getState: () => infer T;
 } ? T : never;
 declare function useStore<StateSlice = ExtractState>(selector: (state: ReactFlowState) => StateSlice, equalityFn?: (a: StateSlice, b: StateSlice) => boolean): StateSlice;

@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, HTMLAttributes } from 'react';
 import type { FitViewOptions, PanelPosition } from '@reactflow/core';
-export declare type ControlProps = HTMLAttributes<HTMLDivElement> & {
+export type ControlProps = HTMLAttributes<HTMLDivElement> & {
     showZoom?: boolean;
     showFitView?: boolean;
     showInteractive?: boolean;
@@ -11,5 +11,5 @@ export declare type ControlProps = HTMLAttributes<HTMLDivElement> & {
     onInteractiveChange?: (interactiveStatus: boolean) => void;
     position?: PanelPosition;
 };
-export declare type ControlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+export type ControlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 //# sourceMappingURL=types.d.ts.map

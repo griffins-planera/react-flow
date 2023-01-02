@@ -8,7 +8,7 @@ export interface XYPosition {
     x: number;
     y: number;
 }
-export declare type XYZPosition = XYPosition & {
+export type XYZPosition = XYPosition & {
     z: number;
 };
 export interface Dimensions {
@@ -21,6 +21,6 @@ export interface Box extends XYPosition {
     x2: number;
     y2: number;
 }
-export declare type Transform = [number, number, number];
-export declare type CoordinateExtent = [[number, number], [number, number]];
+export type Transform = [number, number, number];
+export type CoordinateExtent = [[number, number], [number, number]];
 //# sourceMappingURL=utils.d.ts.map

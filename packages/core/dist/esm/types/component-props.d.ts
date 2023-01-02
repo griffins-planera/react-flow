@@ -1,6 +1,6 @@
 import type { CSSProperties, HTMLAttributes, MouseEvent as ReactMouseEvent, WheelEvent } from 'react';
 import type { OnSelectionChangeFunc, NodeTypes, EdgeTypes, Node, Edge, ConnectionMode, ConnectionLineType, ConnectionLineComponent, OnConnectStart, OnConnectEnd, OnConnect, CoordinateExtent, KeyCode, PanOnScrollMode, OnEdgeUpdateFunc, OnInit, ProOptions, PanelPosition, DefaultEdgeOptions, FitViewOptions, OnNodesDelete, OnEdgesDelete, OnNodesChange, OnEdgesChange, OnMove, OnMoveStart, OnMoveEnd, NodeDragHandler, NodeMouseHandler, SelectionDragHandler, Viewport, NodeOrigin, EdgeMouseHandler, HandleType, SelectionMode } from '.';
-export declare type ReactFlowProps = HTMLAttributes<HTMLDivElement> & {
+export type ReactFlowProps = HTMLAttributes<HTMLDivElement> & {
     nodes?: Node[];
     edges?: Edge[];
     defaultNodes?: Node[];
@@ -102,5 +102,5 @@ export declare type ReactFlowProps = HTMLAttributes<HTMLDivElement> & {
     elevateEdgesOnSelect?: boolean;
     disableKeyboardA11y?: boolean;
 };
-export declare type ReactFlowRefType = HTMLDivElement;
+export type ReactFlowRefType = HTMLDivElement;
 //# sourceMappingURL=component-props.d.ts.map

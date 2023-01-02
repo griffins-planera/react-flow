@@ -38,9 +38,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.18.9",
-    "@reactflow/core": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/core?planerav11",
     "classcat": "^5.0.3",
-    "zustand": "^4.1.1"
+    "zustand": "^4.2.0",
+    "@reactflow/core": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/core?planerav11"
   },
   "devDependencies": {
     "@reactflow/eslint-config": "^0.0.0",
@@ -49,7 +49,7 @@
     "@types/node": "^18.7.16",
     "@types/react": "^18.0.19",
     "react": "^18.2.0",
-    "typescript": "^4.8.3"
+    "typescript": "^4.9.4"
   },
   "peerDependencies": {
     "react": ">=17",
