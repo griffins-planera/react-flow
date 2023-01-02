@@ -35,11 +35,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@reactflow/background": "workspace:*",
-    "@reactflow/controls": "workspace:*",
-    "@reactflow/core": "workspace:*",
-    "@reactflow/minimap": "workspace:*",
-    "@reactflow/node-toolbar": "workspace:*"
+    "@reactflow/background": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/background?planerav11",
+    "@reactflow/controls": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/controls?planerav11",
+    "@reactflow/core": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/core?planerav11",
+    "@reactflow/minimap": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/minimap?planerav11",
+    "@reactflow/node-toolbar": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/node-toolbar?planerav11",
+    "@reactflow/node-resizer": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/node-resizer?planerav11"
   },
   "peerDependencies": {
     "react": ">=17",
