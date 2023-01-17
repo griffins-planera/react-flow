@@ -37,7 +37,7 @@
   "dependencies": {
     "@reactflow/background": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/background?planera-v11.4.0",
     "@reactflow/controls": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/controls?planera-v11.4.0",
-    "@reactflow/core": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/core?planera-v11.4.0",
+    "@reactflow/core": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/core?planera-debug",
     "@reactflow/minimap": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/minimap?planera-v11.4.0",
     "@reactflow/node-toolbar": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/node-toolbar?planera-v11.4.0",
     "@reactflow/node-resizer": "https://gitpkg.now.sh/griffins-planera/react-flow/packages/node-resizer?planera-v11.4.0"
