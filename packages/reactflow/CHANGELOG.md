@@ -1,5 +1,11 @@
 # reactflow
 
+## Planera
+
+### Changed
+
+- [PRD-12275] Canvas | 2-finger swipe to act as pan
+
 ## 11.4.0
 
 ## 11.4.0
