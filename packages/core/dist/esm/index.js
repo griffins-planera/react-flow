@@ -2368,6 +2368,8 @@ const ZoomPane = ({ onMove, onMoveStart, onMoveEnd, onPaneContextMenu, zoomOnScr
                     // In certain browsers (MAC Brave), it's -3, while in others, it's -6.
                     const verticalTouchDetected = !!event.wheelDeltaY && (event.wheelDeltaY === -3 * event.deltaY || event.wheelDeltaY === -6 * event.deltaY);
                     const horizontalTouchDetected = !!event.wheelDeltaX && (event.wheelDeltaX === -3 * event.deltaX || event.wheelDeltaX === -6 * event.deltaX);
+                    console.log('On Wheel Event: wheelDeltaY: ', event.wheelDeltaY, 'event.deltaY: ', event.deltaY);
+                    console.log('On Wheel Event: wheelDeltaX: ', event.wheelDeltaX, 'event.deltaX: ', event.deltaX);
                     const isTouchPad = verticalTouchDetected || horizontalTouchDetected;
                     if (isWrappedWithClass(event, noWheelClassName)) {
                         return false;
