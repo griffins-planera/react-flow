@@ -2370,6 +2370,7 @@ const ZoomPane = ({ onMove, onMoveStart, onMoveEnd, onPaneContextMenu, zoomOnScr
                         (event.wheelDeltaY === -3 * event.deltaY || event.wheelDeltaY === -6 * event.deltaY);
                     const horizontalTouchDetected = !!event.wheelDeltaX &&
                         (event.wheelDeltaX === -3 * event.deltaX || event.wheelDeltaX === -6 * event.deltaX);
+                    console.log('Wheel event: ', event);
                     console.log('On Wheel Event: wheelDeltaY: ', event.wheelDeltaY, 'event.deltaY: ', event.deltaY, 'deltaMode: ', event.deltaMode);
                     console.log('On Wheel Event: wheelDeltaX: ', event.wheelDeltaX, 'event.deltaX: ', event.deltaX, 'deltaMode: ', event.deltaMode);
                     if (event.deltaMode !== 0) {

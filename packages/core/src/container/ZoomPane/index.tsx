@@ -155,6 +155,7 @@ const ZoomPane = ({
             const horizontalTouchDetected =
               !!event.wheelDeltaX &&
               (event.wheelDeltaX === -3 * event.deltaX || event.wheelDeltaX === -6 * event.deltaX);
+            console.log('Wheel event: ', event);
             console.log(
               'On Wheel Event: wheelDeltaY: ',
               event.wheelDeltaY,
