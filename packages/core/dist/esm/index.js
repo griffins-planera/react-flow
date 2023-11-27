@@ -2366,22 +2366,20 @@ const ZoomPane = ({ onMove, onMoveStart, onMoveEnd, onPaneContextMenu, zoomOnScr
                 d3Selection
                     .on('wheel', (event) => {
                     // In certain browsers (MAC Brave), it's -3, while in others, it's -6.
-                    const verticalTouchDetected = !!event.wheelDeltaY &&
-                        (event.wheelDeltaY === -3 * event.deltaY || event.wheelDeltaY === -6 * event.deltaY);
-                    const horizontalTouchDetected = !!event.wheelDeltaX &&
-                        (event.wheelDeltaX === -3 * event.deltaX || event.wheelDeltaX === -6 * event.deltaX);
-                    console.log('Wheel event: ', event);
-                    console.log('On Wheel Event: wheelDeltaY: ', event.wheelDeltaY, 'event.deltaY: ', event.deltaY, 'deltaMode: ', event.deltaMode);
-                    console.log('On Wheel Event: wheelDeltaX: ', event.wheelDeltaX, 'event.deltaX: ', event.deltaX, 'deltaMode: ', event.deltaMode);
-                    if (event.deltaMode !== 0) {
-                        console.log('Touchpad event detected');
-                        // Your code for touchpad event goes here
+                    // const verticalTouchDetected =
+                    //   !!event.wheelDeltaY &&
+                    //   (event.wheelDeltaY === -3 * event.deltaY || event.wheelDeltaY === -6 * event.deltaY);
+                    // const horizontalTouchDetected =
+                    //   !!event.wheelDeltaX &&
+                    //   (event.wheelDeltaX === -3 * event.deltaX || event.wheelDeltaX === -6 * event.deltaX);
+                    const isTouchPad = !(event.deltaY && !Number.isInteger(event.deltaY));
+                    if (event.deltaY && !Number.isInteger(event.deltaY)) {
+                        console.log('Mouse: ', event.deltaY, Number.isInteger(event.deltaY));
                     }
                     else {
-                        console.log('Regular wheel event');
-                        // Your code for regular wheel event goes here
+                        console.log('Trackpad', event.deltaY, Number.isInteger(event.deltaY));
                     }
-                    const isTouchPad = verticalTouchDetected || horizontalTouchDetected;
+                    // const isTouchPad = verticalTouchDetected || horizontalTouchDetected;
                     if (isWrappedWithClass(event, noWheelClassName)) {
                         return false;
                     }
