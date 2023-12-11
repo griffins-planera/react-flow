@@ -2352,7 +2352,9 @@ const ZoomPane = ({ onMove, onMoveStart, onMoveEnd, onPaneContextMenu, zoomOnScr
                     if (event.ctrlKey && zoomOnPinch) {
                         const point = pointer(event);
                         // taken from https://github.com/d3/d3-zoom/blob/master/src/zoom.js
-                        const pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
+                        const isWindows = !(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
+                        const scaledDelta = isWindows ? event.deltaY / 10 : event.deltaY;
+                        const pinchDelta = -scaledDelta * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
                         const zoom = currentZoom * Math.pow(2, pinchDelta);
                         console.warn('wheel panOnScroll notnormalized', event, zoom);
                         d3Zoom.scaleTo(d3Selection, zoom, point);
