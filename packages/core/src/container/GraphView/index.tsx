@@ -80,7 +80,6 @@ const GraphView = ({
   panOnScrollMode,
   zoomOnDoubleClick,
   panOnDrag,
-  panOnTouchPadScroll, // Custom Props: It will pan the canvas on touchpad scroll by keeping zoomOnScroll ON with scroll wheel
   onPaneClick,
   onPaneMouseEnter,
   onPaneMouseMove,
@@ -134,7 +133,6 @@ const GraphView = ({
       panOnScrollSpeed={panOnScrollSpeed}
       panOnScrollMode={panOnScrollMode}
       panOnDrag={panOnDrag}
-      panOnTouchPadScroll={panOnTouchPadScroll}
       defaultViewport={defaultViewport}
       translateExtent={translateExtent}
       minZoom={minZoom}
