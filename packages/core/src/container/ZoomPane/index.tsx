@@ -136,10 +136,10 @@ const ZoomPane = ({
             const windowsPinchDelta = sign * stepNoHigherThanMaxNorLowerThanMin * 0.01;
             const windowsZoom = currentZoom * Math.pow(2, windowsPinchDelta);
             // Helpful log for further testing
-            if (!isMac)
-              console.log(
-                ` delta: ${event.deltaY}, stepNoLow: ${stepNoLowerThanMin}, stepNoHighNorLow: ${stepNoHigherThanMaxNorLowerThanMin}, oldScale: ${currentZoom}, newScale: ${windowsZoom}`
-              );
+            // if (!isMac)
+            //   console.log(
+            //     ` delta: ${event.deltaY}, stepNoLow: ${stepNoLowerThanMin}, stepNoHighNorLow: ${stepNoHigherThanMaxNorLowerThanMin}, oldScale: ${currentZoom}, newScale: ${windowsZoom}`
+            //   );
             const defaultPinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
             const macZoom = currentZoom * Math.pow(2, defaultPinchDelta);
             const zoom = isMac ? macZoom : windowsZoom;
