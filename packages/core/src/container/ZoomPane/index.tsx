@@ -113,12 +113,10 @@ const ZoomPane = ({
         console.warn('d3ZoomHandler undefined. NO-OP');
         return;
       }
-      console.warn('d3ZoomHandler START');
 
       if (panOnScroll && !zoomActivationKeyPressed && !userSelectionActive) {
         d3Selection.on('wheel.zoom', (event: any) => {
           if (isWrappedWithClass(event, noWheelClassName)) {
-            console.warn('wheel panOnScroll noWheelClassName', event, zoomActivationKeyPressed);
             return false;
           }
           event.preventDefault();
