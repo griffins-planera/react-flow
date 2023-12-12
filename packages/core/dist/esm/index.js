@@ -2341,7 +2341,6 @@ const ZoomPane = ({ onMove, onMoveStart, onMoveEnd, onPaneContextMenu, zoomOnScr
             console.warn('d3ZoomHandler START');
             if (panOnScroll && !zoomActivationKeyPressed && !userSelectionActive) {
                 d3Selection.on('wheel.zoom', (event) => {
-                    console.warn('d3ZoomHandler panOnScroll', event);
                     if (isWrappedWithClass(event, noWheelClassName)) {
                         console.warn('wheel panOnScroll noWheelClassName', event, zoomActivationKeyPressed);
                         return false;
@@ -2352,17 +2351,26 @@ const ZoomPane = ({ onMove, onMoveStart, onMoveEnd, onPaneContextMenu, zoomOnScr
                     if (event.ctrlKey && zoomOnPinch) {
                         const point = pointer(event);
                         // taken from https://github.com/d3/d3-zoom/blob/master/src/zoom.js
-                        const isWindows = !(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
-                        const scaledDelta = isWindows ? event.deltaY / 10 : event.deltaY;
-                        const pinchDelta = -scaledDelta * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
-                        const zoom = currentZoom * Math.pow(2, pinchDelta);
-                        console.warn('wheel panOnScroll notnormalized', event, zoom);
+                        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+                        const minimumStep = 10; // When using pinch don't go lower than this
+                        const maximumStep = 42; // When using scrollwheel don't go higher than this
+                        const stepNoLowerThanMin = Math.max(minimumStep, Math.abs(event.deltaY));
+                        const stepNoHigherThanMaxNorLowerThanMin = Math.min(maximumStep, stepNoLowerThanMin);
+                        const sign = Math.sign(-event.deltaY);
+                        const windowsPinchDelta = sign * stepNoHigherThanMaxNorLowerThanMin * 0.01;
+                        const windowsZoom = currentZoom * Math.pow(2, windowsPinchDelta);
+                        // Helpful log for further testing
+                        // console.log(
+                        //   ` delta: ${event.deltaY}, stepNoLow: ${stepNoLowerThanMin}, stepNoHighNorLow: ${stepNoHigherThanMaxNorLowerThanMin}, oldScale: ${scale}, newScale: ${newScale}`
+                        // );
+                        const defaultPinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
+                        const macZoom = currentZoom * Math.pow(2, defaultPinchDelta);
+                        const zoom = isMac ? macZoom : windowsZoom;
                         d3Zoom.scaleTo(d3Selection, zoom, point);
                         return;
                     }
                     // increase scroll speed in firefox
                     // firefox: deltaMode === 1; chrome: deltaMode === 0
-                    console.warn('wheel panOnScroll normalizing', event, zoomActivationKeyPressed);
                     const deltaNormalize = event.deltaMode === 1 ? 20 : 1;
                     const deltaX = panOnScrollMode === PanOnScrollMode.Vertical ? 0 : event.deltaX * deltaNormalize;
                     const deltaY = panOnScrollMode === PanOnScrollMode.Horizontal ? 0 : event.deltaY * deltaNormalize;
@@ -2372,19 +2380,16 @@ const ZoomPane = ({ onMove, onMoveStart, onMoveEnd, onPaneContextMenu, zoomOnScr
             else if (panOnTouchPadScroll && !zoomActivationKeyPressed) {
                 d3Selection
                     .on('wheel', (event) => {
-                    console.warn('wheel panOnTouchPadScroll', event, zoomActivationKeyPressed);
                     const verticalTouchDetected = !!event.wheelDeltaY && event.wheelDeltaY === -3 * event.deltaY;
                     const horizontalTouchDetected = !!event.wheelDeltaX && event.wheelDeltaX === -3 * event.deltaX;
                     const isTouchPad = verticalTouchDetected || horizontalTouchDetected;
                     if (isWrappedWithClass(event, noWheelClassName)) {
-                        console.warn('wheel panOnTouchPadScroll nowheelClassName', event, zoomActivationKeyPressed);
                         return false;
                     }
                     event.preventDefault();
                     const currentZoom = d3Selection.property('__zoom').k || 1;
                     if ((event.ctrlKey && zoomOnPinch) || (zoomOnScroll && !isTouchPad)) {
                         // Fallback to default zoom handler
-                        console.warn('wheel panOnTouchPadScroll fallback', event, zoomActivationKeyPressed);
                         return;
                     }
                     else {
@@ -2395,19 +2400,15 @@ const ZoomPane = ({ onMove, onMoveStart, onMoveEnd, onPaneContextMenu, zoomOnScr
                     const deltaNormalize = event.deltaMode === 1 ? 20 : 1;
                     const deltaX = panOnScrollMode === PanOnScrollMode.Vertical ? 0 : event.deltaX * deltaNormalize;
                     const deltaY = panOnScrollMode === PanOnScrollMode.Horizontal ? 0 : event.deltaY * deltaNormalize;
-                    console.warn('wheel panOnTouchPadScroll normalize', event, deltaY);
                     d3Zoom.translateBy(d3Selection, -(deltaX / currentZoom) * panOnScrollSpeed, -(deltaY / currentZoom) * panOnScrollSpeed);
                 })
                     .on('wheel.zoom', d3ZoomHandler);
             }
             else if (typeof d3ZoomHandler !== 'undefined') {
                 d3Selection.on('wheel.zoom', function (event, d) {
-                    console.warn('wheel.zoom generic');
                     if (!preventScrolling || isWrappedWithClass(event, noWheelClassName)) {
-                        console.warn('wheel.zoom generic cancelled');
                         return null;
                     }
-                    console.warn('wheel.zoom generic wrapup');
                     event.preventDefault();
                     d3ZoomHandler.call(this, event, d);
                 });

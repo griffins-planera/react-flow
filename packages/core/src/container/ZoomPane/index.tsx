@@ -117,8 +117,6 @@ const ZoomPane = ({
 
       if (panOnScroll && !zoomActivationKeyPressed && !userSelectionActive) {
         d3Selection.on('wheel.zoom', (event: any) => {
-          console.warn('d3ZoomHandler panOnScroll', event);
-
           if (isWrappedWithClass(event, noWheelClassName)) {
             console.warn('wheel panOnScroll noWheelClassName', event, zoomActivationKeyPressed);
             return false;
