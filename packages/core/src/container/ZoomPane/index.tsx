@@ -113,6 +113,7 @@ const ZoomPane = ({
         console.warn('d3ZoomHandler undefined. NO-OP');
         return;
       }
+
       if (panOnScroll && !zoomActivationKeyPressed && !userSelectionActive) {
         d3Selection.on('wheel.zoom', (event: any) => {
           if (isWrappedWithClass(event, noWheelClassName)) {
@@ -126,8 +127,22 @@ const ZoomPane = ({
           if (event.ctrlKey && zoomOnPinch) {
             const point = pointer(event);
             // taken from https://github.com/d3/d3-zoom/blob/master/src/zoom.js
-            const pinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
-            const zoom = currentZoom * Math.pow(2, pinchDelta);
+            const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+            const minimumStep = 3; // When using pinch don't go lower than this
+            const maximumStep = 42; // When using scrollwheel don't go higher than this
+            const stepNoLowerThanMin = Math.max(minimumStep, Math.abs(event.deltaY));
+            const stepNoHigherThanMaxNorLowerThanMin = Math.min(maximumStep, stepNoLowerThanMin);
+            const sign = Math.sign(-event.deltaY);
+            const windowsPinchDelta = sign * stepNoHigherThanMaxNorLowerThanMin * 0.01;
+            const windowsZoom = currentZoom * Math.pow(2, windowsPinchDelta);
+            // Helpful log for further testing
+            // if (!isMac)
+            //   console.log(
+            //     ` delta: ${event.deltaY}, stepNoLow: ${stepNoLowerThanMin}, stepNoHighNorLow: ${stepNoHigherThanMaxNorLowerThanMin}, oldScale: ${currentZoom}, newScale: ${windowsZoom}`
+            //   );
+            const defaultPinchDelta = -event.deltaY * (event.deltaMode === 1 ? 0.05 : event.deltaMode ? 1 : 0.002) * 10;
+            const macZoom = currentZoom * Math.pow(2, defaultPinchDelta);
+            const zoom = isMac ? macZoom : windowsZoom;
             d3Zoom.scaleTo(d3Selection, zoom, point);
 
             return;
